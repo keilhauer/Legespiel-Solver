@@ -1,0 +1,36 @@
+package org.whatsoftwarecando.legespiel.configs;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+import org.whatsoftwarecando.legespiel.Card;
+import org.whatsoftwarecando.legespiel.Field;
+import org.whatsoftwarecando.legespiel.IGameConfig;
+
+public class CardTest {
+
+	@Test
+	public void testTurnedClockwise() {
+		Card testCard = new Card(AbsolutKniffligConfig.Picture.PIPPI_1,
+				AbsolutKniffligConfig.Picture.PIPPI_2,
+				AbsolutKniffligConfig.Picture.MONKEY_1,
+				AbsolutKniffligConfig.Picture.MONKEY_2);
+		Card tmp = testCard.turned90DegreesClockwise();
+		tmp = tmp.turned90DegreesClockwise();
+		tmp = tmp.turned90DegreesClockwise();
+		assertEquals(testCard, tmp.turned90DegreesClockwise());
+	}
+
+	@Test
+	public void testSimpleSolution() {
+		IGameConfig config = new DasVerrueckteLoriotLegespielConfig();
+		Field field = config.createEmptyField();
+		for (Card current : config.getAvailableCards()) {
+			field = field.addedIfFits(current);
+			assertNotNull(field);
+		}
+		assertTrue(field.isFull());
+	}
+}
