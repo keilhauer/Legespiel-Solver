@@ -15,8 +15,6 @@ public class Field {
 	private int currentRow;
 	private int currentColumn;
 
-	private static long numberOfTries;
-
 	public Field(int rows, int cols) {
 		this(rows, cols, new Card[rows][cols]);
 	}
@@ -94,8 +92,6 @@ public class Field {
 	 */
 	public Field addedIfFits(Card card) {
 
-		numberOfTries++;
-
 		int nextRow = currentRow;
 		int nextColumn = currentColumn + 1;
 		if (nextColumn > this.cols) {
@@ -128,14 +124,6 @@ public class Field {
 			}
 		}
 		return new Field(this.rows, this.cols, nextRow, nextColumn, cardsCopy);
-	}
-
-	public static long numberOfTriesAndReset() {
-		return numberOfTries;
-	}
-
-	public static void resetTries() {
-		numberOfTries = 0;
 	}
 
 	Field copy() {

@@ -14,6 +14,8 @@ import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
 
 public class Solver {
 
+	private long numberOfTries;
+
 	public static void main(String[] argv) throws IOException,
 			URISyntaxException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
@@ -28,11 +30,23 @@ public class Solver {
 		}
 		System.out.println("Using GameConfig: "
 				+ gameConfig.getClass().getSimpleName());
+		System.out.println("Looking for duplicate cards: ");
+		boolean foundDuplicateCards = false;
+		for (List<Card> duplicates : new DuplicateCardsFinder()
+				.findDuplicateCards(gameConfig.getAvailableCards())) {
+			if (duplicates.size() > 1) {
+				System.out.println(duplicates);
+				foundDuplicateCards = true;
+			}
+		}
+		if (!foundDuplicateCards) {
+			System.out.println("No duplicate cards found");
+		}
 		long startTime = System.nanoTime();
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(gameConfig);
 		long timeNeeded = System.nanoTime() - startTime;
-		System.out.println("Tried " + Field.numberOfTriesAndReset()
+		System.out.println("Tried " + solver.numberOfTries()
 				+ " card rotations -> Found all " + solutions.size()
 				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded)
 				+ " ms");
@@ -40,10 +54,21 @@ public class Solver {
 
 		List<Field> originalSolutions = solver
 				.removeRotationBasedDuplicates(solutions);
-		System.out.println("Removed rotation based duplicates and other look-alikes -> "
-				+ originalSolutions.size() + " original solutions remaining");
+		System.out
+				.println("Removed rotation based duplicates and other look-alikes -> "
+						+ originalSolutions.size()
+						+ " original solutions remaining");
 		writeHtml(gameConfig, originalSolutions, "allOriginalSolutions",
 				"All Original Solutions");
+	}
+
+	/**
+	 * 
+	 * @return number of card rotations tried since the last call of
+	 *         findAllSolutions(...)
+	 */
+	public long numberOfTries() {
+		return numberOfTries;
 	}
 
 	private static void writeHtml(IGameConfig gameConfig,
@@ -72,9 +97,14 @@ public class Solver {
 				+ htmlOutputFile);
 	}
 
-	List<Field> findAllSolutions(IGameConfig gameConfig) {
-		return findAllSolutions(gameConfig.createEmptyField(),
+	public List<Field> findAllSolutions(IGameConfig gameConfig) {
+		return findAllSolutionsStart(gameConfig.createEmptyField(),
 				gameConfig.getAvailableCards());
+	}
+
+	List<Field> findAllSolutionsStart(Field field, List<Card> cards) {
+		numberOfTries = 0;
+		return findAllSolutions(field, cards);
 	}
 
 	List<Field> findAllSolutions(Field field, List<Card> cards) {
@@ -100,12 +130,14 @@ public class Solver {
 
 		for (Card card : remainingCards) {
 			Field addedUnturned = field.addedIfFits(card);
+			numberOfTries++;
 			if (addedUnturned != null) {
 				fieldsWithOneMoreCard.add(addedUnturned);
 			}
 			for (int turn = 1; turn <= 3; turn++) {
 				card = card.turned90DegreesClockwise();
 				Field addedTurned = field.addedIfFits(card);
+				numberOfTries++;
 				if (addedTurned != null) {
 					fieldsWithOneMoreCard.add(addedTurned);
 				}
@@ -130,7 +162,7 @@ public class Solver {
 		return new LinkedList<Field>(resultSet);
 	}
 
-	private static List<Card> removed(Card lastcard, List<Card> cardsLeft) {
+	static List<Card> removed(Card lastcard, List<Card> cardsLeft) {
 		List<Card> result = new LinkedList<Card>();
 		for (Card currentcard : cardsLeft) {
 			if (lastcard.getId() != currentcard.getId()) {

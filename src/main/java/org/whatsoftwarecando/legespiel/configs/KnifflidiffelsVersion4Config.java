@@ -38,7 +38,7 @@ public class KnifflidiffelsVersion4Config implements IGameConfig {
 		AVAILABLE_CARDS.add(new Card(Picture.SHEEPS, Picture.BOY, Picture.GIRL,
 				Picture.HORSE));
 
-		//Card 9
+		// Card 9
 		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.SHEEPS,
 				Picture.HORSE, Picture.GIRL));
 
