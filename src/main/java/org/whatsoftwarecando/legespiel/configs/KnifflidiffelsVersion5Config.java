@@ -17,35 +17,35 @@ public class KnifflidiffelsVersion5Config implements IGameConfig {
 
 	static {
 		//Cards 1-3 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.BOY,
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY,
 				Picture.GIRL, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.BOY,
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY,
 				Picture.GIRL, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.BOY,
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY,
 				Picture.GIRL, Picture.HORSE));
 		
 		//Cards 4-6 (identical)
 		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL,
-				Picture.MOUSE, Picture.HORSE));
+				Picture.DOG, Picture.HORSE));
 		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL,
-				Picture.MOUSE, Picture.HORSE));
+				Picture.DOG, Picture.HORSE));
 		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL,
-				Picture.MOUSE, Picture.HORSE));
+				Picture.DOG, Picture.HORSE));
 		
 		//Cards 7-8 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.MOUSE,
+		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.DOG,
 				Picture.GIRL, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.MOUSE,
+		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.DOG,
 				Picture.GIRL, Picture.HORSE));
 		
 		//Card 9
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.GIRL, Picture.BOY,
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY,
 				Picture.HORSE));
 	}
 
 	enum Picture implements IPicture {
 
-		MOUSE, BOY, GIRL, HORSE;
+		DOG, BOY, GIRL, HORSE;
 
 		@Override
 		public boolean matches(IPicture other) {
