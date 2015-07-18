@@ -16,36 +16,36 @@ public class KnifflidiffelsVersion5Config implements IGameConfig {
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 
 	static {
-		//Cards 1-3 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.BOY,
-				Picture.GIRL, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.BOY,
-				Picture.GIRL, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.BOY,
-				Picture.GIRL, Picture.HORSE));
-		
-		//Cards 4-6 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL,
-				Picture.MOUSE, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL,
-				Picture.MOUSE, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL,
-				Picture.MOUSE, Picture.HORSE));
-		
-		//Cards 7-8 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.MOUSE,
-				Picture.GIRL, Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.MOUSE,
-				Picture.GIRL, Picture.HORSE));
-		
-		//Card 9
-		AVAILABLE_CARDS.add(new Card(Picture.MOUSE, Picture.GIRL, Picture.BOY,
+		// Cards 1-3 (identical)
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL,
+				Picture.HORSE));
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL,
+				Picture.HORSE));
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL,
+				Picture.HORSE));
+
+		// Cards 4-6 (identical)
+		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG,
+				Picture.HORSE));
+		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG,
+				Picture.HORSE));
+		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG,
+				Picture.HORSE));
+
+		// Cards 7
+		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.DOG, Picture.GIRL,
+				Picture.HORSE));
+
+		// Card 8-9 (identical)
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY,
+				Picture.HORSE));
+		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY,
 				Picture.HORSE));
 	}
 
 	enum Picture implements IPicture {
 
-		MOUSE, BOY, GIRL, HORSE;
+		DOG, BOY, GIRL, HORSE;
 
 		@Override
 		public boolean matches(IPicture other) {
