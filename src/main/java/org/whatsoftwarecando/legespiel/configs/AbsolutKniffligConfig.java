@@ -6,9 +6,11 @@ import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.IGameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
+
 /**
  * Configuration based on "Absolut knifflig!". See
- * http://whatsoftwarecando.org/?p=32#more-32 for more information.
+ * http://whatsoftwarecando.org/en/backtracking-nursery-solve-legespiel/ for
+ * more information.
  */
 public class AbsolutKniffligConfig implements IGameConfig {
 
