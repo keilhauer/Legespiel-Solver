@@ -22,18 +22,25 @@ public class DasVerrueckteLoriotLegespielConfig implements IGameConfig {
 				Picture.MAN_2, Picture.WOMAN_GREEN_1));
 		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_1,
 				Picture.MAN_HAT_1, Picture.WOMAN_BLUE_2));
+		
+		// cards 4 and 5 are identical
 		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_BLUE_1, Picture.WOMAN_GREEN_1,
 				Picture.MAN_HAT_2, Picture.MAN_2));
+		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_BLUE_1,
+				Picture.WOMAN_GREEN_1, Picture.MAN_HAT_2, Picture.MAN_2));
+		
+		// cards 6 and 7 are identical
 		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1,
 				Picture.MAN_1, Picture.WOMAN_BLUE_2));
+		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1,
+				Picture.MAN_1, Picture.WOMAN_BLUE_2));
+		
 		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_BLUE_1, Picture.MAN_2,
 				Picture.WOMAN_GREEN_1, Picture.WOMAN_GREEN_1));
 		AVAILABLE_CARDS.add(new Card(Picture.MAN_1, Picture.MAN_HAT_1,
 				Picture.WOMAN_GREEN_2, Picture.WOMAN_BLUE_2));
-		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_BLUE_1,
-				Picture.WOMAN_GREEN_1, Picture.MAN_HAT_2, Picture.MAN_2));
-		AVAILABLE_CARDS.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1,
-				Picture.MAN_1, Picture.WOMAN_BLUE_2));
+
+
 	}
 
 	enum Picture implements IPicture {
