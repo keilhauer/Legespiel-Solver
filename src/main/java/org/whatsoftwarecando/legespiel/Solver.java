@@ -154,9 +154,15 @@ public class Solver {
 				Field turned90 = solution.turned90DegreesClockwise();
 				Field turned180 = turned90.turned90DegreesClockwise();
 				Field turned270 = turned180.turned90DegreesClockwise();
-				resultSet.remove(turned90);
-				resultSet.remove(turned180);
-				resultSet.remove(turned270);
+				if(!turned90.equals(solution)){
+					resultSet.remove(turned90);
+				}
+				if(!turned180.equals(solution)){
+					resultSet.remove(turned180);
+				}
+				if(!turned270.equals(solution)){
+					resultSet.remove(turned270);
+				}
 			}
 		}
 		return new LinkedList<Field>(resultSet);
