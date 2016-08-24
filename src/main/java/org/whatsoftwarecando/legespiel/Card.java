@@ -15,6 +15,10 @@ public class Card {
 		this(ID_COUNTER++, north, west, east, south, 0);
 	}
 
+	public Card(IPicture[] pictures){
+		this(pictures[0], pictures[1], pictures[2], pictures[3]);
+	}
+	
 	private Card(int id, IPicture north, IPicture west, IPicture east,
 			IPicture south, int rotationClockwise) {
 		super();

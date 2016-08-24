@@ -1,81 +1,47 @@
-package org.whatsoftwarecando.legespiel.experiments;
+package org.whatsoftwarecando.legespiel;
 
-import org.whatsoftwarecando.legespiel.Card;
-import org.whatsoftwarecando.legespiel.Field;
+import java.util.HashSet;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class FieldWithOnlyOneSolution extends Field {
 
+	private static HashSet<SortedSet<Integer>> solutionIds = new HashSet<SortedSet<Integer>>();
+
 	public FieldWithOnlyOneSolution(int rows, int cols) {
-		super(rows, cols);
+		this(rows, cols, new Card[rows][cols], 1, 0);
 	}
 
-	public FieldWithOnlyOneSolution(int rows, int cols, Card[][] cards) {
-		super(rows, cols, cards);
+	protected FieldWithOnlyOneSolution(int rows, int cols, Card[][] cards, int currentRow, int currentCols) {
+		super(rows, cols, cards, currentRow, currentCols);
 	}
 
 	@Override
 	public Field addedIfFits(Card card) {
 		Field field = super.addedIfFits(card);
-		if(field == null){
+		if (field == null) {
 			return null;
 		}
-		
-		for(int row = 1; row < this.getRows(); row++){
-			for(int col = 1; col < this.getCols(); col++){
-				Card currentCard = this.getCard(row, col);
-				if(currentCard == null){
-					return field;
-				}
-				
-				Field alternativeSolution = null;
-				int turn = 0;
-				do{
-					
-				}while(turn < 3);
-				
-//				Field alternativeSolution = this.addedIfFits(row, col, card);
-				if(alternativeSolution != null){
-					alternativeSolution = super.addedIfFits(currentCard);
-					if(alternativeSolution != null){
-						return null;
-					}
+
+		if (field.isFull()) {
+			SortedSet<Integer> idsForField = new TreeSet<Integer>();
+			for (int row = 1; row <= field.getRows(); row++) {
+				for (int col = 1; col <= field.getCols(); col++) {
+					idsForField.add(field.getCard(row, col).getId());
 				}
 			}
+			if (solutionIds.add(idsForField)) {
+				return field;
+			} else {
+				return null;
+			}
 		}
-		throw new RuntimeException("Field must not be full!");
+
+		return field;
 	}
-	
-	private FieldWithOnlyOneSolution addedIfFits(int row, int col, Card card){
-		Card oldCard = this.getCard(row, col);
-		if(col > 1){
-			if(card.getWest() != oldCard.getWest()){
-				return null;
-			}
-		}
-		if(row > 1){
-			if(card.getNorth() != oldCard.getNorth()){
-				return null;
-			}
-		}
-		if(col < this.getCols()){
-			Card cardToTheEast = this.getCard(row, col + 1);
-			if(cardToTheEast != null && card.getEast() != oldCard.getEast()){
-				return null;
-			}
-		}
-		if(row < this.getRows()){
-			Card cardToTheSouth = this.getCard(row + 1, col);
-			if(cardToTheSouth != null && card.getSouth() != oldCard.getSouth()){
-				return null;
-			}
-		}
-		
-		FieldWithOnlyOneSolution copy = new FieldWithOnlyOneSolution(this.getRows(), this.getCols(), this.copyCardArray());
-		copy.setCard(row, col, card);
-		return copy;
-	}
-	
-	protected void setCard(int row, int col, Card card) {
-		this.cards[row - 1][col - 1] = card;
+
+	@Override
+	protected Field createField(int currentRow, int currentColumn, Card[][] cardsCopy) {
+		return new FieldWithOnlyOneSolution(this.getRows(), this.getCols(), cardsCopy, currentRow, currentColumn);
 	}
 }

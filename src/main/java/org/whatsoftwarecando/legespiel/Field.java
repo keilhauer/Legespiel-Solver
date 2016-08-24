@@ -12,19 +12,19 @@ public class Field {
 	private final int rows;
 	private final int cols;
 
-	private int currentRow;
-	private int currentColumn;
+	protected int currentRow;
+	protected int currentColumn;
 
 	public Field(int rows, int cols) {
 		this(rows, cols, new Card[rows][cols]);
 	}
 
-	Field(int rows, int cols, Card[][] cards) {
-		this(rows, cols, 1, 0, cards);
+	private Field(int rows, int cols, Card[][] cards) {
+		this(rows, cols, cards, 1, 0);
 	}
 
-	private Field(int rows, int cols, int currentRow, int currentColumn,
-			Card[][] cards) {
+	protected Field(int rows, int cols, Card[][] cards, int currentRow,
+			int currentColumn) {
 		this.rows = rows;
 		this.cols = cols;
 		this.currentRow = currentRow;
@@ -64,7 +64,7 @@ public class Field {
 		return this.rows * this.cols;
 	}
 
-	Card getCard(int row, int col) {
+	protected Card getCard(int row, int col) {
 		return this.cards[row - 1][col - 1];
 	}
 
@@ -111,7 +111,6 @@ public class Field {
 				return null;
 			}
 		}
-
 		Card[][] cardsCopy = new Card[this.rows][this.cols];
 		outer: for (int row = 0; row < this.rows; row++) {
 			for (int col = 0; col < this.cols; col++) {
@@ -123,17 +122,27 @@ public class Field {
 				}
 			}
 		}
-		return new Field(this.rows, this.cols, nextRow, nextColumn, cardsCopy);
+
+		return createField(nextRow, nextColumn, cardsCopy);
 	}
 
+	protected Field createField(int currentRow, int currentColumn, Card[][] cardsCopy){
+		return new Field(this.rows, this.cols, cardsCopy, currentRow, currentColumn);
+	}
+	
 	Field copy() {
+		Card[][] cardsCopy = copyCardArray();
+		return new Field(this.rows, this.cols, cardsCopy);
+	}
+
+	protected Card[][] copyCardArray() {
 		Card[][] cardsCopy = new Card[this.rows][this.cols];
 		for (int row = 0; row < this.rows; row++) {
 			for (int col = 0; col < this.cols; col++) {
 				cardsCopy[row][col] = this.cards[row][col];
 			}
 		}
-		return new Field(this.rows, this.cols, cardsCopy);
+		return cardsCopy;
 	}
 
 	public Card getLastCard() {
@@ -160,8 +169,8 @@ public class Field {
 				rowCount++;
 			}
 		}
-		return new Field(this.cols, this.rows, this.currentRow,
-				this.currentColumn, resultCards);
+		return new Field(this.cols, this.rows, resultCards,
+				this.currentRow, this.currentColumn);
 	}
 
 	@Override

@@ -9,24 +9,50 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
+import org.whatsoftwarecando.legespiel.configs.AsterixKartenlegespielConfig;
+import org.whatsoftwarecando.legespiel.configs.DasVerrueckteLoriotLegespielConfig;
+import org.whatsoftwarecando.legespiel.configs.KnifflidiffelsVersion4Config;
+import org.whatsoftwarecando.legespiel.configs.KnifflidiffelsVersion5Config;
+import org.whatsoftwarecando.legespiel.configs.UliSteinNochVerwzickterGehtNichtConfig;
+import org.whatsoftwarecando.legespiel.configs.UliSteinNochVerzwickterConfig;
 
 public class SolverTest {
 
 	@Test
 	public void testNumberOfSolutions() {
+		testNumberOfSolution(148, 37, new AbsolutKniffligConfig());
+		testNumberOfSolution(48, 3, new AsterixKartenlegespielConfig());
+		testNumberOfSolution(48, 3, new DasVerrueckteLoriotLegespielConfig());
+		testNumberOfSolution(9216, 24, new KnifflidiffelsVersion4Config());
+		testNumberOfSolution(7488, 26, new KnifflidiffelsVersion5Config());
+		testNumberOfSolution(4, 1, new UliSteinNochVerwzickterGehtNichtConfig());
+		testNumberOfSolution(4, 1, new UliSteinNochVerzwickterConfig());
+	}
+
+	protected void testNumberOfSolution(int numberOfAllSolutions, int numberOfOriginalSolutions, IGameConfig gameConfig) {
 		Solver solver = new Solver();
 		List<Field> solutions = solver
-				.findAllSolutions(new AbsolutKniffligConfig());
-		assertEquals(148, solutions.size());
+				.findAllSolutions(gameConfig);
+		assertEquals(numberOfAllSolutions, solutions.size());
 		List<Field> solutionsWithoutRotations = solver
 				.removeRotationBasedDuplicates(solutions);
-		assertEquals(37, solutionsWithoutRotations.size());
+		assertEquals(numberOfOriginalSolutions, solutionsWithoutRotations.size());
 	}
 
 	@Test
 	public void testAlwaysSameSolutions() {
+		testAlwaysSameSolutions(new AbsolutKniffligConfig());
+		testAlwaysSameSolutions(new AsterixKartenlegespielConfig());
+		testAlwaysSameSolutions(new DasVerrueckteLoriotLegespielConfig());
+		testAlwaysSameSolutions(new KnifflidiffelsVersion4Config());
+		testAlwaysSameSolutions(new KnifflidiffelsVersion5Config());
+		testAlwaysSameSolutions(new UliSteinNochVerwzickterGehtNichtConfig());
+		testAlwaysSameSolutions(new UliSteinNochVerzwickterConfig());
+	}
+	
+	private void testAlwaysSameSolutions(IGameConfig gameConfig) {
 		Field board = new Field(3, 3);
-		List<Card> cards = new AbsolutKniffligConfig().getAvailableCards();
+		List<Card> cards = gameConfig.getAvailableCards();
 
 		Solver solver = new Solver();
 		List<Field> allCorrect = solver.findAllSolutionsStart(board, cards);
@@ -38,22 +64,18 @@ public class SolverTest {
 
 		Set<Field> allCorrectSet = new HashSet<Field>(allCorrect);
 		long numberOfTriesExpected = solver.numberOfTries();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 100; i++) {
 			long startTime = System.nanoTime();
-			List<Field> allCorrectControl = solver.findAllSolutionsStart(board,
-					cards);
+			List<Field> allCorrectControl = solver.findAllSolutionsStart(board, cards);
 			if (!allCorrectSet.equals(new HashSet<Field>(allCorrectControl))) {
-				throw new RuntimeException("Unexpected "
-						+ allCorrectControl.size() + ": " + allCorrectControl);
+				throw new RuntimeException("Unexpected " + allCorrectControl.size() + ": " + allCorrectControl);
 			}
 			System.out.println("Number of tries " + solver.numberOfTries());
 			if (numberOfTriesExpected != solver.numberOfTries()) {
-				throw new RuntimeException("Unexpected "
-						+ solver.numberOfTries());
+				throw new RuntimeException("Unexpected " + solver.numberOfTries());
 			}
 			long endTime = System.nanoTime();
-			System.out.println("Time needed: "
-					+ Util.nanosToMilliseconds(endTime - startTime) + " ms");
+			System.out.println("Time needed: " + Util.nanosToMilliseconds(endTime - startTime) + " ms");
 			Collections.shuffle(cards);
 
 		}
