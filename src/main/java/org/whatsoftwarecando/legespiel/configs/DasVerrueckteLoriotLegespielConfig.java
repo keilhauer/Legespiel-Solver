@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on "Das verrückte Loriot Legespiel". Find a video of one
  * solution here https://www.youtube.com/watch?v=YvcbBUoSa_U
  */
-public class DasVerrueckteLoriotLegespielConfig implements IGameConfig {
+public class DasVerrueckteLoriotLegespielConfig extends GameConfig {
 
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 

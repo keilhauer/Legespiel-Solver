@@ -2,26 +2,31 @@ package org.whatsoftwarecando.legespiel.configs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.DuplicateCardsFinder;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.FieldWithOnlyOneSolution;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.Field.CardCoordinate;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
+import org.whatsoftwarecando.legespiel.PartialSolution;
 
-public class AllPossibleCardsForPicturesConfig implements IGameConfig {
+public class AllPossibleCardsForPicturesConfig extends GameConfig {
 
 	private int rowsInField;
 	private int colsInField;
-	private boolean onlyOneSolutionPerCardSet;
 	private ArrayList<Card> availableCards = new ArrayList<Card>();
 
-	public AllPossibleCardsForPicturesConfig(){
-		this(FourPictures.values(), 2, 2, true, true);
+	public AllPossibleCardsForPicturesConfig() {
+		this(FourPictures.values(), 3, 3, true, true);
 	}
-	
+
 	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable, int rowsInField, int colsInField,
 			boolean onlyOneSolutionPerCardSet, boolean eliminateDuplicateCards) {
 		init(picturesAvailable);
@@ -36,14 +41,13 @@ public class AllPossibleCardsForPicturesConfig implements IGameConfig {
 		}
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
-		this.onlyOneSolutionPerCardSet = onlyOneSolutionPerCardSet;
-		System.out.println(this.availableCards);
-		System.out.println(this.availableCards.size());
+		System.out.println("Available cards: " + this.availableCards);
+		System.out.println("Number of available cards: " + this.availableCards.size());
 	}
 
 	public enum FourPictures implements IPicture {
 
-		RED, GREEN, BLUE;//, YELLOW;
+		RED, GREEN, BLUE;// , YELLOW;
 
 		@Override
 		public boolean matches(IPicture other) {
@@ -73,19 +77,87 @@ public class AllPossibleCardsForPicturesConfig implements IGameConfig {
 		return this.getClass().getSimpleName() + " [availableCards=" + availableCards + "]";
 	}
 
-	public static void main(String[] argv) {
-		AllPossibleCardsForPicturesConfig cardFactory = new AllPossibleCardsForPicturesConfig(FourPictures.values(), 3,
-				3, true, true);
-		System.out.println(cardFactory);
-		System.out.println(cardFactory.getAvailableCards().size());
+	@Override
+	public Field createEmptyField() {
+		return new Field(this.rowsInField, this.colsInField);
 	}
 
 	@Override
-	public Field createEmptyField() {
-		if (onlyOneSolutionPerCardSet) {
-			return new FieldWithOnlyOneSolution(this.rowsInField, this.colsInField);
-		} else {
-			return new Field(this.rowsInField, this.colsInField);
+	public List<Field> filterSolutions(List<Field> solutions) {
+		Map<Set<Integer>, Field> solutionIdsWithFirstFound = new HashMap<Set<Integer>, Field>();
+
+		Set<Field> solutionSet = new HashSet<Field>();
+		for (Field solution : solutions) {
+			Set<Integer> solutionIds = idsForField(solution);
+			Field alreadyFound = solutionIdsWithFirstFound.put(solutionIds, solution);
+			if (alreadyFound == null) {
+				solutionSet.add(solution);
+			} else {
+				solutionSet.remove(alreadyFound);
+			}
 		}
+		return new LinkedList<Field>(solutionSet);
+	}
+
+	private Set<Integer> idsForField(Field field) {
+		HashSet<Integer> idsForField = new HashSet<Integer>();
+		for (int row = 1; row <= field.getRows(); row++) {
+			for (int col = 1; col <= field.getCols(); col++) {
+				Card card = field.getCard(row, col);
+				if (card == null) {
+					return idsForField;
+				}
+				idsForField.add(card.getId());
+			}
+		}
+		return idsForField;
+	}
+
+	@Override
+	public List<PartialSolution> filterPartialSolutions(List<PartialSolution> partialSolutions) {
+		Map<Set<Integer>, HashMap<List<IPicture>, Field>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, Field>>();
+		Set<PartialSolution> partialSolutionSet = new HashSet<PartialSolution>();
+		for (PartialSolution partialSolution : partialSolutions) {
+			Field field = partialSolution.getField();
+			Set<Integer> idsForField = idsForField(field);
+			HashMap<List<IPicture>, Field> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
+					.get(idsForField);
+			if (borderlinesWithFirstFound == null) {
+				borderlinesWithFirstFound = new HashMap<List<IPicture>, Field>();
+				partialSolutionIdsWithBorderlines.put(idsForField, borderlinesWithFirstFound);
+			}
+			List<IPicture> borderline = calcBorderline(field);
+			Field alreadyFound = borderlinesWithFirstFound.put(borderline, field);
+			if (alreadyFound == null) {
+				partialSolutionSet.add(partialSolution);
+			} else {
+				partialSolutionSet.remove(alreadyFound);
+			}
+		}
+		return new LinkedList<PartialSolution>(partialSolutionSet);
+	}
+
+	List<IPicture> calcBorderline(Field field) {
+		List<IPicture> borderline = new LinkedList<IPicture>();
+		if (field.getCurrentCoordinates().getCol() < field.getCols()) {
+			borderline.add(field.getCurrentCoordinates().currentCard().getEast());
+		}
+		CardCoordinate nextCoordinate = field.getCurrentCoordinates();
+		for (int i = 1; i <= field.getRows(); i++) {
+			nextCoordinate = nextCoordinate.next();
+			if (nextCoordinate == null) {
+				return borderline;
+			}
+			Card northCard = nextCoordinate.northCard();
+			if (northCard != null) {
+				borderline.add(northCard.getSouth());
+			}
+		}
+		return borderline;
+	}
+	
+	@Override
+	public boolean isBfsNeeded(){
+		return true;
 	}
 }

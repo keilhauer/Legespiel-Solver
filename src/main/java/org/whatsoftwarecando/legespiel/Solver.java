@@ -16,24 +16,19 @@ public class Solver {
 
 	private long numberOfTries;
 
-	public static void main(String[] argv) throws IOException,
-			URISyntaxException, InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		IGameConfig gameConfig = null;
+	public static void main(String[] argv) throws IOException, URISyntaxException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		GameConfig gameConfig = null;
 		if (argv.length == 0) {
 			gameConfig = new AbsolutKniffligConfig();
 		} else {
-			gameConfig = (IGameConfig) Class
-					.forName(
-							Solver.class.getPackage().getName() + ".configs."
-									+ argv[0]).newInstance();
+			gameConfig = (GameConfig) Class.forName(Solver.class.getPackage().getName() + ".configs." + argv[0])
+					.newInstance();
 		}
-		System.out.println("Using GameConfig: "
-				+ gameConfig.getClass().getSimpleName());
+		System.out.println("Using GameConfig: " + gameConfig.getClass().getSimpleName());
 		System.out.println("Looking for duplicate cards: ");
 		boolean foundDuplicateCards = false;
-		for (List<Card> duplicates : new DuplicateCardsFinder()
-				.findDuplicateCards(gameConfig.getAvailableCards())) {
+		for (List<Card> duplicates : new DuplicateCardsFinder().findDuplicateCards(gameConfig.getAvailableCards())) {
 			if (duplicates.size() > 1) {
 				System.out.println(duplicates);
 				foundDuplicateCards = true;
@@ -46,20 +41,14 @@ public class Solver {
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(gameConfig);
 		long timeNeeded = System.nanoTime() - startTime;
-		System.out.println("Tried " + solver.numberOfTries()
-				+ " card rotations -> Found all " + solutions.size()
-				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded)
-				+ " ms");
+		System.out.println("Tried " + solver.numberOfTries() + " card rotations -> Found all " + solutions.size()
+				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms");
 		writeHtml(gameConfig, solutions, "allSolutions", "All Solutions");
 
-		List<Field> originalSolutions = solver
-				.removeRotationBasedDuplicates(solutions);
-		System.out
-				.println("Removed rotation based duplicates and other look-alikes -> "
-						+ originalSolutions.size()
-						+ " original solutions remaining");
-		writeHtml(gameConfig, originalSolutions, "allOriginalSolutions",
-				"All Original Solutions");
+		List<Field> originalSolutions = solver.removeRotationBasedDuplicates(solutions);
+		System.out.println("Removed rotation based duplicates and other look-alikes -> " + originalSolutions.size()
+				+ " original solutions remaining");
+		writeHtml(gameConfig, originalSolutions, "allOriginalSolutions", "All Original Solutions");
 	}
 
 	/**
@@ -71,10 +60,8 @@ public class Solver {
 		return numberOfTries;
 	}
 
-	private static void writeHtml(IGameConfig gameConfig,
-			List<Field> solutions, String filename, String title)
-			throws URISyntaxException, UnsupportedEncodingException,
-			IOException {
+	private static void writeHtml(GameConfig gameConfig, List<Field> solutions, String filename, String title)
+			throws URISyntaxException, UnsupportedEncodingException, IOException {
 		// Preparing HTML-Output
 		StringBuffer sb = new StringBuffer();
 		for (Field originalSolution : solutions) {
@@ -82,29 +69,62 @@ public class Solver {
 		}
 
 		// Writing Html
-		Path templateFile = Paths.get(Solver.class.getResource(
-				"all-solutions.html.template").toURI());
-		String allSolutionsHtmlTemplate = new String(
-				Files.readAllBytes(templateFile), "UTF-8");
-		String allSolutionsHtml = allSolutionsHtmlTemplate.replace("%title%",
-				title).replace("%content%", sb.toString());
-		Path htmlOutputFile = Paths.get("html-output/"
-				+ gameConfig.getClass().getSimpleName() + "/" + filename
-				+ ".html");
+		Path templateFile = Paths.get(Solver.class.getResource("all-solutions.html.template").toURI());
+		String allSolutionsHtmlTemplate = new String(Files.readAllBytes(templateFile), "UTF-8");
+		String allSolutionsHtml = allSolutionsHtmlTemplate.replace("%title%", title).replace("%content%",
+				sb.toString());
+		Path htmlOutputFile = Paths
+				.get("html-output/" + gameConfig.getClass().getSimpleName() + "/" + filename + ".html");
 		Files.createDirectories(htmlOutputFile.getParent());
 		Files.write(htmlOutputFile, allSolutionsHtml.getBytes("UTF-8"));
-		System.out.println("Written \"" + title + "\" to file: "
-				+ htmlOutputFile);
+		System.out.println("Written \"" + title + "\" to file: " + htmlOutputFile);
 	}
 
-	public List<Field> findAllSolutions(IGameConfig gameConfig) {
-		return findAllSolutionsStart(gameConfig.createEmptyField(),
-				gameConfig.getAvailableCards());
-	}
-
-	List<Field> findAllSolutionsStart(Field field, List<Card> cards) {
+	public List<Field> findAllSolutions(GameConfig gameConfig) {
 		numberOfTries = 0;
-		return findAllSolutions(field, cards);
+		Field emptyField = gameConfig.createEmptyField();
+		if (gameConfig.isBfsNeeded()) {
+			PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCards());
+			List<PartialSolution> partialSolutions = new LinkedList<PartialSolution>();
+			partialSolutions.add(startingConfig);
+			int sizeOfField = emptyField.getRows() * emptyField.getCols();
+			for (int i = 1; i < sizeOfField; i++) {
+				System.out.println("Partial solutions with " + i + " cards:");
+				partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
+				System.out.println("Total: " + partialSolutions.size());
+				partialSolutions = gameConfig.filterPartialSolutions(partialSolutions);
+				System.out.println("Filtered: " + partialSolutions.size());
+			}
+			System.out.println("Solutions:");
+			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
+			System.out.println("Total: " + partialSolutions.size());
+			;
+			List<Field> solutions = new LinkedList<Field>();
+			for (PartialSolution currentSolution : partialSolutions) {
+				solutions.add(currentSolution.getField());
+			}
+			solutions = gameConfig.filterSolutions(solutions);
+			System.out.println("Filtered: " + solutions.size());
+			return solutions;
+		} else {
+			return findAllSolutions(emptyField, gameConfig.getAvailableCards());
+		}
+
+	}
+
+	List<PartialSolution> findSolutionsWithOneMoreCard(List<PartialSolution> partialSolutions) {
+		List<PartialSolution> partialSolutionsWithOneMoreCard = new LinkedList<PartialSolution>();
+
+		for (PartialSolution partialSolution : partialSolutions) {
+			List<Field> nextPossibleMoves = nextPossibleMoves(partialSolution.getField(),
+					partialSolution.getRemainingCards());
+			for (Field nextPossibleMove : nextPossibleMoves) {
+				List<Card> remaining = removed(nextPossibleMove.getLastCard(), partialSolution.getRemainingCards());
+				PartialSolution partialSolutionWithOneMoreCard = new PartialSolution(nextPossibleMove, remaining);
+				partialSolutionsWithOneMoreCard.add(partialSolutionWithOneMoreCard);
+			}
+		}
+		return partialSolutionsWithOneMoreCard;
 	}
 
 	List<Field> findAllSolutions(Field field, List<Card> cards) {
@@ -154,13 +174,13 @@ public class Solver {
 				Field turned90 = solution.turned90DegreesClockwise();
 				Field turned180 = turned90.turned90DegreesClockwise();
 				Field turned270 = turned180.turned90DegreesClockwise();
-				if(!turned90.equals(solution)){
+				if (!turned90.equals(solution)) {
 					resultSet.remove(turned90);
 				}
-				if(!turned180.equals(solution)){
+				if (!turned180.equals(solution)) {
 					resultSet.remove(turned180);
 				}
-				if(!turned270.equals(solution)){
+				if (!turned270.equals(solution)) {
 					resultSet.remove(turned270);
 				}
 			}
@@ -176,8 +196,7 @@ public class Solver {
 			}
 		}
 		if (cardsLeft.size() - 1 != result.size()) {
-			throw new RuntimeException(lastcard + "was not found in "
-					+ cardsLeft);
+			throw new RuntimeException(lastcard + "was not found in " + cardsLeft);
 		}
 		return result;
 	}

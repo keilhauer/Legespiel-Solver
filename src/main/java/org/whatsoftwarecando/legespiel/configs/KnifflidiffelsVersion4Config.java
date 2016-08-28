@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on "Knifflidiffels". This is version 4 according to
  * http://www.juliesdiddlsamling.dk/spil/spil01.htm#table3
  */
-public class KnifflidiffelsVersion4Config implements IGameConfig {
+public class KnifflidiffelsVersion4Config extends GameConfig {
 
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 

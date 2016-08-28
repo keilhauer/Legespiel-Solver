@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on "Uli Stein: Noch verwzickter geht nicht!". See
  * http://www.gerdkoch.de/nochverwzickter/index.html for more information.
  */
-public class UliSteinNochVerwzickterGehtNichtConfig implements IGameConfig {
+public class UliSteinNochVerwzickterGehtNichtConfig extends GameConfig {
 
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 

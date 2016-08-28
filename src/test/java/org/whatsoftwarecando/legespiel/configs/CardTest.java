@@ -8,7 +8,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 
 public class CardTest {
 
@@ -29,7 +29,7 @@ public class CardTest {
 	@Ignore
 	@Test
 	public void testSimpleSolution() {
-		IGameConfig config = new DasVerrueckteLoriotLegespielConfig();
+		GameConfig config = new DasVerrueckteLoriotLegespielConfig();
 		Field field = config.createEmptyField();
 		for (Card current : config.getAvailableCards()) {
 			field = field.addedIfFits(current);

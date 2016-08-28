@@ -29,7 +29,7 @@ public class SolverTest {
 		testNumberOfSolution(4, 1, new UliSteinNochVerzwickterConfig());
 	}
 
-	protected void testNumberOfSolution(int numberOfAllSolutions, int numberOfOriginalSolutions, IGameConfig gameConfig) {
+	protected void testNumberOfSolution(int numberOfAllSolutions, int numberOfOriginalSolutions, GameConfig gameConfig) {
 		Solver solver = new Solver();
 		List<Field> solutions = solver
 				.findAllSolutions(gameConfig);
@@ -50,23 +50,17 @@ public class SolverTest {
 		testAlwaysSameSolutions(new UliSteinNochVerzwickterConfig());
 	}
 	
-	private void testAlwaysSameSolutions(IGameConfig gameConfig) {
-		Field board = new Field(3, 3);
-		List<Card> cards = gameConfig.getAvailableCards();
-
+	private void testAlwaysSameSolutions(GameConfig gameConfig) {
 		Solver solver = new Solver();
-		List<Field> allCorrect = solver.findAllSolutionsStart(board, cards);
-		for (Field correct : allCorrect) {
-			System.out.println(correct);
-		}
+		List<Field> allCorrect = solver.findAllSolutions(gameConfig);
 		System.out.println("Found " + allCorrect.size() + " solutions");
 		System.out.println("Number of tries " + solver.numberOfTries());
 
 		Set<Field> allCorrectSet = new HashSet<Field>(allCorrect);
 		long numberOfTriesExpected = solver.numberOfTries();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			long startTime = System.nanoTime();
-			List<Field> allCorrectControl = solver.findAllSolutionsStart(board, cards);
+			List<Field> allCorrectControl = solver.findAllSolutions(gameConfig);
 			if (!allCorrectSet.equals(new HashSet<Field>(allCorrectControl))) {
 				throw new RuntimeException("Unexpected " + allCorrectControl.size() + ": " + allCorrectControl);
 			}
@@ -76,8 +70,7 @@ public class SolverTest {
 			}
 			long endTime = System.nanoTime();
 			System.out.println("Time needed: " + Util.nanosToMilliseconds(endTime - startTime) + " ms");
-			Collections.shuffle(cards);
-
+			Collections.shuffle(gameConfig.getAvailableCards());
 		}
 	}
 }

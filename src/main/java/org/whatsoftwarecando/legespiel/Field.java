@@ -12,8 +12,11 @@ public class Field {
 	private final int rows;
 	private final int cols;
 
-	protected int currentRow;
-	protected int currentColumn;
+	private CardCoordinate currentCoordinates;
+	
+	public CardCoordinate getCurrentCoordinates() {
+		return currentCoordinates;
+	}
 
 	public Field(int rows, int cols) {
 		this(rows, cols, new Card[rows][cols]);
@@ -23,13 +26,11 @@ public class Field {
 		this(rows, cols, cards, 1, 0);
 	}
 
-	protected Field(int rows, int cols, Card[][] cards, int currentRow,
-			int currentColumn) {
+	protected Field(int rows, int cols, Card[][] cards, int currentRow, int currentColumn) {
 		this.rows = rows;
 		this.cols = cols;
-		this.currentRow = currentRow;
-		this.currentColumn = currentColumn;
 		this.cards = cards;
+		this.currentCoordinates = new CardCoordinate(this, currentRow, currentColumn);
 	}
 
 	Field(int rows, int cols, List<Card> allCards) {
@@ -64,7 +65,7 @@ public class Field {
 		return this.rows * this.cols;
 	}
 
-	protected Card getCard(int row, int col) {
+	public Card getCard(int row, int col) {
 		return this.cards[row - 1][col - 1];
 	}
 
@@ -92,25 +93,22 @@ public class Field {
 	 */
 	public Field addedIfFits(Card card) {
 
-		int nextRow = currentRow;
-		int nextColumn = currentColumn + 1;
-		if (nextColumn > this.cols) {
-			nextColumn = 1;
-			nextRow++;
-		}
+		CardCoordinate nextCoord = this.currentCoordinates.next();
 
-		if (nextRow > 1) {
-			Card northCard = this.getCard(nextRow - 1, nextColumn);
+		Card northCard = nextCoord.northCard();
+		if (northCard != null) {
 			if (!northCard.getSouth().matches(card.getNorth())) {
 				return null;
 			}
 		}
-		if (nextColumn > 1) {
-			Card westCard = this.getCard(nextRow, nextColumn - 1);
+		Card westCard = nextCoord.westCard();
+		if (westCard != null) {
 			if (!westCard.getEast().matches(card.getWest())) {
 				return null;
 			}
 		}
+		int nextRow = nextCoord.getRow();
+		int nextColumn = nextCoord.getCol();
 		Card[][] cardsCopy = new Card[this.rows][this.cols];
 		outer: for (int row = 0; row < this.rows; row++) {
 			for (int col = 0; col < this.cols; col++) {
@@ -126,10 +124,83 @@ public class Field {
 		return createField(nextRow, nextColumn, cardsCopy);
 	}
 
-	protected Field createField(int currentRow, int currentColumn, Card[][] cardsCopy){
+	public class CardCoordinate {
+
+		private Field field;
+		private int row;
+		private int col;
+
+		CardCoordinate(Field field, int row, int col) {
+			this.field = field;
+			this.row = row;
+			this.col = col;
+		}
+
+		public Field getField() {
+			return field;
+		}
+
+		public int getRow() {
+			return row;
+		}
+
+		public int getCol() {
+			return col;
+		}
+
+		public Card currentCard(){
+			return this.field.getCard(row, col);
+		}
+		public Card northCard() {
+			if (this.row > 1) {
+				return this.field.getCard(this.row - 1, this.col);
+			} else {
+				return null;
+			}
+		}
+
+		Card southCard() {
+			if (this.row < this.field.getRows()) {
+				return this.field.getCard(this.row + 1, this.col);
+			} else {
+				return null;
+			}
+		}
+
+		Card westCard() {
+			if (this.col > 1) {
+				return this.field.getCard(this.row, this.col - 1);
+			} else {
+				return null;
+			}
+		}
+
+		Card eastCard() {
+			if (this.col < this.field.getCols()) {
+				return this.field.getCard(this.row, this.col + 1);
+			} else {
+				return null;
+			}
+		}
+		
+		public CardCoordinate next(){
+			int nextCol = this.col + 1;
+			int nextRow = this.row;
+			if (nextCol > this.field.getCols()) {
+				nextCol = 1;
+				nextRow++;
+				if(nextRow > this.field.getRows()){
+					return null;
+				}
+			}
+			return new CardCoordinate(field, nextRow, nextCol);
+		}
+	}
+
+	protected Field createField(int currentRow, int currentColumn, Card[][] cardsCopy) {
 		return new Field(this.rows, this.cols, cardsCopy, currentRow, currentColumn);
 	}
-	
+
 	Field copy() {
 		Card[][] cardsCopy = copyCardArray();
 		return new Field(this.rows, this.cols, cardsCopy);
@@ -146,7 +217,7 @@ public class Field {
 	}
 
 	public Card getLastCard() {
-		return this.getCard(this.currentRow, this.currentColumn);
+		return this.currentCoordinates.currentCard();
 	}
 
 	/**
@@ -164,13 +235,11 @@ public class Field {
 			int resultColumn = (this.rows + 1) - r;
 			int rowCount = 1;
 			for (Card card : row) {
-				resultCards[rowCount - 1][resultColumn - 1] = card
-						.turned90DegreesClockwise();
+				resultCards[rowCount - 1][resultColumn - 1] = card.turned90DegreesClockwise();
 				rowCount++;
 			}
 		}
-		return new Field(this.cols, this.rows, resultCards,
-				this.currentRow, this.currentColumn);
+		return new Field(this.cols, this.rows, resultCards);
 	}
 
 	@Override
@@ -207,8 +276,7 @@ public class Field {
 		for (int r = 1; r <= this.rows; r++) {
 			result.append("\t<tr>\n");
 			for (int c = 1; c <= this.cols; c++) {
-				result.append("\t\t<td>" + this.getCard(r, c).toHtmlString()
-						+ "</td>\n");
+				result.append("\t\t<td>" + this.getCard(r, c).toHtmlString() + "</td>\n");
 			}
 			result.append("\t</tr>\n");
 		}
@@ -219,7 +287,7 @@ public class Field {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("Board [rows=" + rows + ", cols=" + cols + ":\n");
+		sb.append(this.getClass().getSimpleName() + " [rows=" + rows + ", cols=" + cols + ":\n");
 		for (int row = 0; row < this.rows; row++) {
 			for (int col = 0; col < this.cols; col++) {
 				sb.append(this.cards[row][col]);

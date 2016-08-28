@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
@@ -12,7 +12,7 @@ import org.whatsoftwarecando.legespiel.IPicture;
  * http://whatsoftwarecando.org/en/backtracking-nursery-solve-legespiel/ for
  * more information.
  */
-public class AbsolutKniffligConfig implements IGameConfig {
+public class AbsolutKniffligConfig extends GameConfig {
 
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 
