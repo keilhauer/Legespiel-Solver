@@ -19,12 +19,12 @@ import org.whatsoftwarecando.legespiel.PartialSolution;
 
 public class AllPossibleCardsForPicturesConfig extends GameConfig {
 
-	private int rowsInField;
-	private int colsInField;
-	private ArrayList<Card> availableCards = new ArrayList<Card>();
+	private final int rowsInField;
+	private final int colsInField;
+	private final ArrayList<Card> availableCards = new ArrayList<Card>();
 
 	public AllPossibleCardsForPicturesConfig() {
-		this(FourPictures.values(), 3, 3, true, true);
+		this(FourPictures.values(), 2, 3, true, true);
 	}
 
 	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable, int rowsInField, int colsInField,
@@ -93,6 +93,21 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			if (alreadyFound == null) {
 				solutionSet.add(solution);
 			} else {
+				if(solution.equals(alreadyFound)){
+					continue;
+				}
+				Field solution90 = solution.turned90DegreesClockwise();
+				if(solution90.equals(alreadyFound)){
+					continue;
+				}
+				Field solution180 = solution90.turned90DegreesClockwise();
+				if(solution180.equals(alreadyFound)){
+					continue;
+				}
+				Field solution270 = solution180.turned90DegreesClockwise();
+				if(solution270.equals(alreadyFound)){
+					continue;
+				}
 				solutionSet.remove(alreadyFound);
 			}
 		}
