@@ -6,13 +6,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
 import org.junit.Test;
-import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
 import org.whatsoftwarecando.legespiel.configs.AsterixKartenlegespielConfig;
 import org.whatsoftwarecando.legespiel.configs.UliSteinNochVerwzickterGehtNichtConfig;
 
-public class BoardTest {
+public class FieldTest {
 
 	@Test
 	public void testAddAbsolutKnifflig() {
@@ -61,26 +59,46 @@ public class BoardTest {
 	@Test
 	public void testTurnedClockwise90() {
 		ArrayList<Card> allCards = new AbsolutKniffligConfig().getAvailableCards();
-		Field board = new Field(3, 3, allCards);
-		Field boardTurned90 = board.copy();
+		Field field = new Field(3, 3, allCards);
+		Field boardTurned90 = field.copy();
 		boardTurned90 = boardTurned90.turned90DegreesClockwise();
-		assertEquals(board.getCard(1, 1).turned90DegreesClockwise(),
+		assertEquals(field.getCard(1, 1).turned90DegreesClockwise(),
 				boardTurned90.getCard(1, 3));
-		assertEquals(board.getCard(1, 2).turned90DegreesClockwise(),
+		assertEquals(field.getCard(1, 2).turned90DegreesClockwise(),
 				boardTurned90.getCard(2, 3));
-		assertEquals(board.getCard(1, 3).turned90DegreesClockwise(),
+		assertEquals(field.getCard(1, 3).turned90DegreesClockwise(),
 				boardTurned90.getCard(3, 3));
-		assertEquals(board.getCard(2, 1).turned90DegreesClockwise(),
+		assertEquals(field.getCard(2, 1).turned90DegreesClockwise(),
 				boardTurned90.getCard(1, 2));
-		assertEquals(board.getCard(2, 2).turned90DegreesClockwise(),
+		assertEquals(field.getCard(2, 2).turned90DegreesClockwise(),
 				boardTurned90.getCard(2, 2));
-		assertEquals(board.getCard(2, 3).turned90DegreesClockwise(),
+		assertEquals(field.getCard(2, 3).turned90DegreesClockwise(),
 				boardTurned90.getCard(3, 2));
-		assertEquals(board.getCard(3, 1).turned90DegreesClockwise(),
+		assertEquals(field.getCard(3, 1).turned90DegreesClockwise(),
 				boardTurned90.getCard(1, 1));
-		assertEquals(board.getCard(3, 2).turned90DegreesClockwise(),
+		assertEquals(field.getCard(3, 2).turned90DegreesClockwise(),
 				boardTurned90.getCard(2, 1));
-		assertEquals(board.getCard(3, 3).turned90DegreesClockwise(),
+		assertEquals(field.getCard(3, 3).turned90DegreesClockwise(),
+				boardTurned90.getCard(3, 1));
+	}
+	
+	@Test
+	public void testTurnNonSquareField(){
+		ArrayList<Card> allCards = new AbsolutKniffligConfig().getAvailableCards();
+		Field field = new Field(2, 3, allCards.subList(0, 6));
+		Field boardTurned90 = field.copy();
+		boardTurned90 = boardTurned90.turned90DegreesClockwise();
+		assertEquals(field.getCard(1, 1).turned90DegreesClockwise(),
+				boardTurned90.getCard(1, 2));
+		assertEquals(field.getCard(1, 2).turned90DegreesClockwise(),
+				boardTurned90.getCard(2, 2));
+		assertEquals(field.getCard(1, 3).turned90DegreesClockwise(),
+				boardTurned90.getCard(3, 2));
+		assertEquals(field.getCard(2, 1).turned90DegreesClockwise(),
+				boardTurned90.getCard(1, 1));
+		assertEquals(field.getCard(2, 2).turned90DegreesClockwise(),
+				boardTurned90.getCard(2, 1));
+		assertEquals(field.getCard(2, 3).turned90DegreesClockwise(),
 				boardTurned90.getCard(3, 1));
 	}
 

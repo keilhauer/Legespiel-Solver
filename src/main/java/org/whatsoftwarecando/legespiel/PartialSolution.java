@@ -4,9 +4,9 @@ import java.util.List;
 
 public class PartialSolution {
 
-	private Field field;
+	private final Field field;
 	
-	private List<Card> remainingCards;
+	private final List<Card> remainingCards;
 
 	public PartialSolution(Field field, List<Card> remainingCards) {
 		this.field = field;

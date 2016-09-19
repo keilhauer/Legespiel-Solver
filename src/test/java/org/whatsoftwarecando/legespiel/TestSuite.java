@@ -6,7 +6,7 @@ import org.whatsoftwarecando.legespiel.configs.CardTest;
 import org.whatsoftwarecando.legespiel.configs.PictureTest;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses(value={BoardTest.class, PictureTest.class, CardTest.class, SolverTest.class})
+@Suite.SuiteClasses(value={FieldTest.class, PictureTest.class, CardTest.class, SolverTest.class})
 public class TestSuite {
 
 }

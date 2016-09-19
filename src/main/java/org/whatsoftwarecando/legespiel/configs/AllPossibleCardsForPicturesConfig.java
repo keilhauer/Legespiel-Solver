@@ -24,14 +24,16 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	private final ArrayList<Card> availableCards = new ArrayList<Card>();
 
 	public AllPossibleCardsForPicturesConfig() {
-		this(FourPictures.values(), 2, 3, true, true);
+		this(FourPictures.values(), 3, 2, true, true);
 	}
 
-	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable, int rowsInField, int colsInField,
+	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable,
+			int rowsInField, int colsInField,
 			boolean onlyOneSolutionPerCardSet, boolean eliminateDuplicateCards) {
 		init(picturesAvailable);
 		if (eliminateDuplicateCards) {
-			List<List<Card>> duplicates = new DuplicateCardsFinder().findDuplicateCards(availableCards);
+			List<List<Card>> duplicates = new DuplicateCardsFinder()
+					.findDuplicateCards(availableCards);
 			if (duplicates.size() < availableCards.size()) {
 				availableCards.clear();
 				for (List<Card> currentCardEqClass : duplicates) {
@@ -42,12 +44,13 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
 		System.out.println("Available cards: " + this.availableCards);
-		System.out.println("Number of available cards: " + this.availableCards.size());
+		System.out.println("Number of available cards: "
+				+ this.availableCards.size());
 	}
 
 	public enum FourPictures implements IPicture {
 
-		RED, GREEN, BLUE;// , YELLOW;
+		RED, GREEN, BLUE;// YELLOW;
 
 		@Override
 		public boolean matches(IPicture other) {
@@ -55,14 +58,16 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 		}
 	}
 
-	private void init(final IPicture[] picturesAvailable, IPicture... prtialSolution) {
-		if (prtialSolution != null && prtialSolution.length == 4) {
-			availableCards.add(new Card(prtialSolution));
+	private void init(final IPicture[] picturesAvailable,
+			IPicture... partialCard) {
+		if (partialCard != null && partialCard.length == 4) {
+			availableCards.add(new Card(partialCard));
 			return;
 		}
 		for (IPicture p : picturesAvailable) {
-			IPicture[] newPictures = Arrays.copyOf(prtialSolution, prtialSolution.length + 1);
-			newPictures[prtialSolution.length] = p;
+			IPicture[] newPictures = Arrays.copyOf(partialCard,
+					partialCard.length + 1);
+			newPictures[partialCard.length] = p;
 			init(picturesAvailable, newPictures);
 		}
 	}
@@ -74,7 +79,8 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [availableCards=" + availableCards + "]";
+		return this.getClass().getSimpleName() + " [availableCards="
+				+ availableCards + "]";
 	}
 
 	@Override
@@ -86,32 +92,41 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	public List<Field> filterSolutions(List<Field> solutions) {
 		Map<Set<Integer>, Field> solutionIdsWithFirstFound = new HashMap<Set<Integer>, Field>();
 
-		Set<Field> solutionSet = new HashSet<Field>();
 		for (Field solution : solutions) {
 			Set<Integer> solutionIds = idsForField(solution);
-			Field alreadyFound = solutionIdsWithFirstFound.put(solutionIds, solution);
-			if (alreadyFound == null) {
-				solutionSet.add(solution);
-			} else {
-				if(solution.equals(alreadyFound)){
+			if (solutionIdsWithFirstFound.containsKey(solutionIds)) {
+				Field alreadyFound = solutionIdsWithFirstFound.get(solutionIds);
+				if (alreadyFound == null) {
+					continue;
+				}
+				if (solution.equals(alreadyFound)) {
 					continue;
 				}
 				Field solution90 = solution.turned90DegreesClockwise();
-				if(solution90.equals(alreadyFound)){
+				if (solution90.equals(alreadyFound)) {
 					continue;
 				}
 				Field solution180 = solution90.turned90DegreesClockwise();
-				if(solution180.equals(alreadyFound)){
+				if (solution180.equals(alreadyFound)) {
 					continue;
 				}
 				Field solution270 = solution180.turned90DegreesClockwise();
-				if(solution270.equals(alreadyFound)){
+				if (solution270.equals(alreadyFound)) {
 					continue;
 				}
-				solutionSet.remove(alreadyFound);
+				solutionIdsWithFirstFound.put(solutionIds, null);
+			} else {
+				solutionIdsWithFirstFound.put(solutionIds, solution);
+			}
+
+		}
+		List<Field> result = new LinkedList<Field>();
+		for (Field currentSolution : solutionIdsWithFirstFound.values()) {
+			if (currentSolution != null) {
+				result.add(currentSolution);
 			}
 		}
-		return new LinkedList<Field>(solutionSet);
+		return result;
 	}
 
 	private Set<Integer> idsForField(Field field) {
@@ -128,51 +143,122 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 		return idsForField;
 	}
 
-	@Override
-	public List<PartialSolution> filterPartialSolutions(List<PartialSolution> partialSolutions) {
-		Map<Set<Integer>, HashMap<List<IPicture>, Field>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, Field>>();
-		Set<PartialSolution> partialSolutionSet = new HashSet<PartialSolution>();
+	public List<PartialSolution> filterPartialSolutionsWrong(
+			List<PartialSolution> partialSolutions) {
+		Map<Set<Integer>, HashMap<List<IPicture>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, PartialSolution>>();
+
 		for (PartialSolution partialSolution : partialSolutions) {
-			Field field = partialSolution.getField();
-			Set<Integer> idsForField = idsForField(field);
-			HashMap<List<IPicture>, Field> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
+			Set<Integer> idsForField = idsForField(partialSolution.getField());
+			HashMap<List<IPicture>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
 					.get(idsForField);
-			if (borderlinesWithFirstFound == null) {
-				borderlinesWithFirstFound = new HashMap<List<IPicture>, Field>();
-				partialSolutionIdsWithBorderlines.put(idsForField, borderlinesWithFirstFound);
+			if (partialSolutionIdsWithBorderlines.containsKey(idsForField)) {
+				if (borderlinesWithFirstFound == null) {
+					continue;
+				}
 			}
-			List<IPicture> borderline = calcBorderline(field);
-			Field alreadyFound = borderlinesWithFirstFound.put(borderline, field);
-			if (alreadyFound == null) {
-				partialSolutionSet.add(partialSolution);
+			if (borderlinesWithFirstFound == null) {
+				borderlinesWithFirstFound = new HashMap<List<IPicture>, PartialSolution>();
+				partialSolutionIdsWithBorderlines.put(idsForField,
+						borderlinesWithFirstFound);
+			}
+			List<IPicture> borderline = calcBorderline(partialSolution
+					.getField());
+			if (borderlinesWithFirstFound.containsKey(borderline)) {
+				PartialSolution alreadyFound = borderlinesWithFirstFound
+						.get(borderline);
+				if (alreadyFound != null) {
+					if (!partialSolution.getField().equals(
+							alreadyFound.getField())) {
+						partialSolutionIdsWithBorderlines
+								.put(idsForField, null);
+					}
+				}
 			} else {
-				partialSolutionSet.remove(alreadyFound);
+				borderlinesWithFirstFound.put(borderline, partialSolution);
 			}
 		}
-		return new LinkedList<PartialSolution>(partialSolutionSet);
+		LinkedList<PartialSolution> result = new LinkedList<PartialSolution>();
+		for (HashMap<List<IPicture>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
+				.values()) {
+			if (partialSolutionsForIds != null) {
+				for (PartialSolution currentPartialSolution : partialSolutionsForIds
+						.values()) {
+					if (currentPartialSolution != null) {
+						result.add(currentPartialSolution);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<PartialSolution> filterPartialSolutions(
+			List<PartialSolution> partialSolutions) {
+		Map<Set<Integer>, HashMap<List<IPicture>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, PartialSolution>>();
+
+		for (PartialSolution partialSolution : partialSolutions) {
+			Set<Integer> idsForField = idsForField(partialSolution.getField());
+//			if(idsForField.size() == 2 && idsForField.contains(14) && idsForField.contains(17)){
+//				System.out.println("!");
+//			}
+			HashMap<List<IPicture>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
+					.get(idsForField);
+			if (borderlinesWithFirstFound == null) {
+				borderlinesWithFirstFound = new HashMap<List<IPicture>, PartialSolution>();
+				partialSolutionIdsWithBorderlines.put(idsForField,
+						borderlinesWithFirstFound);
+			}
+			List<IPicture> borderline = calcBorderline(partialSolution
+					.getField());
+			if (borderlinesWithFirstFound.containsKey(borderline)) {
+				PartialSolution alreadyFound = borderlinesWithFirstFound
+						.get(borderline);
+				if (alreadyFound != null) {
+					if (!partialSolution.getField().equals(
+							alreadyFound.getField())) {
+						borderlinesWithFirstFound.put(borderline, null);
+					}
+				}
+			} else {
+				borderlinesWithFirstFound.put(borderline, partialSolution);
+			}
+		}
+		LinkedList<PartialSolution> result = new LinkedList<PartialSolution>();
+		for (HashMap<List<IPicture>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
+				.values()) {
+			for (PartialSolution currentPartialSolution : partialSolutionsForIds
+					.values()) {
+				if (currentPartialSolution != null) {
+					result.add(currentPartialSolution);
+				}
+			}
+		}
+		return result;
 	}
 
 	List<IPicture> calcBorderline(Field field) {
 		List<IPicture> borderline = new LinkedList<IPicture>();
 		if (field.getCurrentCoordinates().getCol() < field.getCols()) {
-			borderline.add(field.getCurrentCoordinates().currentCard().getEast());
+			borderline.add(field.getCurrentCoordinates().currentCard()
+					.getEast());
 		}
-		CardCoordinate nextCoordinate = field.getCurrentCoordinates();
-		for (int i = 1; i <= field.getRows(); i++) {
-			nextCoordinate = nextCoordinate.next();
-			if (nextCoordinate == null) {
+		CardCoordinate coordinate = field.getCurrentCoordinates();
+		for (int i = 1; i <= field.getCols(); i++) {
+			coordinate = coordinate.next();
+			if (coordinate == null) {
 				return borderline;
 			}
-			Card northCard = nextCoordinate.northCard();
+			Card northCard = coordinate.northCard();
 			if (northCard != null) {
 				borderline.add(northCard.getSouth());
 			}
 		}
 		return borderline;
 	}
-	
+
 	@Override
-	public boolean isBfsNeeded(){
+	public boolean isBfsNeeded() {
 		return true;
 	}
 }

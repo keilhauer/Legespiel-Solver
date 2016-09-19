@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Field {
+public class Field implements Comparable<Field>{
 
 	private final Card[][] cards;
 
@@ -126,9 +126,9 @@ public class Field {
 
 	public class CardCoordinate {
 
-		private Field field;
-		private int row;
-		private int col;
+		private final Field field;
+		private final int row;
+		private final int col;
 
 		CardCoordinate(Field field, int row, int col) {
 			this.field = field;
@@ -261,11 +261,11 @@ public class Field {
 		if (getClass() != obj.getClass())
 			return false;
 		Field other = (Field) obj;
-		if (!Arrays.deepEquals(cards, other.cards))
-			return false;
 		if (cols != other.cols)
 			return false;
 		if (rows != other.rows)
+			return false;
+		if (!Arrays.deepEquals(cards, other.cards))
 			return false;
 		return true;
 	}
@@ -299,6 +299,35 @@ public class Field {
 		}
 		sb.append("]");
 		return sb.toString();
+	}
+
+	public boolean isQuadratic(){
+		return this.cols == this.rows;
+	}
+	
+	public List<Card> getAllCards(){
+		List<Card> result = new LinkedList<Card>();
+		for(int row = 1; row <= this.getRows(); row++){
+			for(int col = 1; col <= this.getCols(); col++){
+				result.add(this.getCard(row, col));
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public int compareTo(Field o) {
+		for(int row = 1; row <= this.getRows(); row++){
+			for(int col = 1; col <= this.getCols(); col++){
+				Card currentCard = this.getCard(row, col);
+				Card currentOtherCard = o.getCard(row, col);
+				int cardsCompared = currentCard.compareTo(currentOtherCard);
+				if(cardsCompared != 0){
+					return cardsCompared;
+				}
+			}
+		}
+		return 0;
 	}
 
 }

@@ -19,7 +19,9 @@ public class CardTest {
 		Card tmp = testCard.turned90DegreesClockwise();
 		tmp = tmp.turned90DegreesClockwise();
 		tmp = tmp.turned90DegreesClockwise();
-		assertEquals(testCard, tmp.turned90DegreesClockwise());
+		tmp = tmp.turned90DegreesClockwise();
+		assertEquals(testCard, tmp);
+		assertEquals(testCard.getRotationClockwise(), tmp.getRotationClockwise());
 	}
 
 	/**

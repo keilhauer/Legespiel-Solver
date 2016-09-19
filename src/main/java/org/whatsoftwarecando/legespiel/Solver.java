@@ -40,6 +40,7 @@ public class Solver {
 		long startTime = System.nanoTime();
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(gameConfig);
+		
 		long timeNeeded = System.nanoTime() - startTime;
 		System.out.println("Tried " + solver.numberOfTries() + " card rotations -> Found all " + solutions.size()
 				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms");
@@ -98,7 +99,6 @@ public class Solver {
 			System.out.println("Solutions:");
 			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
 			System.out.println("Total: " + partialSolutions.size());
-			;
 			List<Field> solutions = new LinkedList<Field>();
 			for (PartialSolution currentSolution : partialSolutions) {
 				solutions.add(currentSolution.getField());
@@ -167,7 +167,7 @@ public class Solver {
 		return fieldsWithOneMoreCard;
 	}
 
-	List<Field> removeRotationBasedDuplicates(List<Field> solutions) {
+	public List<Field> removeRotationBasedDuplicates(List<Field> solutions) {
 		LinkedHashSet<Field> resultSet = new LinkedHashSet<Field>(solutions);
 		for (Field solution : solutions) {
 			if (resultSet.contains(solution)) {

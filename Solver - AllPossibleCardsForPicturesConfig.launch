@@ -10,5 +10,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.whatsoftwarecando.legespiel.Solver"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="AllPossibleCardsForPicturesConfig"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Legespiel-Solver"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx4000m"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx12000m"/>
 </launchConfiguration>
