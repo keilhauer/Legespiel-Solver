@@ -1,7 +1,9 @@
 package org.whatsoftwarecando.legespiel;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class GameConfig {
 
@@ -13,12 +15,12 @@ public abstract class GameConfig {
 		return false;
 	}
 	
-	public List<PartialSolution> filterPartialSolutions(List<PartialSolution> partialSolutions){
-		return partialSolutions;
+	public Set<PartialSolution> filterPartialSolutions(Collection<PartialSolution> partialSolutions){
+		return new HashSet<PartialSolution>(partialSolutions);
 	}
 	
-	public List<Field> filterSolutions(List<Field> solutions){
-		return solutions;
+	public Set<Field> filterSolutions(Collection<Field> solutions){
+		return new HashSet<Field>(solutions);
 	}
 
 }

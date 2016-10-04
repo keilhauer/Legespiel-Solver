@@ -2,6 +2,7 @@ package org.whatsoftwarecando.legespiel.configs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -89,7 +90,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	}
 
 	@Override
-	public List<Field> filterSolutions(List<Field> solutions) {
+	public Set<Field> filterSolutions(Collection<Field> solutions) {
 		Map<Set<Integer>, Field> solutionIdsWithFirstFound = new HashMap<Set<Integer>, Field>();
 
 		for (Field solution : solutions) {
@@ -120,13 +121,14 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			}
 
 		}
-		List<Field> result = new LinkedList<Field>();
+		Set<Field> result = new HashSet<Field>();
 		for (Field currentSolution : solutionIdsWithFirstFound.values()) {
 			if (currentSolution != null) {
 				result.add(currentSolution);
 			}
 		}
 		return result;
+//		return solutions;
 	}
 
 	private Set<Integer> idsForField(Field field) {
@@ -193,15 +195,12 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	}
 
 	@Override
-	public List<PartialSolution> filterPartialSolutions(
-			List<PartialSolution> partialSolutions) {
+	public Set<PartialSolution> filterPartialSolutions(
+			Collection<PartialSolution> partialSolutions) {
 		Map<Set<Integer>, HashMap<List<IPicture>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, PartialSolution>>();
 
 		for (PartialSolution partialSolution : partialSolutions) {
 			Set<Integer> idsForField = idsForField(partialSolution.getField());
-//			if(idsForField.size() == 2 && idsForField.contains(14) && idsForField.contains(17)){
-//				System.out.println("!");
-//			}
 			HashMap<List<IPicture>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
 					.get(idsForField);
 			if (borderlinesWithFirstFound == null) {
@@ -224,7 +223,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 				borderlinesWithFirstFound.put(borderline, partialSolution);
 			}
 		}
-		LinkedList<PartialSolution> result = new LinkedList<PartialSolution>();
+		Set<PartialSolution> result = new HashSet<PartialSolution>();
 		for (HashMap<List<IPicture>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
 				.values()) {
 			for (PartialSolution currentPartialSolution : partialSolutionsForIds
@@ -235,6 +234,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			}
 		}
 		return result;
+//		return partialSolutions;
 	}
 
 	List<IPicture> calcBorderline(Field field) {
