@@ -8,7 +8,7 @@ to be put in a square (or sometimes a rectangle) so that the pictures on the
 four sides of the cards fit the ones of the cards around it.
 
 You can solve other games of this kind by creating an own implementation of
-IGameConfig. By doing that, you can change the dimensions of the playing field
+GameConfig. By doing that, you can change the dimensions of the playing field
 and the pictures on the cards. When you are done, you can use the class name
 of your GameConfig as a program argument for Solver (also see .launch-Files in
 this folder).
