@@ -75,7 +75,7 @@ public class Solver {
 		return numberOfTries;
 	}
 
-	private static void writeHtml(GameConfig gameConfig, List<Field> solutions,
+	private static void writeHtml(GameConfig gameConfig, Collection<Field> solutions,
 			String filename, String title) throws URISyntaxException,
 			UnsupportedEncodingException, IOException {
 		// Preparing HTML-Output
@@ -113,10 +113,8 @@ public class Solver {
 				System.out.println("Partial solutions with " + i + " cards:");
 				partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
 				System.out.println("Total: " + partialSolutions.size());
-				if (partialSolutions.size() > 100000) {
 					partialSolutions = gameConfig
 							.filterPartialSolutions(partialSolutions);
-				}
 				System.out.println("Filtered: " + partialSolutions.size());
 			}
 			System.out.println("Solutions:");

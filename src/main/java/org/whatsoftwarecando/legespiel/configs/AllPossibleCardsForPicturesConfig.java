@@ -11,12 +11,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.whatsoftwarecando.legespiel.Card;
+import org.whatsoftwarecando.legespiel.Condition;
 import org.whatsoftwarecando.legespiel.DuplicateCardsFinder;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.Field.CardCoordinate;
+import org.whatsoftwarecando.legespiel.FieldWithConditions;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 import org.whatsoftwarecando.legespiel.PartialSolution;
+import org.whatsoftwarecando.legespiel.Solver;
 
 public class AllPossibleCardsForPicturesConfig extends GameConfig {
 
@@ -25,7 +28,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	private final ArrayList<Card> availableCards = new ArrayList<Card>();
 
 	public AllPossibleCardsForPicturesConfig() {
-		this(FourPictures.values(), 3, 2, true, true);
+		this(FourPictures.values(), 3, 3, true, true);
 	}
 
 	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable,
@@ -128,7 +131,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			}
 		}
 		return result;
-//		return solutions;
+		// return solutions;
 	}
 
 	private Set<Integer> idsForField(Field field) {
@@ -147,11 +150,11 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 
 	public List<PartialSolution> filterPartialSolutionsWrong(
 			List<PartialSolution> partialSolutions) {
-		Map<Set<Integer>, HashMap<List<IPicture>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, PartialSolution>>();
+		Map<Set<Integer>, HashMap<List<Condition>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<Condition>, PartialSolution>>();
 
 		for (PartialSolution partialSolution : partialSolutions) {
 			Set<Integer> idsForField = idsForField(partialSolution.getField());
-			HashMap<List<IPicture>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
+			HashMap<List<Condition>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
 					.get(idsForField);
 			if (partialSolutionIdsWithBorderlines.containsKey(idsForField)) {
 				if (borderlinesWithFirstFound == null) {
@@ -159,11 +162,11 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 				}
 			}
 			if (borderlinesWithFirstFound == null) {
-				borderlinesWithFirstFound = new HashMap<List<IPicture>, PartialSolution>();
+				borderlinesWithFirstFound = new HashMap<List<Condition>, PartialSolution>();
 				partialSolutionIdsWithBorderlines.put(idsForField,
 						borderlinesWithFirstFound);
 			}
-			List<IPicture> borderline = calcBorderline(partialSolution
+			List<Condition> borderline = calcBorderline(partialSolution
 					.getField());
 			if (borderlinesWithFirstFound.containsKey(borderline)) {
 				PartialSolution alreadyFound = borderlinesWithFirstFound
@@ -180,7 +183,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			}
 		}
 		LinkedList<PartialSolution> result = new LinkedList<PartialSolution>();
-		for (HashMap<List<IPicture>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
+		for (HashMap<List<Condition>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
 				.values()) {
 			if (partialSolutionsForIds != null) {
 				for (PartialSolution currentPartialSolution : partialSolutionsForIds
@@ -197,53 +200,55 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	@Override
 	public Set<PartialSolution> filterPartialSolutions(
 			Collection<PartialSolution> partialSolutions) {
-		Map<Set<Integer>, HashMap<List<IPicture>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<IPicture>, PartialSolution>>();
+		Map<Set<Integer>, HashMap<List<Condition>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<Condition>, PartialSolution>>();
 
 		for (PartialSolution partialSolution : partialSolutions) {
-			Set<Integer> idsForField = idsForField(partialSolution.getField());
-			HashMap<List<IPicture>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
+			Field currentField = partialSolution.getField();
+			Set<Integer> idsForField = idsForField(currentField);
+			HashMap<List<Condition>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
 					.get(idsForField);
 			if (borderlinesWithFirstFound == null) {
-				borderlinesWithFirstFound = new HashMap<List<IPicture>, PartialSolution>();
+				borderlinesWithFirstFound = new HashMap<List<Condition>, PartialSolution>();
 				partialSolutionIdsWithBorderlines.put(idsForField,
 						borderlinesWithFirstFound);
 			}
-			List<IPicture> borderline = calcBorderline(partialSolution
-					.getField());
-			if (borderlinesWithFirstFound.containsKey(borderline)) {
-				PartialSolution alreadyFound = borderlinesWithFirstFound
-						.get(borderline);
-				if (alreadyFound != null) {
-					if (!partialSolution.getField().equals(
-							alreadyFound.getField())) {
-						borderlinesWithFirstFound.put(borderline, null);
-					}
+			List<Condition> borderline = calcBorderline(currentField);
+			if (!borderlinesWithFirstFound.containsKey(borderline)) {
+				List<Card> allCards = currentField.getAllCards();
+				FieldWithConditions fieldWithConditions = new FieldWithConditions(currentField.getRows(), currentField.getCols(), allCards.size(), borderline);
+				Solver solver = new Solver();
+				Set<Field> solutions = new HashSet<Field>(solver.findAllSolutions(new TestGameConfig(allCards, fieldWithConditions)));
+				if(solutions.size() == 1){
+					borderlinesWithFirstFound.put(borderline, partialSolution);
+				}else{
+					borderlinesWithFirstFound.put(borderline, null);
 				}
-			} else {
-				borderlinesWithFirstFound.put(borderline, partialSolution);
 			}
 		}
-		Set<PartialSolution> result = new HashSet<PartialSolution>();
-		for (HashMap<List<IPicture>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
+		Set<PartialSolution> filtered = new HashSet<PartialSolution>();
+		for (HashMap<List<Condition>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
 				.values()) {
 			for (PartialSolution currentPartialSolution : partialSolutionsForIds
 					.values()) {
 				if (currentPartialSolution != null) {
-					result.add(currentPartialSolution);
+					filtered.add(currentPartialSolution);
 				}
 			}
 		}
-		return result;
-//		return partialSolutions;
+
+		return filtered;
+		// return partialSolutions;
 	}
 
-	List<IPicture> calcBorderline(Field field) {
-		List<IPicture> borderline = new LinkedList<IPicture>();
-		if (field.getCurrentCoordinates().getCol() < field.getCols()) {
-			borderline.add(field.getCurrentCoordinates().currentCard()
-					.getEast());
-		}
+	List<Condition> calcBorderline(Field field) {
+		List<Condition> borderline = new LinkedList<Condition>();
 		CardCoordinate coordinate = field.getCurrentCoordinates();
+		if (field.getCurrentCoordinates().getCol() < field.getCols()) {
+			Condition condition = new Condition(coordinate.getRow(),
+					coordinate.getCol(), coordinate.currentCard()
+							.getEast(), null);
+			borderline.add(condition);
+		}
 		for (int i = 1; i <= field.getCols(); i++) {
 			coordinate = coordinate.next();
 			if (coordinate == null) {
@@ -251,7 +256,8 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			}
 			Card northCard = coordinate.northCard();
 			if (northCard != null) {
-				borderline.add(northCard.getSouth());
+				Condition condition = new Condition(coordinate.getRow() - 1, coordinate.getCol(), null, northCard.getSouth());
+				borderline.add(condition);
 			}
 		}
 		return borderline;
