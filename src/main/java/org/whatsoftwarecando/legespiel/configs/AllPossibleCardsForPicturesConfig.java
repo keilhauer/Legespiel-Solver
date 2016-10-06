@@ -28,7 +28,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	private final ArrayList<Card> availableCards = new ArrayList<Card>();
 
 	public AllPossibleCardsForPicturesConfig() {
-		this(FourPictures.values(), 3, 3, true, true);
+		this(FourPictures.values(), 3, 2, true, true);
 	}
 
 	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable,
@@ -200,44 +200,103 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	@Override
 	public Set<PartialSolution> filterPartialSolutions(
 			Collection<PartialSolution> partialSolutions) {
-		Map<Set<Integer>, HashMap<List<Condition>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<Condition>, PartialSolution>>();
+		Set<PartialSolutionId> alreadyCalculated = new HashSet<PartialSolutionId>();
 
+		Solver solver = new Solver();
+		int count = 0;
+		int countEasy = 0;
+		double numberOfSolutions = 0;
+		Set<PartialSolution> filtered = new HashSet<PartialSolution>();
 		for (PartialSolution partialSolution : partialSolutions) {
 			Field currentField = partialSolution.getField();
 			Set<Integer> idsForField = idsForField(currentField);
-			HashMap<List<Condition>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
-					.get(idsForField);
-			if (borderlinesWithFirstFound == null) {
-				borderlinesWithFirstFound = new HashMap<List<Condition>, PartialSolution>();
-				partialSolutionIdsWithBorderlines.put(idsForField,
-						borderlinesWithFirstFound);
-			}
-			List<Condition> borderline = calcBorderline(currentField);
-			if (!borderlinesWithFirstFound.containsKey(borderline)) {
-				List<Card> allCards = currentField.getAllCards();
-				FieldWithConditions fieldWithConditions = new FieldWithConditions(currentField.getRows(), currentField.getCols(), allCards.size(), borderline);
-				Solver solver = new Solver();
-				Set<Field> solutions = new HashSet<Field>(solver.findAllSolutions(new TestGameConfig(allCards, fieldWithConditions)));
-				if(solutions.size() == 1){
-					borderlinesWithFirstFound.put(borderline, partialSolution);
-				}else{
-					borderlinesWithFirstFound.put(borderline, null);
-				}
-			}
-		}
-		Set<PartialSolution> filtered = new HashSet<PartialSolution>();
-		for (HashMap<List<Condition>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
-				.values()) {
-			for (PartialSolution currentPartialSolution : partialSolutionsForIds
-					.values()) {
-				if (currentPartialSolution != null) {
-					filtered.add(currentPartialSolution);
-				}
-			}
-		}
 
+			List<Condition> borderline = calcBorderline(currentField);
+			PartialSolutionId partialSolutionId = new PartialSolutionId(
+					idsForField, borderline);
+			if (!alreadyCalculated.contains(partialSolutionId)) {
+				List<Card> allCards = currentField.getAllCards();
+				FieldWithConditions fieldWithConditions = new FieldWithConditions(
+						currentField.getRows(), currentField.getCols(),
+						allCards.size(), borderline);
+				Set<Field> solutions = new HashSet<Field>(
+						solver.findAllSolutions(new TestGameConfig(allCards,
+								fieldWithConditions)));
+				if (solutions.size() == 1) {
+					filtered.add(partialSolution);
+				}
+				numberOfSolutions += solutions.size();
+				alreadyCalculated.add(partialSolutionId);
+				if (++count % 1000 == 0) {
+					System.out.print("#");
+				}
+			} else {
+				if (++countEasy % 1000 == 0) {
+					System.out.print("!");
+				}
+			}
+
+		}
+		System.out.println("Average number of solutions: "+(numberOfSolutions / count));
 		return filtered;
 		// return partialSolutions;
+	}
+
+	private class PartialSolutionId {
+
+		Set<Integer> idsForField;
+		List<Condition> conditions;
+
+		/**
+		 * @param idsForField
+		 * @param conditions
+		 */
+		public PartialSolutionId(Set<Integer> idsForField,
+				List<Condition> conditions) {
+			this.idsForField = idsForField;
+			this.conditions = conditions;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result
+					+ ((conditions == null) ? 0 : conditions.hashCode());
+			result = prime * result
+					+ ((idsForField == null) ? 0 : idsForField.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			PartialSolutionId other = (PartialSolutionId) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (conditions == null) {
+				if (other.conditions != null)
+					return false;
+			} else if (!conditions.equals(other.conditions))
+				return false;
+			if (idsForField == null) {
+				if (other.idsForField != null)
+					return false;
+			} else if (!idsForField.equals(other.idsForField))
+				return false;
+			return true;
+		}
+
+		private AllPossibleCardsForPicturesConfig getOuterType() {
+			return AllPossibleCardsForPicturesConfig.this;
+		}
+
 	}
 
 	List<Condition> calcBorderline(Field field) {
@@ -245,8 +304,8 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 		CardCoordinate coordinate = field.getCurrentCoordinates();
 		if (field.getCurrentCoordinates().getCol() < field.getCols()) {
 			Condition condition = new Condition(coordinate.getRow(),
-					coordinate.getCol(), coordinate.currentCard()
-							.getEast(), null);
+					coordinate.getCol(), coordinate.currentCard().getEast(),
+					null);
 			borderline.add(condition);
 		}
 		for (int i = 1; i <= field.getCols(); i++) {
@@ -256,7 +315,8 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			}
 			Card northCard = coordinate.northCard();
 			if (northCard != null) {
-				Condition condition = new Condition(coordinate.getRow() - 1, coordinate.getCol(), null, northCard.getSouth());
+				Condition condition = new Condition(coordinate.getRow() - 1,
+						coordinate.getCol(), null, northCard.getSouth());
 				borderline.add(condition);
 			}
 		}

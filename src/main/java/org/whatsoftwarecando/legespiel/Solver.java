@@ -108,24 +108,24 @@ public class Solver {
 					gameConfig.getAvailableCards());
 			Set<PartialSolution> partialSolutions = new HashSet<PartialSolution>();
 			partialSolutions.add(startingConfig);
-			int sizeOfField = emptyField.getRows() * emptyField.getCols();
-			for (int i = 1; i < sizeOfField; i++) {
-				System.out.println("Partial solutions with " + i + " cards:");
+			int cardsUntilFull = emptyField.getCardsUntilFull();
+			for (int i = 1; i < cardsUntilFull; i++) {
+				gameConfig.output("Partial solutions with " + i + " cards:");
 				partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
-				System.out.println("Total: " + partialSolutions.size());
+				gameConfig.output("Total: " + partialSolutions.size());
 					partialSolutions = gameConfig
 							.filterPartialSolutions(partialSolutions);
-				System.out.println("Filtered: " + partialSolutions.size());
+					gameConfig.output("Filtered: " + partialSolutions.size());
 			}
-			System.out.println("Solutions:");
+			gameConfig.output("Solutions:");
 			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
-			System.out.println("Total: " + partialSolutions.size());
+			gameConfig.output("Total: " + partialSolutions.size());
 			Set<Field> solutions = new HashSet<Field>();
 			for (PartialSolution currentSolution : partialSolutions) {
 				solutions.add(currentSolution.getField());
 			}
 			solutions = gameConfig.filterSolutions(solutions);
-			System.out.println("Filtered: " + solutions.size());
+			gameConfig.output("Filtered: " + solutions.size());
 			return new LinkedList<Field>(solutions);
 		} else {
 			return findAllSolutions(emptyField, gameConfig.getAvailableCards());

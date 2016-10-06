@@ -341,4 +341,8 @@ public class Field implements Comparable<Field> {
 		return 0;
 	}
 
+	public int getCardsUntilFull() {
+		return this.getRows() * this.getCols();
+	}
+
 }

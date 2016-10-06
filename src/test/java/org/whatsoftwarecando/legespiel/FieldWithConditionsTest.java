@@ -25,6 +25,7 @@ public class FieldWithConditionsTest {
 		TestGameConfig config = new TestGameConfig(allCards, fieldWithCondition);
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(config);
+		System.out.println(solutions);
 		assertEquals(8, solutions.size());
 	}
 }

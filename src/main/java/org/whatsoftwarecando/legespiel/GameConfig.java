@@ -22,5 +22,9 @@ public abstract class GameConfig {
 	public Set<Field> filterSolutions(Collection<Field> solutions){
 		return new HashSet<Field>(solutions);
 	}
+	
+	public void output(String str){
+		System.out.println(str);
+	}
 
 }

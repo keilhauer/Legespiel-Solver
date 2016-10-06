@@ -8,7 +8,8 @@ public class FieldWithConditions extends Field {
 
 	private final int rowComplete;
 	private final int colComplete;
-
+	private int cardsUntilFull;
+	
 	Map<Integer, Map<Integer, Condition>> conditions;
 
 	public FieldWithConditions(int rows, int cols, int cardsUntilFull,
@@ -16,12 +17,18 @@ public class FieldWithConditions extends Field {
 		super(rows, cols);
 		this.rowComplete = (cardsUntilFull - 1) / cols + 1;
 		this.colComplete = (cardsUntilFull - 1) % cols + 1;
+		this.cardsUntilFull = cardsUntilFull;
 		this.conditions = new HashMap<Integer, Map<Integer, Condition>>();
 
 		for (Condition currentCondition : conditions) {
 			addCondition(currentCondition.getRow(), currentCondition.getCol(),
 					currentCondition);
 		}
+	}
+	
+	@Override
+	public int getCardsUntilFull() {
+		return cardsUntilFull;
 	}
 
 	private FieldWithConditions(int rows, int cols, int rowComplete,

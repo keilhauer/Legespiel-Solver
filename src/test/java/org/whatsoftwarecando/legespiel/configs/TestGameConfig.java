@@ -30,4 +30,13 @@ public class TestGameConfig extends GameConfig {
 	public Field createEmptyField() {
 		return emptyField;
 	}
+	
+	@Override
+	public boolean isBfsNeeded(){
+		return false;
+	}
+	
+	@Override
+	public void output(String str){
+	}
 }
