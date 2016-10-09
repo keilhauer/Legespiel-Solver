@@ -7,7 +7,7 @@ import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 
-public class TestGameConfig extends GameConfig {
+public class GenericGameConfig extends GameConfig {
 
 	private final ArrayList<Card> availableCards;
 	private final Field emptyField;
@@ -16,7 +16,7 @@ public class TestGameConfig extends GameConfig {
 	 * @param availableCards
 	 * @param emptyField
 	 */
-	public TestGameConfig(List<Card> availableCards, Field emptyField) {
+	public GenericGameConfig(List<Card> availableCards, Field emptyField) {
 		this.availableCards = new ArrayList<Card>(availableCards);
 		this.emptyField = emptyField;
 	}

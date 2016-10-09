@@ -1,7 +1,6 @@
 package org.whatsoftwarecando.legespiel.configs;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +11,6 @@ import java.util.Set;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Condition;
-import org.whatsoftwarecando.legespiel.DuplicateCardsFinder;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.Field.CardCoordinate;
 import org.whatsoftwarecando.legespiel.FieldWithConditions;
@@ -21,30 +19,22 @@ import org.whatsoftwarecando.legespiel.IPicture;
 import org.whatsoftwarecando.legespiel.PartialSolution;
 import org.whatsoftwarecando.legespiel.Solver;
 
-public class AllPossibleCardsForPicturesConfig extends GameConfig {
+public class ExactlyOneSolutionConfig extends GameConfig {
 
 	private final int rowsInField;
 	private final int colsInField;
-	private final ArrayList<Card> availableCards = new ArrayList<Card>();
+	private final ArrayList<Card> availableCards;
 
-	public AllPossibleCardsForPicturesConfig() {
+	public ExactlyOneSolutionConfig() {
 		this(FourPictures.values(), 3, 2, true, true);
 	}
 
-	public AllPossibleCardsForPicturesConfig(IPicture[] picturesAvailable,
+	public ExactlyOneSolutionConfig(IPicture[] picturesAvailable,
 			int rowsInField, int colsInField,
 			boolean onlyOneSolutionPerCardSet, boolean eliminateDuplicateCards) {
-		init(picturesAvailable);
-		if (eliminateDuplicateCards) {
-			List<List<Card>> duplicates = new DuplicateCardsFinder()
-					.findDuplicateCards(availableCards);
-			if (duplicates.size() < availableCards.size()) {
-				availableCards.clear();
-				for (List<Card> currentCardEqClass : duplicates) {
-					availableCards.add(currentCardEqClass.get(0));
-				}
-			}
-		}
+		this.availableCards = new ArrayList<Card>(
+				AllPossibleCardsForPictures.generateCards(
+						FourPictures.values(), true));
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
 		System.out.println("Available cards: " + this.availableCards);
@@ -54,25 +44,11 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 
 	public enum FourPictures implements IPicture {
 
-		RED, GREEN, BLUE;// YELLOW;
+		RED, GREEN, BLUE; // YELLOW;
 
 		@Override
 		public boolean matches(IPicture other) {
 			return this == other;
-		}
-	}
-
-	private void init(final IPicture[] picturesAvailable,
-			IPicture... partialCard) {
-		if (partialCard != null && partialCard.length == 4) {
-			availableCards.add(new Card(partialCard));
-			return;
-		}
-		for (IPicture p : picturesAvailable) {
-			IPicture[] newPictures = Arrays.copyOf(partialCard,
-					partialCard.length + 1);
-			newPictures[partialCard.length] = p;
-			init(picturesAvailable, newPictures);
 		}
 	}
 
@@ -96,6 +72,7 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 	public Set<Field> filterSolutions(Collection<Field> solutions) {
 		Map<Set<Integer>, Field> solutionIdsWithFirstFound = new HashMap<Set<Integer>, Field>();
 
+		int countFiltered = 0;
 		for (Field solution : solutions) {
 			Set<Integer> solutionIds = idsForField(solution);
 			if (solutionIdsWithFirstFound.containsKey(solutionIds)) {
@@ -122,16 +99,50 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			} else {
 				solutionIdsWithFirstFound.put(solutionIds, solution);
 			}
-
-		}
-		Set<Field> result = new HashSet<Field>();
-		for (Field currentSolution : solutionIdsWithFirstFound.values()) {
-			if (currentSolution != null) {
-				result.add(currentSolution);
+			if (++countFiltered % 1000 == 0) {
+				System.out.print("#");
 			}
 		}
-		return result;
-		// return solutions;
+
+		System.out.println("\nFirst filter done.");
+		countFiltered = 0;
+		Set<Field> noDuplicates = new HashSet<Field>();
+		for (Field currentSolution : solutionIdsWithFirstFound.values()) {
+			if (currentSolution != null) {
+				noDuplicates.add(currentSolution);
+				if (++countFiltered % 1000 == 0) {
+					System.out.print("#");
+				}
+			}
+		}
+		System.out.println("\nDuplicates removed.");
+		System.out.println("Solutions left: " + noDuplicates.size());
+		Set<Field> onlyOneSolution = new HashSet<Field>();
+		Solver solver = new Solver();
+		int countCorrect = 0;
+		int countIncorrect = 0;
+		for (Field solution : noDuplicates) {
+			GenericGameConfig currentSolutionConfig = new GenericGameConfig(
+					solution.getAllCards(), this.createEmptyField());
+			List<Field> solutionsForCurrent = solver
+					.findAllSolutions(currentSolutionConfig);
+			List<Field> solutionsWithoutRotations = solver
+					.removeRotationBasedDuplicates(solutionsForCurrent);
+			if (solutionsWithoutRotations.size() == 1) {
+				if (++countCorrect % 1000 == 0) {
+					System.out.print("1");
+				}
+				onlyOneSolution.add(solution);
+			} else {
+				if (++countIncorrect % 1000 == 0) {
+					System.out.print("m");
+				}
+			}
+		}
+		System.out
+				.println("\nExtracted all configurations with exactly one solution.");
+
+		return onlyOneSolution;
 	}
 
 	private Set<Integer> idsForField(Field field) {
@@ -148,65 +159,14 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 		return idsForField;
 	}
 
-	public List<PartialSolution> filterPartialSolutionsWrong(
-			List<PartialSolution> partialSolutions) {
-		Map<Set<Integer>, HashMap<List<Condition>, PartialSolution>> partialSolutionIdsWithBorderlines = new HashMap<Set<Integer>, HashMap<List<Condition>, PartialSolution>>();
-
-		for (PartialSolution partialSolution : partialSolutions) {
-			Set<Integer> idsForField = idsForField(partialSolution.getField());
-			HashMap<List<Condition>, PartialSolution> borderlinesWithFirstFound = partialSolutionIdsWithBorderlines
-					.get(idsForField);
-			if (partialSolutionIdsWithBorderlines.containsKey(idsForField)) {
-				if (borderlinesWithFirstFound == null) {
-					continue;
-				}
-			}
-			if (borderlinesWithFirstFound == null) {
-				borderlinesWithFirstFound = new HashMap<List<Condition>, PartialSolution>();
-				partialSolutionIdsWithBorderlines.put(idsForField,
-						borderlinesWithFirstFound);
-			}
-			List<Condition> borderline = calcBorderline(partialSolution
-					.getField());
-			if (borderlinesWithFirstFound.containsKey(borderline)) {
-				PartialSolution alreadyFound = borderlinesWithFirstFound
-						.get(borderline);
-				if (alreadyFound != null) {
-					if (!partialSolution.getField().equals(
-							alreadyFound.getField())) {
-						partialSolutionIdsWithBorderlines
-								.put(idsForField, null);
-					}
-				}
-			} else {
-				borderlinesWithFirstFound.put(borderline, partialSolution);
-			}
-		}
-		LinkedList<PartialSolution> result = new LinkedList<PartialSolution>();
-		for (HashMap<List<Condition>, PartialSolution> partialSolutionsForIds : partialSolutionIdsWithBorderlines
-				.values()) {
-			if (partialSolutionsForIds != null) {
-				for (PartialSolution currentPartialSolution : partialSolutionsForIds
-						.values()) {
-					if (currentPartialSolution != null) {
-						result.add(currentPartialSolution);
-					}
-				}
-			}
-		}
-		return result;
-	}
-
 	@Override
 	public Set<PartialSolution> filterPartialSolutions(
 			Collection<PartialSolution> partialSolutions) {
-		Set<PartialSolutionId> alreadyCalculated = new HashSet<PartialSolutionId>();
+		Map<PartialSolutionId, PartialSolution> alreadyCalculated = new HashMap<PartialSolutionId, PartialSolution>();
 
 		Solver solver = new Solver();
 		int count = 0;
 		int countEasy = 0;
-		double numberOfSolutions = 0;
-		Set<PartialSolution> filtered = new HashSet<PartialSolution>();
 		for (PartialSolution partialSolution : partialSolutions) {
 			Field currentField = partialSolution.getField();
 			Set<Integer> idsForField = idsForField(currentField);
@@ -214,32 +174,61 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			List<Condition> borderline = calcBorderline(currentField);
 			PartialSolutionId partialSolutionId = new PartialSolutionId(
 					idsForField, borderline);
-			if (!alreadyCalculated.contains(partialSolutionId)) {
-				List<Card> allCards = currentField.getAllCards();
-				FieldWithConditions fieldWithConditions = new FieldWithConditions(
-						currentField.getRows(), currentField.getCols(),
-						allCards.size(), borderline);
-				Set<Field> solutions = new HashSet<Field>(
-						solver.findAllSolutions(new TestGameConfig(allCards,
-								fieldWithConditions)));
-				if (solutions.size() == 1) {
-					filtered.add(partialSolution);
-				}
-				numberOfSolutions += solutions.size();
-				alreadyCalculated.add(partialSolutionId);
-				if (++count % 1000 == 0) {
-					System.out.print("#");
-				}
-			} else {
+			if (alreadyCalculated.containsKey(partialSolutionId)) {
+				alreadyCalculated.put(partialSolutionId, null);
 				if (++countEasy % 1000 == 0) {
 					System.out.print("!");
+				}
+			} else {
+				alreadyCalculated.put(partialSolutionId, partialSolution);
+				if (++count % 1000 == 0) {
+					System.out.print("#");
 				}
 			}
 
 		}
-		System.out.println("Average number of solutions: "+(numberOfSolutions / count));
+
+		System.out.println("\nFirst filter done.");
+
+		int countWithOne = 0;
+		int countWithMore = 0;
+		double numberOfSolutions = 0;
+		Set<PartialSolution> filtered = new HashSet<PartialSolution>();
+		for (PartialSolution current : alreadyCalculated.values()) {
+			if (current == null) {
+				if (++countEasy % 1000 == 0) {
+					System.out.print("!");
+				}
+			} else {
+				Field currentField = current.getField();
+				List<Card> allCards = currentField.getAllCards();
+				List<Condition> borderline = calcBorderline(currentField);
+				FieldWithConditions fieldWithConditions = new FieldWithConditions(
+						currentField.getRows(), currentField.getCols(),
+						allCards.size(), borderline);
+				Set<Field> solutions = new HashSet<Field>(
+						solver.findAllSolutions(new GenericGameConfig(allCards,
+								fieldWithConditions)));
+				if (solutions.size() == 1) {
+					filtered.add(current);
+					if (++countWithOne % 1000 == 0) {
+						System.out.print("o");
+					}
+				} else {
+					if (++countWithMore % 1000 == 0) {
+						System.out.print("m");
+					}
+				}
+
+				numberOfSolutions += solutions.size();
+
+			}
+
+		}
+
+		System.out.println("\nAverage number of solutions: "
+				+ (numberOfSolutions / count));
 		return filtered;
-		// return partialSolutions;
 	}
 
 	private class PartialSolutionId {
@@ -293,8 +282,8 @@ public class AllPossibleCardsForPicturesConfig extends GameConfig {
 			return true;
 		}
 
-		private AllPossibleCardsForPicturesConfig getOuterType() {
-			return AllPossibleCardsForPicturesConfig.this;
+		private ExactlyOneSolutionConfig getOuterType() {
+			return ExactlyOneSolutionConfig.this;
 		}
 
 	}

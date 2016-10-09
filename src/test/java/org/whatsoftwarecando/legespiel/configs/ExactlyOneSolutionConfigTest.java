@@ -13,16 +13,16 @@ import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Condition;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.Solver;
-import org.whatsoftwarecando.legespiel.configs.AllPossibleCardsForPicturesConfig.FourPictures;
+import org.whatsoftwarecando.legespiel.configs.ExactlyOneSolutionConfig.FourPictures;
 
-public class AllPossibleCardsForPicturesConfigTest {
+public class ExactlyOneSolutionConfigTest {
 
 	@Test
 	public void testCalcBorderline1() {
 		Field field = new Field(2, 2);
 		field = field.addedIfFits(new Card(FourPictures.GREEN,
 				FourPictures.GREEN, FourPictures.BLUE, FourPictures.GREEN));
-		List<Condition> borderline = new AllPossibleCardsForPicturesConfig()
+		List<Condition> borderline = new ExactlyOneSolutionConfig()
 				.calcBorderline(field);
 		assertEquals(2, borderline.size());
 		assertEquals(new Condition(1, 1, FourPictures.BLUE, null), borderline.get(0));
@@ -36,7 +36,7 @@ public class AllPossibleCardsForPicturesConfigTest {
 				FourPictures.GREEN, FourPictures.BLUE, FourPictures.GREEN));
 		field = field.addedIfFits(new Card(FourPictures.GREEN,
 				FourPictures.BLUE, FourPictures.GREEN, FourPictures.RED));
-		List<Condition> borderline = new AllPossibleCardsForPicturesConfig()
+		List<Condition> borderline = new ExactlyOneSolutionConfig()
 				.calcBorderline(field);
 		assertEquals(2, borderline.size());
 		assertEquals(new Condition(1, 1, null, FourPictures.GREEN), borderline.get(0));
@@ -52,7 +52,7 @@ public class AllPossibleCardsForPicturesConfigTest {
 				FourPictures.BLUE, FourPictures.GREEN, FourPictures.RED));
 		field = field.addedIfFits(new Card(FourPictures.GREEN,
 				FourPictures.RED, FourPictures.RED, FourPictures.BLUE));
-		List<Condition> borderline = new AllPossibleCardsForPicturesConfig()
+		List<Condition> borderline = new ExactlyOneSolutionConfig()
 				.calcBorderline(field);
 		assertEquals(2, borderline.size());
 		assertEquals(new Condition(2, 1, FourPictures.RED, null), borderline.get(0));
@@ -61,39 +61,32 @@ public class AllPossibleCardsForPicturesConfigTest {
 
 	@Test
 	public void reallyOnlyOneSolution() {
-		AllPossibleCardsForPicturesConfig testConfig = new AllPossibleCardsForPicturesConfig();
+		ExactlyOneSolutionConfig testConfig = new ExactlyOneSolutionConfig();
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(testConfig);
-		Map<Field, List<Field>> failures = new HashMap<Field, List<Field>>();
+		Map<Field, List<Field>> moreSolutions = new HashMap<Field, List<Field>>();
 		Set<Field> correctSolutions = new HashSet<Field>();
 		Set<Field> noSolution = new HashSet<Field>();
 		for (Field solution : solutions) {
-			TestGameConfig currentSolutionConfig = new TestGameConfig(
+			GenericGameConfig currentSolutionConfig = new GenericGameConfig(
 					solution.getAllCards(), testConfig.createEmptyField());
-			solver = new Solver();
 			List<Field> solutionsForCurrent = solver
 					.findAllSolutions(currentSolutionConfig);
 			List<Field> solutionsWithoutRotations = solver
 					.removeRotationBasedDuplicates(solutionsForCurrent);
 			if (solutionsWithoutRotations.size() > 1) {
-				failures.put(solution, solutionsWithoutRotations);
+				moreSolutions.put(solution, solutionsWithoutRotations);
 			} else if (solutionsWithoutRotations.size() == 1) {
 				correctSolutions.add(solution);
 			} else {
 				noSolution.add(solution);
 			}
 		}
-		assertEquals("No solution for " + noSolution, 0, noSolution.size());
-		System.out.println(solutions.size() + " solutions " + solutions);
-		System.out.println(correctSolutions.size() + " correct solutions "
-				+ correctSolutions);
-		List<Field> correctSolutionsWithoutRotations = solver
-				.removeRotationBasedDuplicates(correctSolutions);
-		System.out.println(correctSolutionsWithoutRotations.size()
-				+ " correct solutions without rotations "
-				+ correctSolutionsWithoutRotations);
-		assertEquals(failures.size() + " failures out of " + solutions.size()
-				+ " solutions: " + failures, 0, failures.size());
+		assertEquals(noSolution.size() + " out of " + solutions.size()
+				+ " with no solutions: " + noSolution, 0, noSolution.size());
+		assertEquals(moreSolutions.size() + " failures out of " + solutions.size()
+				+ " solutions: " + moreSolutions, 0, moreSolutions.size());
+
 	}
 
 }
