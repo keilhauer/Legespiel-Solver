@@ -26,15 +26,14 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	private final ArrayList<Card> availableCards;
 
 	public ExactlyOneSolutionConfig() {
-		this(FourPictures.values(), 3, 2, true, true);
+		this(FourPictures.values(), 3, 3, true);
 	}
 
 	public ExactlyOneSolutionConfig(IPicture[] picturesAvailable,
-			int rowsInField, int colsInField,
-			boolean onlyOneSolutionPerCardSet, boolean eliminateDuplicateCards) {
+			int rowsInField, int colsInField, boolean eliminateDuplicateCards) {
 		this.availableCards = new ArrayList<Card>(
 				AllPossibleCardsForPictures.generateCards(
-						FourPictures.values(), true));
+						FourPictures.values(), eliminateDuplicateCards));
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
 		System.out.println("Available cards: " + this.availableCards);
