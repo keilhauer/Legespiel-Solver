@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
@@ -12,7 +12,7 @@ import org.whatsoftwarecando.legespiel.IPicture;
  * http://www.comedix.de/medien/lit/kartenlegespiel.php for more information
  *
  */
-public class AsterixKartenlegespielConfig implements IGameConfig {
+public class AsterixKartenlegespielConfig extends GameConfig {
 
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 

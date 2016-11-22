@@ -6,9 +6,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
 
@@ -19,11 +22,11 @@ public class Solver {
 	public static void main(String[] argv) throws IOException,
 			URISyntaxException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		IGameConfig gameConfig = null;
+		GameConfig gameConfig = null;
 		if (argv.length == 0) {
 			gameConfig = new AbsolutKniffligConfig();
 		} else {
-			gameConfig = (IGameConfig) Class
+			gameConfig = (GameConfig) Class
 					.forName(
 							AbsolutKniffligConfig.class.getPackage().getName() + "."
 									+ argv[0]).newInstance();
@@ -45,6 +48,7 @@ public class Solver {
 		long startTime = System.nanoTime();
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(gameConfig);
+
 		long timeNeeded = System.nanoTime() - startTime;
 		System.out.println("Tried " + solver.numberOfTries()
 				+ " card rotations -> Found all " + solutions.size()
@@ -71,10 +75,9 @@ public class Solver {
 		return numberOfTries;
 	}
 
-	private static void writeHtml(IGameConfig gameConfig,
-			List<Field> solutions, String filename, String title)
-			throws URISyntaxException, UnsupportedEncodingException,
-			IOException {
+	private static void writeHtml(GameConfig gameConfig, Collection<Field> solutions,
+			String filename, String title) throws URISyntaxException,
+			UnsupportedEncodingException, IOException {
 		// Preparing HTML-Output
 		StringBuffer sb = new StringBuffer();
 		for (Field originalSolution : solutions) {
@@ -97,14 +100,57 @@ public class Solver {
 				+ htmlOutputFile);
 	}
 
-	public List<Field> findAllSolutions(IGameConfig gameConfig) {
-		return findAllSolutionsStart(gameConfig.createEmptyField(),
-				gameConfig.getAvailableCards());
+	public List<Field> findAllSolutions(GameConfig gameConfig) {
+		numberOfTries = 0;
+		Field emptyField = gameConfig.createEmptyField();
+		if (gameConfig.isBfsNeeded()) {
+			PartialSolution startingConfig = new PartialSolution(emptyField,
+					gameConfig.getAvailableCards());
+			Set<PartialSolution> partialSolutions = new HashSet<PartialSolution>();
+			partialSolutions.add(startingConfig);
+			int cardsUntilFull = emptyField.getCardsUntilFull();
+			for (int i = 1; i < cardsUntilFull; i++) {
+				gameConfig.output("Partial solutions with " + i + " cards:");
+				partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
+				gameConfig.output("Total: " + partialSolutions.size());
+					partialSolutions = gameConfig
+							.filterPartialSolutions(partialSolutions);
+					gameConfig.output("Filtered: " + partialSolutions.size());
+			}
+			gameConfig.output("Solutions:");
+			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
+			gameConfig.output("Total: " + partialSolutions.size());
+			Set<Field> solutions = new HashSet<Field>();
+			for (PartialSolution currentSolution : partialSolutions) {
+				solutions.add(currentSolution.getField());
+			}
+			solutions = gameConfig.filterSolutions(solutions);
+			gameConfig.output("Filtered: " + solutions.size());
+			return new LinkedList<Field>(solutions);
+		} else {
+			return findAllSolutions(emptyField, gameConfig.getAvailableCards());
+		}
+
 	}
 
-	List<Field> findAllSolutionsStart(Field field, List<Card> cards) {
-		numberOfTries = 0;
-		return findAllSolutions(field, cards);
+	Set<PartialSolution> findSolutionsWithOneMoreCard(
+			Collection<PartialSolution> partialSolutions) {
+		Set<PartialSolution> partialSolutionsWithOneMoreCard = new HashSet<PartialSolution>();
+
+		for (PartialSolution partialSolution : partialSolutions) {
+			List<Field> nextPossibleMoves = nextPossibleMoves(
+					partialSolution.getField(),
+					partialSolution.getRemainingCards());
+			for (Field nextPossibleMove : nextPossibleMoves) {
+				List<Card> remaining = removed(nextPossibleMove.getLastCard(),
+						partialSolution.getRemainingCards());
+				PartialSolution partialSolutionWithOneMoreCard = new PartialSolution(
+						nextPossibleMove, remaining);
+				partialSolutionsWithOneMoreCard
+						.add(partialSolutionWithOneMoreCard);
+			}
+		}
+		return partialSolutionsWithOneMoreCard;
 	}
 
 	List<Field> findAllSolutions(Field field, List<Card> cards) {
@@ -147,16 +193,22 @@ public class Solver {
 		return fieldsWithOneMoreCard;
 	}
 
-	List<Field> removeRotationBasedDuplicates(List<Field> solutions) {
+	public List<Field> removeRotationBasedDuplicates(Collection<Field> solutions) {
 		LinkedHashSet<Field> resultSet = new LinkedHashSet<Field>(solutions);
 		for (Field solution : solutions) {
 			if (resultSet.contains(solution)) {
 				Field turned90 = solution.turned90DegreesClockwise();
 				Field turned180 = turned90.turned90DegreesClockwise();
 				Field turned270 = turned180.turned90DegreesClockwise();
-				resultSet.remove(turned90);
-				resultSet.remove(turned180);
-				resultSet.remove(turned270);
+				if (!turned90.equals(solution)) {
+					resultSet.remove(turned90);
+				}
+				if (!turned180.equals(solution)) {
+					resultSet.remove(turned180);
+				}
+				if (!turned270.equals(solution)) {
+					resultSet.remove(turned270);
+				}
 			}
 		}
 		return new LinkedList<Field>(resultSet);

@@ -1,18 +1,22 @@
 package org.whatsoftwarecando.legespiel;
 
-public class Card {
+public class Card implements Comparable<Card>{
 
 	private static int ID_COUNTER = 1;
-	
+
 	private final int id;
 	private final IPicture north;
 	private final IPicture west;
 	private final IPicture east;
 	private final IPicture south;
 	private final int rotationClockwise;
-	
+
 	public Card(IPicture north, IPicture west, IPicture east, IPicture south) {
 		this(ID_COUNTER++, north, west, east, south, 0);
+	}
+
+	public Card(IPicture[] pictures) {
+		this(pictures[0], pictures[1], pictures[2], pictures[3]);
 	}
 
 	private Card(int id, IPicture north, IPicture west, IPicture east,
@@ -46,9 +50,13 @@ public class Card {
 		return south;
 	}
 
+	public int getRotationClockwise() {
+		return rotationClockwise;
+	}
+
 	public Card turned90DegreesClockwise() {
 		return new Card(this.id, this.west, this.south, this.north, this.east,
-				this.rotationClockwise + 90);
+				(this.rotationClockwise + 90) % 360);
 	}
 
 	@Override
@@ -92,6 +100,15 @@ public class Card {
 	public String toString() {
 		return "Card [id=" + id + ", north=" + north + ", west=" + west
 				+ ", east=" + east + ", south=" + south + "]";
+	}
+
+	@Override
+	public int compareTo(Card o) {
+		int compareIds = new Integer(this.getId()).compareTo(o.getId());
+		if(compareIds != 0){
+			return compareIds;
+		}
+		return new Integer(this.getRotationClockwise()).compareTo(o.getRotationClockwise());
 	}
 
 }

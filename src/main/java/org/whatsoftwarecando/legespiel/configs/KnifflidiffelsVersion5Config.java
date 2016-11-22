@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.IGameConfig;
+import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on "Knifflidiffels". This is version 5 according to
  * http://www.juliesdiddlsamling.dk/spil/spil01.htm#table3
+ * 
+ * Please find more information on this game and on duplicate cards under
+ * http://whatsoftwarecando.org/en/solving-knifflidiffels-legespiel-duplicate-cards/
  */
-public class KnifflidiffelsVersion5Config implements IGameConfig {
+public class KnifflidiffelsVersion5Config extends GameConfig {
 
 	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
 
