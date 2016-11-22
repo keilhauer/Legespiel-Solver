@@ -25,7 +25,7 @@ public class Solver {
 		} else {
 			gameConfig = (IGameConfig) Class
 					.forName(
-							Solver.class.getPackage().getName() + ".configs."
+							AbsolutKniffligConfig.class.getPackage().getName() + "."
 									+ argv[0]).newInstance();
 		}
 		System.out.println("Using GameConfig: "
