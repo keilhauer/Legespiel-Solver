@@ -189,6 +189,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 
 		System.out.println("\nFirst filter done.");
 
+		countEasy = 0;
 		int countWithOne = 0;
 		int countWithMore = 0;
 		double numberOfSolutions = 0;
