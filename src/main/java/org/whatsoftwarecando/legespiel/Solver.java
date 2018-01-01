@@ -53,7 +53,7 @@ public class Solver {
 		List<Field> originalSolutions = solver.removeRotationBasedDuplicates(solutions);
 		System.out.println("Removed rotation based duplicates and other look-alikes -> " + originalSolutions.size()
 				+ " original solutions remaining");
-		writeHtml(gameConfig, originalSolutions, "allOriginalSolutions", "Original Solutions");
+		writeHtml(gameConfig, originalSolutions, "originalSolutions", "Original Solutions");
 	}
 
 	/**
