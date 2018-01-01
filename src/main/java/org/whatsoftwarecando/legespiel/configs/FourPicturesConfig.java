@@ -7,21 +7,34 @@ import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.configs.ExactlyOneSolutionConfig.FourPictures;
 
-public class FourPicturesConfig extends GameConfig{
+public class FourPicturesConfig extends GameConfig {
+
+	private static ArrayList<Card> INSTANCE_AVAILABLE_CARDS;
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		ArrayList<Card> result = new ArrayList<Card>();
-		result.add(new Card(FourPictures.RED, FourPictures.RED, FourPictures.RED, FourPictures.RED));
-		result.add(new Card(FourPictures.BLUE, FourPictures.RED, FourPictures.GREEN, FourPictures.BLUE));
-		result.add(new Card(FourPictures.GREEN, FourPictures.GREEN, FourPictures.GREEN, FourPictures.GREEN));
-		result.add(new Card(FourPictures.RED, FourPictures.RED, FourPictures.RED, FourPictures.BLUE));
-		result.add(new Card(FourPictures.BLUE, FourPictures.RED, FourPictures.GREEN, FourPictures.GREEN));
-		result.add(new Card(FourPictures.GREEN, FourPictures.GREEN, FourPictures.GREEN, FourPictures.BLUE));
-		result.add(new Card(FourPictures.BLUE, FourPictures.BLUE, FourPictures.BLUE, FourPictures.BLUE));
-		result.add(new Card(FourPictures.GREEN, FourPictures.BLUE, FourPictures.BLUE, FourPictures.BLUE));
-		result.add(new Card(FourPictures.BLUE, FourPictures.BLUE, FourPictures.RED, FourPictures.RED));
-		return result;
+	public synchronized ArrayList<Card> getAvailableCards() {
+		if (INSTANCE_AVAILABLE_CARDS == null) {
+			INSTANCE_AVAILABLE_CARDS = new ArrayList<Card>();
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.RED, FourPictures.RED, FourPictures.RED, FourPictures.RED));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.BLUE, FourPictures.RED, FourPictures.GREEN, FourPictures.BLUE));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.GREEN, FourPictures.GREEN, FourPictures.GREEN, FourPictures.GREEN));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.RED, FourPictures.RED, FourPictures.RED, FourPictures.BLUE));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.BLUE, FourPictures.RED, FourPictures.GREEN, FourPictures.GREEN));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.GREEN, FourPictures.GREEN, FourPictures.GREEN, FourPictures.BLUE));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.BLUE, FourPictures.BLUE, FourPictures.BLUE, FourPictures.BLUE));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.GREEN, FourPictures.BLUE, FourPictures.BLUE, FourPictures.BLUE));
+			INSTANCE_AVAILABLE_CARDS
+					.add(new Card(FourPictures.BLUE, FourPictures.BLUE, FourPictures.RED, FourPictures.RED));
+		}
+		return INSTANCE_AVAILABLE_CARDS;
 	}
 
 	@Override

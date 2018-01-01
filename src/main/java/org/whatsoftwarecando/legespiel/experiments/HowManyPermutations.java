@@ -42,28 +42,28 @@ public class HowManyPermutations {
 	}
 
 	private static List<Card> getAvailableCards() {
-		List<List<IPicture>> picturesForCards = findPermutations(Arrays
+		List<List<Picture>> picturesForCards = findPermutations(Arrays
 				.asList(Picture.values()));
 		List<Card> cards = new LinkedList<Card>();
-		for (List<IPicture> pictures : picturesForCards) {
+		for (List<Picture> pictures : picturesForCards) {
 			cards.add(new Card(pictures.get(0), pictures.get(1), pictures
 					.get(2), pictures.get(3)));
 		}
 		return new ArrayList<Card>(cards);
 	}
 
-	private static List<List<IPicture>> findPermutations(List<IPicture> pictures) {
-		List<List<IPicture>> result = new LinkedList<List<IPicture>>();
+	private static List<List<Picture>> findPermutations(List<Picture> pictures) {
+		List<List<Picture>> result = new LinkedList<List<Picture>>();
 		if (pictures.size() == 1) {
 			result.add(pictures);
 		}
 
-		for (IPicture picture : pictures) {
-			List<IPicture> oneRemoved = new LinkedList<IPicture>(pictures);
+		for (Picture picture : pictures) {
+			List<Picture> oneRemoved = new LinkedList<Picture>(pictures);
 			oneRemoved.remove(picture);
-			List<List<IPicture>> permutationsWithOneRemoved = findPermutations(oneRemoved);
-			for (List<IPicture> current : permutationsWithOneRemoved) {
-				List<IPicture> permutation = new LinkedList<IPicture>();
+			List<List<Picture>> permutationsWithOneRemoved = findPermutations(oneRemoved);
+			for (List<Picture> current : permutationsWithOneRemoved) {
+				List<Picture> permutation = new LinkedList<Picture>();
 				permutation.add(picture);
 				permutation.addAll(current);
 				result.add(permutation);
