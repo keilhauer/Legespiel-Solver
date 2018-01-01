@@ -10,7 +10,7 @@ public class CardToGraphicsTest {
 
 	@Test
 	public void test() throws IOException {
-		Card card = new Crazy9KetnerOwls().getAvailableCards().get(0);
+		Card card = new Crazy9KetnerOwls().getAvailableCardsInstance().get(0);
 		new CardToGraphics().convert(card, "png");
 	}
 }

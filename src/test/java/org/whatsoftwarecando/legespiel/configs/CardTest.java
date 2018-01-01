@@ -32,8 +32,8 @@ public class CardTest {
 	@Test
 	public void testSimpleSolution() {
 		GameConfig config = new DasVerrueckteLoriotLegespielConfig();
-		Field field = config.createEmptyField();
-		for (Card current : config.getAvailableCards()) {
+		Field field = config.getEmptyFieldInstance();
+		for (Card current : config.getAvailableCardsInstance()) {
 			field = field.addedIfFits(current);
 			assertNotNull(field);
 		}

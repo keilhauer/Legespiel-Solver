@@ -22,12 +22,7 @@ public class GenericGameConfig extends GameConfig {
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		return availableCards;
-	}
-
-	@Override
-	public Field createEmptyField() {
+	protected Field createEmptyField() {
 		return emptyField;
 	}
 	
@@ -38,5 +33,10 @@ public class GenericGameConfig extends GameConfig {
 	
 	@Override
 	public void output(String str){
+	}
+
+	@Override
+	protected ArrayList<Card> createAvailableCards() {
+		return availableCards;
 	}
 }

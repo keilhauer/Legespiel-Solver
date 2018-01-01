@@ -14,29 +14,6 @@ import org.whatsoftwarecando.legespiel.IPicture;
  */
 public class AbsolutKniffligConfig extends GameConfig {
 
-	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
-
-	static {
-		AVAILABLE_CARDS.add(new Card(Picture.MONKEY_2, Picture.PIPPI_1,
-				Picture.HORSE_2, Picture.PIPPI_1));
-		AVAILABLE_CARDS.add(new Card(Picture.MONKEY_2, Picture.HORSE_1,
-				Picture.PIPPI_1, Picture.MONKEY_2));
-		AVAILABLE_CARDS.add(new Card(Picture.HORSE_2, Picture.PIPPI_2,
-				Picture.PIPPI_1, Picture.MONKEY_2));
-		AVAILABLE_CARDS.add(new Card(Picture.PIPPI_2, Picture.HORSE_2,
-				Picture.HORSE_1, Picture.MONKEY_1));
-		AVAILABLE_CARDS.add(new Card(Picture.MONKEY_1, Picture.HORSE_2,
-				Picture.PIPPI_2, Picture.HORSE_2));
-		AVAILABLE_CARDS.add(new Card(Picture.MONKEY_1, Picture.PIPPI_1,
-				Picture.HORSE_1, Picture.PIPPI_1));
-		AVAILABLE_CARDS.add(new Card(Picture.MONKEY_2, Picture.MONKEY_1,
-				Picture.HORSE_1, Picture.PIPPI_2));
-		AVAILABLE_CARDS.add(new Card(Picture.HORSE_1, Picture.HORSE_2,
-				Picture.MONKEY_1, Picture.PIPPI_2));
-		AVAILABLE_CARDS.add(new Card(Picture.PIPPI_2, Picture.HORSE_1,
-				Picture.MONKEY_2, Picture.MONKEY_1));
-	}
-
 	enum Picture implements IPicture {
 
 		PIPPI_1(1), PIPPI_2(1), MONKEY_1(2), MONKEY_2(2), HORSE_1(3), HORSE_2(3);
@@ -50,8 +27,7 @@ public class AbsolutKniffligConfig extends GameConfig {
 		@Override
 		public boolean matches(IPicture other) {
 			if (other instanceof Picture) {
-				return this.pairNumber == ((Picture) other).pairNumber
-						&& this != other;
+				return this.pairNumber == ((Picture) other).pairNumber && this != other;
 			} else {
 				return false;
 			}
@@ -60,12 +36,22 @@ public class AbsolutKniffligConfig extends GameConfig {
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		return AVAILABLE_CARDS;
+	protected ArrayList<Card> createAvailableCards() {
+		ArrayList<Card> availableCards = new ArrayList<Card>();
+		availableCards.add(new Card(Picture.MONKEY_2, Picture.PIPPI_1, Picture.HORSE_2, Picture.PIPPI_1));
+		availableCards.add(new Card(Picture.MONKEY_2, Picture.HORSE_1, Picture.PIPPI_1, Picture.MONKEY_2));
+		availableCards.add(new Card(Picture.HORSE_2, Picture.PIPPI_2, Picture.PIPPI_1, Picture.MONKEY_2));
+		availableCards.add(new Card(Picture.PIPPI_2, Picture.HORSE_2, Picture.HORSE_1, Picture.MONKEY_1));
+		availableCards.add(new Card(Picture.MONKEY_1, Picture.HORSE_2, Picture.PIPPI_2, Picture.HORSE_2));
+		availableCards.add(new Card(Picture.MONKEY_1, Picture.PIPPI_1, Picture.HORSE_1, Picture.PIPPI_1));
+		availableCards.add(new Card(Picture.MONKEY_2, Picture.MONKEY_1, Picture.HORSE_1, Picture.PIPPI_2));
+		availableCards.add(new Card(Picture.HORSE_1, Picture.HORSE_2, Picture.MONKEY_1, Picture.PIPPI_2));
+		availableCards.add(new Card(Picture.PIPPI_2, Picture.HORSE_1, Picture.MONKEY_2, Picture.MONKEY_1));
+		return availableCards;
 	}
 
 	@Override
-	public Field createEmptyField() {
+	protected Field createEmptyField() {
 		return new Field(3, 3);
 	}
 }

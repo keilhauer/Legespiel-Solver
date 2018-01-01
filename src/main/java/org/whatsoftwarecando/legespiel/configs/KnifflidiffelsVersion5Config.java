@@ -16,36 +16,6 @@ import org.whatsoftwarecando.legespiel.IPicture;
  */
 public class KnifflidiffelsVersion5Config extends GameConfig {
 
-	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
-
-	static {
-		// Cards 1-3 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL,
-				Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL,
-				Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL,
-				Picture.HORSE));
-
-		// Cards 4-6 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG,
-				Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG,
-				Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG,
-				Picture.HORSE));
-
-		// Cards 7
-		AVAILABLE_CARDS.add(new Card(Picture.BOY, Picture.DOG, Picture.GIRL,
-				Picture.HORSE));
-
-		// Card 8-9 (identical)
-		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY,
-				Picture.HORSE));
-		AVAILABLE_CARDS.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY,
-				Picture.HORSE));
-	}
-
 	enum Picture implements IPicture {
 
 		DOG, BOY, GIRL, HORSE;
@@ -57,12 +27,30 @@ public class KnifflidiffelsVersion5Config extends GameConfig {
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		return AVAILABLE_CARDS;
+	protected Field createEmptyField() {
+		return new Field(3, 3);
 	}
 
 	@Override
-	public Field createEmptyField() {
-		return new Field(3, 3);
+	protected ArrayList<Card> createAvailableCards() {
+		ArrayList<Card> availableCards = new ArrayList<Card>();
+
+		// Cards 1-3 (identical)
+		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL, Picture.HORSE));
+		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL, Picture.HORSE));
+		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.GIRL, Picture.HORSE));
+
+		// Cards 4-6 (identical)
+		availableCards.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG, Picture.HORSE));
+		availableCards.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG, Picture.HORSE));
+		availableCards.add(new Card(Picture.BOY, Picture.GIRL, Picture.DOG, Picture.HORSE));
+
+		// Cards 7
+		availableCards.add(new Card(Picture.BOY, Picture.DOG, Picture.GIRL, Picture.HORSE));
+
+		// Card 8-9 (identical)
+		availableCards.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY, Picture.HORSE));
+		availableCards.add(new Card(Picture.DOG, Picture.GIRL, Picture.BOY, Picture.HORSE));
+		return availableCards;
 	}
 }

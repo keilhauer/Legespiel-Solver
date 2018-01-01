@@ -32,7 +32,7 @@ public class Solver {
 		System.out.println("Using GameConfig: " + gameConfig.getClass().getSimpleName());
 		System.out.println("Looking for duplicate cards: ");
 		boolean foundDuplicateCards = false;
-		for (List<Card> duplicates : new DuplicateCardsFinder().findDuplicateCards(gameConfig.getAvailableCards())) {
+		for (List<Card> duplicates : new DuplicateCardsFinder().findDuplicateCards(gameConfig.getAvailableCardsInstance())) {
 			if (duplicates.size() > 1) {
 				System.out.println(duplicates);
 				foundDuplicateCards = true;
@@ -84,7 +84,7 @@ public class Solver {
 		Files.write(htmlOutputFile, allSolutionsHtml.getBytes("UTF-8"));
 
 		CardToGraphics cardToGraphics = new CardToGraphics();
-		for (Card card : gameConfig.getAvailableCards()) {
+		for (Card card : gameConfig.getAvailableCardsInstance()) {
 			byte[] cardImage = cardToGraphics.convert(card, "png");
 			Path imageOutputFile = Paths
 					.get("html-output/" + gameConfig.getClass().getSimpleName() + "/card" + card.getId() + ".png");
@@ -95,9 +95,9 @@ public class Solver {
 
 	public List<Field> findAllSolutions(GameConfig gameConfig) {
 		numberOfTries = 0;
-		Field emptyField = gameConfig.createEmptyField();
+		Field emptyField = gameConfig.getEmptyFieldInstance();
 		if (gameConfig.isBfsNeeded()) {
-			PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCards());
+			PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCardsInstance());
 			Set<PartialSolution> partialSolutions = new HashSet<PartialSolution>();
 			partialSolutions.add(startingConfig);
 			int cardsUntilFull = emptyField.getCardsUntilFull();
@@ -108,7 +108,7 @@ public class Solver {
 				partialSolutions = gameConfig.filterPartialSolutions(partialSolutions);
 				gameConfig.output("Filtered: " + partialSolutions.size());
 			}
-			gameConfig.output("Solutions:");
+			gameConfig.output("Solutions: ");
 			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
 			gameConfig.output("Total: " + partialSolutions.size());
 			Set<Field> solutions = new HashSet<Field>();
@@ -119,7 +119,7 @@ public class Solver {
 			gameConfig.output("Filtered: " + solutions.size());
 			return new LinkedList<Field>(solutions);
 		} else {
-			return findAllSolutions(emptyField, gameConfig.getAvailableCards());
+			return findAllSolutions(emptyField, gameConfig.getAvailableCardsInstance());
 		}
 
 	}

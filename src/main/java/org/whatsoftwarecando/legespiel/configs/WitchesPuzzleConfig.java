@@ -8,32 +8,10 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
- * Configuration based on Witches Puzzle (see http://georg.graf.priv.at/programming/witches-puzzle/ )
+ * Configuration based on Witches Puzzle (see
+ * http://georg.graf.priv.at/programming/witches-puzzle/ )
  */
-public class WitchesPuzzleConfig extends GameConfig{
-
-	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
-
-	static {
-		AVAILABLE_CARDS.add(new Card(Picture.GREEN_1, Picture.YELLOW_2,
-				Picture.RED_1, Picture.GREEN_2));
-		AVAILABLE_CARDS.add(new Card(Picture.GREEN_1, Picture.RED_2,
-				Picture.BLUE_1, Picture.YELLOW_2));
-		AVAILABLE_CARDS.add(new Card(Picture.YELLOW_1, Picture.BLUE_1,
-				Picture.GREEN_2, Picture.RED_2));
-		AVAILABLE_CARDS.add(new Card(Picture.GREEN_2, Picture.RED_1,
-				Picture.YELLOW_2, Picture.BLUE_1));
-		AVAILABLE_CARDS.add(new Card(Picture.RED_2, Picture.BLUE_2,
-				Picture.BLUE_1, Picture.YELLOW_1));
-		AVAILABLE_CARDS.add(new Card(Picture.BLUE_2, Picture.RED_2,
-				Picture.GREEN_1, Picture.BLUE_1));
-		AVAILABLE_CARDS.add(new Card(Picture.BLUE_2, Picture.RED_1,
-				Picture.YELLOW_2, Picture.GREEN_1));
-		AVAILABLE_CARDS.add(new Card(Picture.RED_2, Picture.GREEN_1,
-				Picture.BLUE_2, Picture.BLUE_1));
-		AVAILABLE_CARDS.add(new Card(Picture.RED_2, Picture.YELLOW_1,
-				Picture.YELLOW_2, Picture.GREEN_1));
-	}
+public class WitchesPuzzleConfig extends GameConfig {
 
 	enum Picture implements IPicture {
 
@@ -48,8 +26,7 @@ public class WitchesPuzzleConfig extends GameConfig{
 		@Override
 		public boolean matches(IPicture other) {
 			if (other instanceof Picture) {
-				return this.pairNumber == ((Picture) other).pairNumber
-						&& this != other;
+				return this.pairNumber == ((Picture) other).pairNumber && this != other;
 			} else {
 				return false;
 			}
@@ -58,12 +35,22 @@ public class WitchesPuzzleConfig extends GameConfig{
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		return AVAILABLE_CARDS;
+	protected Field createEmptyField() {
+		return new Field(3, 3);
 	}
 
 	@Override
-	public Field createEmptyField() {
-		return new Field(3, 3);
+	protected ArrayList<Card> createAvailableCards() {
+		ArrayList<Card> availableCards = new ArrayList<Card>();
+		availableCards.add(new Card(Picture.GREEN_1, Picture.YELLOW_2, Picture.RED_1, Picture.GREEN_2));
+		availableCards.add(new Card(Picture.GREEN_1, Picture.RED_2, Picture.BLUE_1, Picture.YELLOW_2));
+		availableCards.add(new Card(Picture.YELLOW_1, Picture.BLUE_1, Picture.GREEN_2, Picture.RED_2));
+		availableCards.add(new Card(Picture.GREEN_2, Picture.RED_1, Picture.YELLOW_2, Picture.BLUE_1));
+		availableCards.add(new Card(Picture.RED_2, Picture.BLUE_2, Picture.BLUE_1, Picture.YELLOW_1));
+		availableCards.add(new Card(Picture.BLUE_2, Picture.RED_2, Picture.GREEN_1, Picture.BLUE_1));
+		availableCards.add(new Card(Picture.BLUE_2, Picture.RED_1, Picture.YELLOW_2, Picture.GREEN_1));
+		availableCards.add(new Card(Picture.RED_2, Picture.GREEN_1, Picture.BLUE_2, Picture.BLUE_1));
+		availableCards.add(new Card(Picture.RED_2, Picture.YELLOW_1, Picture.YELLOW_2, Picture.GREEN_1));
+		return availableCards;
 	}
 }

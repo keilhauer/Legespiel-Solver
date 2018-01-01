@@ -23,25 +23,21 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 
 	private final int rowsInField;
 	private final int colsInField;
-	private final ArrayList<Card> availableCards;
+	private final boolean eliminateDuplicateCards;
 
 	public ExactlyOneSolutionConfig() {
-		this(FourPictures.values(), 3, 3, true);
+		this(3, 3, true);
 	}
 
-	public ExactlyOneSolutionConfig(IPicture[] picturesAvailable,
-			int rowsInField, int colsInField, boolean eliminateDuplicateCards) {
-		this.availableCards = new ArrayList<Card>(
-				AllPossibleCardsForPictures.generateCards(
-						FourPictures.values(), eliminateDuplicateCards));
+	public ExactlyOneSolutionConfig(int rowsInField, int colsInField, boolean eliminateDuplicateCards) {
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
-		System.out.println("Available cards: " + this.availableCards);
-		System.out.println("Number of available cards: "
-				+ this.availableCards.size());
+		this.eliminateDuplicateCards = eliminateDuplicateCards;
+		System.out.println("Available cards: " + this.getAvailableCardsInstance());
+		System.out.println("Number of available cards: " + this.getAvailableCardsInstance());
 	}
 
-	public enum FourPictures implements IPicture {
+	public enum Pictures implements IPicture {
 
 		RED, GREEN, BLUE; // YELLOW;
 
@@ -52,18 +48,19 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
+	protected ArrayList<Card> createAvailableCards() {
+		ArrayList<Card> availableCards = new ArrayList<Card>(
+				AllPossibleCardsForPictures.generateCards(Pictures.values(), eliminateDuplicateCards));
 		return availableCards;
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [availableCards="
-				+ availableCards + "]";
+		return this.getClass().getSimpleName() + " [availableCards=" + this.getAvailableCardsInstance() + "]";
 	}
 
 	@Override
-	public Field createEmptyField() {
+	protected Field createEmptyField() {
 		return new Field(this.rowsInField, this.colsInField);
 	}
 
@@ -121,12 +118,10 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		int countCorrect = 0;
 		int countIncorrect = 0;
 		for (Field solution : noDuplicates) {
-			GenericGameConfig currentSolutionConfig = new GenericGameConfig(
-					solution.getAllCards(), this.createEmptyField());
-			List<Field> solutionsForCurrent = solver
-					.findAllSolutions(currentSolutionConfig);
-			List<Field> solutionsWithoutRotations = solver
-					.removeRotationBasedDuplicates(solutionsForCurrent);
+			GenericGameConfig currentSolutionConfig = new GenericGameConfig(solution.getAllCards(),
+					this.getEmptyFieldInstance());
+			List<Field> solutionsForCurrent = solver.findAllSolutions(currentSolutionConfig);
+			List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates(solutionsForCurrent);
 			if (solutionsWithoutRotations.size() == 1) {
 				if (++countCorrect % 1000 == 0) {
 					System.out.print("1");
@@ -138,8 +133,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 				}
 			}
 		}
-		System.out
-				.println("\nExtracted all configurations with exactly one solution.");
+		System.out.println("\nExtracted all configurations with exactly one solution.");
 
 		return onlyOneSolution;
 	}
@@ -159,8 +153,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	@Override
-	public Set<PartialSolution> filterPartialSolutions(
-			Collection<PartialSolution> partialSolutions) {
+	public Set<PartialSolution> filterPartialSolutions(Collection<PartialSolution> partialSolutions) {
 		Map<PartialSolutionId, PartialSolution> alreadyCalculated = new HashMap<PartialSolutionId, PartialSolution>();
 
 		Solver solver = new Solver();
@@ -171,8 +164,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 			Set<Integer> idsForField = idsForField(currentField);
 
 			List<Condition> borderline = calcBorderline(currentField);
-			PartialSolutionId partialSolutionId = new PartialSolutionId(
-					idsForField, borderline);
+			PartialSolutionId partialSolutionId = new PartialSolutionId(idsForField, borderline);
 			if (alreadyCalculated.containsKey(partialSolutionId)) {
 				alreadyCalculated.put(partialSolutionId, null);
 				if (++countEasy % 1000 == 0) {
@@ -203,12 +195,10 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 				Field currentField = current.getField();
 				List<Card> allCards = currentField.getAllCards();
 				List<Condition> borderline = calcBorderline(currentField);
-				FieldWithConditions fieldWithConditions = new FieldWithConditions(
-						currentField.getRows(), currentField.getCols(),
-						allCards.size(), borderline);
+				FieldWithConditions fieldWithConditions = new FieldWithConditions(currentField.getRows(),
+						currentField.getCols(), allCards.size(), borderline);
 				Set<Field> solutions = new HashSet<Field>(
-						solver.findAllSolutions(new GenericGameConfig(allCards,
-								fieldWithConditions)));
+						solver.findAllSolutions(new GenericGameConfig(allCards, fieldWithConditions)));
 				if (solutions.size() == 1) {
 					filtered.add(current);
 					if (++countWithOne % 1000 == 0) {
@@ -226,8 +216,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 
 		}
 
-		System.out.println("\nAverage number of solutions: "
-				+ (numberOfSolutions / count));
+		System.out.println("\nAverage number of solutions: " + (numberOfSolutions / count));
 		return filtered;
 	}
 
@@ -240,8 +229,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		 * @param idsForField
 		 * @param conditions
 		 */
-		public PartialSolutionId(Set<Integer> idsForField,
-				List<Condition> conditions) {
+		public PartialSolutionId(Set<Integer> idsForField, List<Condition> conditions) {
 			this.idsForField = idsForField;
 			this.conditions = conditions;
 		}
@@ -251,10 +239,8 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + getOuterType().hashCode();
-			result = prime * result
-					+ ((conditions == null) ? 0 : conditions.hashCode());
-			result = prime * result
-					+ ((idsForField == null) ? 0 : idsForField.hashCode());
+			result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
+			result = prime * result + ((idsForField == null) ? 0 : idsForField.hashCode());
 			return result;
 		}
 
@@ -292,9 +278,8 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		List<Condition> borderline = new LinkedList<Condition>();
 		CardCoordinate coordinate = field.getCurrentCoordinates();
 		if (field.getCurrentCoordinates().getCol() < field.getCols()) {
-			Condition condition = new Condition(coordinate.getRow(),
-					coordinate.getCol(), coordinate.currentCard().getEast(),
-					null);
+			Condition condition = new Condition(coordinate.getRow(), coordinate.getCol(),
+					coordinate.currentCard().getEast(), null);
 			borderline.add(condition);
 		}
 		for (int i = 1; i <= field.getCols(); i++) {
@@ -304,8 +289,8 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 			}
 			Card northCard = coordinate.northCard();
 			if (northCard != null) {
-				Condition condition = new Condition(coordinate.getRow() - 1,
-						coordinate.getCol(), null, northCard.getSouth());
+				Condition condition = new Condition(coordinate.getRow() - 1, coordinate.getCol(), null,
+						northCard.getSouth());
 				borderline.add(condition);
 			}
 		}
@@ -316,4 +301,5 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	public boolean isBfsNeeded() {
 		return true;
 	}
+
 }

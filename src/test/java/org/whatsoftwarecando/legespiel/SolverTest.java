@@ -10,32 +10,37 @@ import java.util.Set;
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
 import org.whatsoftwarecando.legespiel.configs.AsterixKartenlegespielConfig;
+import org.whatsoftwarecando.legespiel.configs.Crazy9KetnerOwls;
 import org.whatsoftwarecando.legespiel.configs.DasVerrueckteLoriotLegespielConfig;
+import org.whatsoftwarecando.legespiel.configs.FourPicturesConfig;
 import org.whatsoftwarecando.legespiel.configs.KnifflidiffelsVersion4Config;
 import org.whatsoftwarecando.legespiel.configs.KnifflidiffelsVersion5Config;
 import org.whatsoftwarecando.legespiel.configs.UliSteinNochVerwzickterGehtNichtConfig;
 import org.whatsoftwarecando.legespiel.configs.UliSteinNochVerzwickterConfig;
+import org.whatsoftwarecando.legespiel.configs.WitchesPuzzleConfig;
 
 public class SolverTest {
 
 	@Test
 	public void testNumberOfSolutions() {
-		testNumberOfSolution(148, 37, new AbsolutKniffligConfig());
-		testNumberOfSolution(48, 3, new AsterixKartenlegespielConfig());
-		testNumberOfSolution(48, 3, new DasVerrueckteLoriotLegespielConfig());
-		testNumberOfSolution(9216, 24, new KnifflidiffelsVersion4Config());
-		testNumberOfSolution(7488, 26, new KnifflidiffelsVersion5Config());
-		testNumberOfSolution(4, 1, new UliSteinNochVerwzickterGehtNichtConfig());
-		testNumberOfSolution(4, 1, new UliSteinNochVerzwickterConfig());
+		testNumberOfSolutions(148, 37, new AbsolutKniffligConfig());
+		testNumberOfSolutions(48, 3, new AsterixKartenlegespielConfig());
+		testNumberOfSolutions(16, 2, new Crazy9KetnerOwls());
+		testNumberOfSolutions(48, 3, new DasVerrueckteLoriotLegespielConfig());
+		testNumberOfSolutions(37120, 145, new FourPicturesConfig());
+		testNumberOfSolutions(9216, 24, new KnifflidiffelsVersion4Config());
+		testNumberOfSolutions(7488, 26, new KnifflidiffelsVersion5Config());
+		testNumberOfSolutions(4, 1, new UliSteinNochVerwzickterGehtNichtConfig());
+		testNumberOfSolutions(4, 1, new UliSteinNochVerzwickterConfig());
+		testNumberOfSolutions(8, 2, new WitchesPuzzleConfig());
 	}
 
-	protected void testNumberOfSolution(int numberOfAllSolutions, int numberOfOriginalSolutions, GameConfig gameConfig) {
+	protected void testNumberOfSolutions(int numberOfAllSolutions, int numberOfOriginalSolutions,
+			GameConfig gameConfig) {
 		Solver solver = new Solver();
-		List<Field> solutions = solver
-				.findAllSolutions(gameConfig);
+		List<Field> solutions = solver.findAllSolutions(gameConfig);
 		assertEquals(numberOfAllSolutions, solutions.size());
-		List<Field> solutionsWithoutRotations = solver
-				.removeRotationBasedDuplicates(solutions);
+		List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates(solutions);
 		assertEquals(numberOfOriginalSolutions, solutionsWithoutRotations.size());
 	}
 
@@ -43,13 +48,16 @@ public class SolverTest {
 	public void testAlwaysSameSolutions() {
 		testAlwaysSameSolutions(new AbsolutKniffligConfig());
 		testAlwaysSameSolutions(new AsterixKartenlegespielConfig());
+		testAlwaysSameSolutions(new Crazy9KetnerOwls());
 		testAlwaysSameSolutions(new DasVerrueckteLoriotLegespielConfig());
+		testAlwaysSameSolutions(new FourPicturesConfig());
 		testAlwaysSameSolutions(new KnifflidiffelsVersion4Config());
 		testAlwaysSameSolutions(new KnifflidiffelsVersion5Config());
 		testAlwaysSameSolutions(new UliSteinNochVerwzickterGehtNichtConfig());
 		testAlwaysSameSolutions(new UliSteinNochVerzwickterConfig());
+		testAlwaysSameSolutions(new WitchesPuzzleConfig());
 	}
-	
+
 	private void testAlwaysSameSolutions(GameConfig gameConfig) {
 		Solver solver = new Solver();
 		List<Field> allCorrect = solver.findAllSolutions(gameConfig);
@@ -70,7 +78,7 @@ public class SolverTest {
 			}
 			long endTime = System.nanoTime();
 			System.out.println("Time needed: " + Util.nanosToMilliseconds(endTime - startTime) + " ms");
-			Collections.shuffle(gameConfig.getAvailableCards());
+			Collections.shuffle(gameConfig.getAvailableCardsInstance());
 		}
 	}
 }

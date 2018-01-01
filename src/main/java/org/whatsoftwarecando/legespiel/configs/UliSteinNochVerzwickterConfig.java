@@ -13,33 +13,10 @@ import org.whatsoftwarecando.legespiel.IPicture;
  */
 public class UliSteinNochVerzwickterConfig extends GameConfig {
 
-	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
-
-	static {
-		AVAILABLE_CARDS.add(new Card(Picture.PENGUIN_RIGHT,
-				Picture.MOUSE_RIGHT, Picture.CAT_LEFT, Picture.PIG_LEFT));
-		AVAILABLE_CARDS.add(new Card(Picture.PIG_LEFT, Picture.CAT_RIGHT,
-				Picture.MOUSE_RIGHT, Picture.PENGUIN_LEFT));
-		AVAILABLE_CARDS.add(new Card(Picture.CAT_RIGHT, Picture.MOUSE_LEFT,
-				Picture.PENGUIN_LEFT, Picture.PIG_RIGHT));
-		AVAILABLE_CARDS.add(new Card(Picture.PIG_RIGHT, Picture.PENGUIN_LEFT,
-				Picture.MOUSE_RIGHT, Picture.CAT_LEFT));
-		AVAILABLE_CARDS.add(new Card(Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT,
-				Picture.CAT_LEFT, Picture.PIG_RIGHT));
-		AVAILABLE_CARDS.add(new Card(Picture.PIG_LEFT, Picture.CAT_RIGHT,
-				Picture.MOUSE_LEFT, Picture.PENGUIN_RIGHT));
-		AVAILABLE_CARDS.add(new Card(Picture.CAT_RIGHT, Picture.PIG_LEFT,
-				Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT));
-		AVAILABLE_CARDS.add(new Card(Picture.PIG_LEFT, Picture.PENGUIN_RIGHT,
-				Picture.MOUSE_LEFT, Picture.CAT_RIGHT));
-		AVAILABLE_CARDS.add(new Card(Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT,
-				Picture.PIG_RIGHT, Picture.CAT_LEFT));
-	}
-
 	enum Picture implements IPicture {
 
-		MOUSE_LEFT(1), MOUSE_RIGHT(1), PIG_LEFT(2), PIG_RIGHT(2), CAT_LEFT(3), CAT_RIGHT(
-				3), PENGUIN_LEFT(4), PENGUIN_RIGHT(4);
+		MOUSE_LEFT(1), MOUSE_RIGHT(1), PIG_LEFT(2), PIG_RIGHT(2), CAT_LEFT(3), CAT_RIGHT(3), PENGUIN_LEFT(
+				4), PENGUIN_RIGHT(4);
 
 		private final int pairNumber;
 
@@ -50,8 +27,7 @@ public class UliSteinNochVerzwickterConfig extends GameConfig {
 		@Override
 		public boolean matches(IPicture other) {
 			if (other instanceof Picture) {
-				return this.pairNumber == ((Picture) other).pairNumber
-						&& this != other;
+				return this.pairNumber == ((Picture) other).pairNumber && this != other;
 			} else {
 				return false;
 			}
@@ -60,12 +36,23 @@ public class UliSteinNochVerzwickterConfig extends GameConfig {
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		return AVAILABLE_CARDS;
+	protected Field createEmptyField() {
+		return new Field(3, 3);
 	}
 
 	@Override
-	public Field createEmptyField() {
-		return new Field(3, 3);
+	protected ArrayList<Card> createAvailableCards() {
+		ArrayList<Card> availableCards = new ArrayList<Card>();
+		availableCards.add(new Card(Picture.PENGUIN_RIGHT, Picture.MOUSE_RIGHT, Picture.CAT_LEFT, Picture.PIG_LEFT));
+		availableCards.add(new Card(Picture.PIG_LEFT, Picture.CAT_RIGHT, Picture.MOUSE_RIGHT, Picture.PENGUIN_LEFT));
+		availableCards.add(new Card(Picture.CAT_RIGHT, Picture.MOUSE_LEFT, Picture.PENGUIN_LEFT, Picture.PIG_RIGHT));
+		availableCards.add(new Card(Picture.PIG_RIGHT, Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT, Picture.CAT_LEFT));
+		availableCards.add(new Card(Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT, Picture.CAT_LEFT, Picture.PIG_RIGHT));
+		availableCards.add(new Card(Picture.PIG_LEFT, Picture.CAT_RIGHT, Picture.MOUSE_LEFT, Picture.PENGUIN_RIGHT));
+		availableCards.add(new Card(Picture.CAT_RIGHT, Picture.PIG_LEFT, Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT));
+		availableCards.add(new Card(Picture.PIG_LEFT, Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT, Picture.CAT_RIGHT));
+		availableCards.add(new Card(Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT, Picture.PIG_RIGHT, Picture.CAT_LEFT));
+		return availableCards;
 	}
+
 }

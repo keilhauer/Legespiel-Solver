@@ -14,42 +14,10 @@ import org.whatsoftwarecando.legespiel.IPicture;
  */
 public class AsterixKartenlegespielConfig extends GameConfig {
 
-	static final ArrayList<Card> AVAILABLE_CARDS = new ArrayList<Card>();
-
-	static {
-		AVAILABLE_CARDS.add(new Card(Picture.ASTERIX_UPPER,
-				Picture.MAJESTIX_LOWER, Picture.MIRACULIX_LOWER,
-				Picture.OBELIX_UPPER));
-		AVAILABLE_CARDS.add(new Card(Picture.OBELIX_LOWER,
-				Picture.MIRACULIX_UPPER, Picture.ASTERIX_LOWER,
-				Picture.MAJESTIX_UPPER));
-		AVAILABLE_CARDS.add(new Card(Picture.MAJESTIX_LOWER,
-				Picture.ASTERIX_UPPER, Picture.OBELIX_UPPER,
-				Picture.MIRACULIX_LOWER));
-		AVAILABLE_CARDS.add(new Card(Picture.OBELIX_LOWER,
-				Picture.MAJESTIX_UPPER, Picture.MIRACULIX_UPPER,
-				Picture.ASTERIX_LOWER));
-		AVAILABLE_CARDS.add(new Card(Picture.MAJESTIX_LOWER,
-				Picture.MIRACULIX_LOWER, Picture.ASTERIX_UPPER,
-				Picture.OBELIX_UPPER));
-		AVAILABLE_CARDS.add(new Card(Picture.MIRACULIX_UPPER,
-				Picture.ASTERIX_LOWER, Picture.MAJESTIX_UPPER,
-				Picture.MAJESTIX_UPPER));
-		AVAILABLE_CARDS.add(new Card(Picture.ASTERIX_UPPER,
-				Picture.MAJESTIX_LOWER, Picture.MIRACULIX_LOWER,
-				Picture.OBELIX_UPPER));
-		AVAILABLE_CARDS.add(new Card(Picture.OBELIX_LOWER,
-				Picture.MIRACULIX_UPPER, Picture.ASTERIX_LOWER,
-				Picture.MAJESTIX_UPPER));
-		AVAILABLE_CARDS.add(new Card(Picture.MAJESTIX_LOWER,
-				Picture.ASTERIX_UPPER, Picture.MIRACULIX_LOWER,
-				Picture.OBELIX_UPPER));
-	}
-
 	enum Picture implements IPicture {
 
-		ASTERIX_UPPER(1), ASTERIX_LOWER(1), OBELIX_UPPER(2), OBELIX_LOWER(2), MIRACULIX_UPPER(
-				3), MIRACULIX_LOWER(3), MAJESTIX_UPPER(4), MAJESTIX_LOWER(4);
+		ASTERIX_UP(1), ASTERIX_LOW(1), OBELIX_UP(2), OBELIX_LOW(2), MIRACULIX_UP(3), MIRACULIX_LOW(3), MAJESTIX_UP(
+				4), MAJESTIX_LOW(4);
 
 		private final int pairNumber;
 
@@ -60,8 +28,7 @@ public class AsterixKartenlegespielConfig extends GameConfig {
 		@Override
 		public boolean matches(IPicture other) {
 			if (other instanceof Picture) {
-				return this.pairNumber == ((Picture) other).pairNumber
-						&& this != other;
+				return this.pairNumber == ((Picture) other).pairNumber && this != other;
 			} else {
 				return false;
 			}
@@ -70,12 +37,31 @@ public class AsterixKartenlegespielConfig extends GameConfig {
 	}
 
 	@Override
-	public ArrayList<Card> getAvailableCards() {
-		return AVAILABLE_CARDS;
+	protected ArrayList<Card> createAvailableCards() {
+		ArrayList<Card> availableCards = new ArrayList<Card>();
+		availableCards
+				.add(new Card(Picture.ASTERIX_UP, Picture.MAJESTIX_LOW, Picture.MIRACULIX_LOW, Picture.OBELIX_UP));
+		availableCards
+				.add(new Card(Picture.OBELIX_LOW, Picture.MIRACULIX_UP, Picture.ASTERIX_LOW, Picture.MAJESTIX_UP));
+		availableCards
+				.add(new Card(Picture.MAJESTIX_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP, Picture.MIRACULIX_LOW));
+		availableCards
+				.add(new Card(Picture.OBELIX_LOW, Picture.MAJESTIX_UP, Picture.MIRACULIX_UP, Picture.ASTERIX_LOW));
+		availableCards
+				.add(new Card(Picture.MAJESTIX_LOW, Picture.MIRACULIX_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP));
+		availableCards
+				.add(new Card(Picture.MIRACULIX_UP, Picture.ASTERIX_LOW, Picture.MAJESTIX_UP, Picture.MAJESTIX_UP));
+		availableCards
+				.add(new Card(Picture.ASTERIX_UP, Picture.MAJESTIX_LOW, Picture.MIRACULIX_LOW, Picture.OBELIX_UP));
+		availableCards
+				.add(new Card(Picture.OBELIX_LOW, Picture.MIRACULIX_UP, Picture.ASTERIX_LOW, Picture.MAJESTIX_UP));
+		availableCards
+				.add(new Card(Picture.MAJESTIX_LOW, Picture.ASTERIX_UP, Picture.MIRACULIX_LOW, Picture.OBELIX_UP));
+		return availableCards;
 	}
 
 	@Override
-	public Field createEmptyField() {
+	protected Field createEmptyField() {
 		return new Field(3, 3);
 	}
 }

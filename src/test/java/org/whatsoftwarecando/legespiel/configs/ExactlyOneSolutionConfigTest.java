@@ -13,50 +13,50 @@ import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Condition;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.Solver;
-import org.whatsoftwarecando.legespiel.configs.ExactlyOneSolutionConfig.FourPictures;
+import org.whatsoftwarecando.legespiel.configs.ExactlyOneSolutionConfig.Pictures;
 
 public class ExactlyOneSolutionConfigTest {
 
 	@Test
 	public void testCalcBorderline1() {
 		Field field = new Field(2, 2);
-		field = field.addedIfFits(new Card(FourPictures.GREEN,
-				FourPictures.GREEN, FourPictures.BLUE, FourPictures.GREEN));
+		field = field.addedIfFits(new Card(Pictures.GREEN,
+				Pictures.GREEN, Pictures.BLUE, Pictures.GREEN));
 		List<Condition> borderline = new ExactlyOneSolutionConfig()
 				.calcBorderline(field);
 		assertEquals(2, borderline.size());
-		assertEquals(new Condition(1, 1, FourPictures.BLUE, null), borderline.get(0));
-		assertEquals(new Condition(1, 1, null, FourPictures.GREEN), borderline.get(1));
+		assertEquals(new Condition(1, 1, Pictures.BLUE, null), borderline.get(0));
+		assertEquals(new Condition(1, 1, null, Pictures.GREEN), borderline.get(1));
 	}
 
 	@Test
 	public void testCalcBorderline2() {
 		Field field = new Field(2, 2);
-		field = field.addedIfFits(new Card(FourPictures.GREEN,
-				FourPictures.GREEN, FourPictures.BLUE, FourPictures.GREEN));
-		field = field.addedIfFits(new Card(FourPictures.GREEN,
-				FourPictures.BLUE, FourPictures.GREEN, FourPictures.RED));
+		field = field.addedIfFits(new Card(Pictures.GREEN,
+				Pictures.GREEN, Pictures.BLUE, Pictures.GREEN));
+		field = field.addedIfFits(new Card(Pictures.GREEN,
+				Pictures.BLUE, Pictures.GREEN, Pictures.RED));
 		List<Condition> borderline = new ExactlyOneSolutionConfig()
 				.calcBorderline(field);
 		assertEquals(2, borderline.size());
-		assertEquals(new Condition(1, 1, null, FourPictures.GREEN), borderline.get(0));
-		assertEquals(new Condition(1, 2, null, FourPictures.RED), borderline.get(1));
+		assertEquals(new Condition(1, 1, null, Pictures.GREEN), borderline.get(0));
+		assertEquals(new Condition(1, 2, null, Pictures.RED), borderline.get(1));
 	}
 
 	@Test
 	public void testCalcBorderline3() {
 		Field field = new Field(2, 2);
-		field = field.addedIfFits(new Card(FourPictures.GREEN,
-				FourPictures.GREEN, FourPictures.BLUE, FourPictures.GREEN));
-		field = field.addedIfFits(new Card(FourPictures.GREEN,
-				FourPictures.BLUE, FourPictures.GREEN, FourPictures.RED));
-		field = field.addedIfFits(new Card(FourPictures.GREEN,
-				FourPictures.RED, FourPictures.RED, FourPictures.BLUE));
+		field = field.addedIfFits(new Card(Pictures.GREEN,
+				Pictures.GREEN, Pictures.BLUE, Pictures.GREEN));
+		field = field.addedIfFits(new Card(Pictures.GREEN,
+				Pictures.BLUE, Pictures.GREEN, Pictures.RED));
+		field = field.addedIfFits(new Card(Pictures.GREEN,
+				Pictures.RED, Pictures.RED, Pictures.BLUE));
 		List<Condition> borderline = new ExactlyOneSolutionConfig()
 				.calcBorderline(field);
 		assertEquals(2, borderline.size());
-		assertEquals(new Condition(2, 1, FourPictures.RED, null), borderline.get(0));
-		assertEquals(new Condition(1, 2, null, FourPictures.RED), borderline.get(1));
+		assertEquals(new Condition(2, 1, Pictures.RED, null), borderline.get(0));
+		assertEquals(new Condition(1, 2, null, Pictures.RED), borderline.get(1));
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class ExactlyOneSolutionConfigTest {
 		Set<Field> noSolution = new HashSet<Field>();
 		for (Field solution : solutions) {
 			GenericGameConfig currentSolutionConfig = new GenericGameConfig(
-					solution.getAllCards(), testConfig.createEmptyField());
+					solution.getAllCards(), testConfig.getEmptyFieldInstance());
 			List<Field> solutionsForCurrent = solver
 					.findAllSolutions(currentSolutionConfig);
 			List<Field> solutionsWithoutRotations = solver
