@@ -8,7 +8,7 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
- * Configuration based on Crazy9 Ketner Owls (see http://heye-puzzle.de/product/crazy9-ketner-owls/ )
+ * Configuration based on Witches Puzzle (see http://georg.graf.priv.at/programming/witches-puzzle/ )
  */
 public class WitchesPuzzleConfig extends GameConfig{
 
