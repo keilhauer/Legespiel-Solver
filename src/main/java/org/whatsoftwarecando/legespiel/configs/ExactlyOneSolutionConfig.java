@@ -2,6 +2,7 @@ package org.whatsoftwarecando.legespiel.configs;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -34,7 +35,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		this.colsInField = colsInField;
 		this.eliminateDuplicateCards = eliminateDuplicateCards;
 		System.out.println("Available cards: " + this.getAvailableCardsInstance());
-		System.out.println("Number of available cards: " + this.getAvailableCardsInstance());
+		System.out.println("Number of available cards: " + this.getAvailableCardsInstance().size());
 	}
 
 	public enum Pictures implements IPicture {
@@ -152,72 +153,82 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		return idsForField;
 	}
 
+	private static int count;
+	private static int countEasy;
+	private static int countWithOne;
+	private static int countWithMore;
+	private static double numberOfSolutions;
+	private static Set<PartialSolution> filtered;
+	private static Map<PartialSolutionId, PartialSolution> alreadyCalculated;
+	
 	@Override
 	public Set<PartialSolution> filterPartialSolutions(Collection<PartialSolution> partialSolutions) {
-		Map<PartialSolutionId, PartialSolution> alreadyCalculated = new HashMap<PartialSolutionId, PartialSolution>();
-
-		Solver solver = new Solver();
-		int count = 0;
-		int countEasy = 0;
-		for (PartialSolution partialSolution : partialSolutions) {
-			Field currentField = partialSolution.getField();
-			Set<Integer> idsForField = idsForField(currentField);
-
-			List<Condition> borderline = calcBorderline(currentField);
-			PartialSolutionId partialSolutionId = new PartialSolutionId(idsForField, borderline);
-			if (alreadyCalculated.containsKey(partialSolutionId)) {
-				alreadyCalculated.put(partialSolutionId, null);
-				if (++countEasy % 1000 == 0) {
-					System.out.print("!");
-				}
-			} else {
-				alreadyCalculated.put(partialSolutionId, partialSolution);
-				if (++count % 1000 == 0) {
-					System.out.print("#");
-				}
-			}
-
-		}
+		
+		alreadyCalculated = Collections.synchronizedMap(new HashMap<PartialSolutionId, PartialSolution>());
+		count = 0;
+		countEasy = 0;
+		partialSolutions.parallelStream().forEach(partialSolution -> filterOne(partialSolution));
 
 		System.out.println("\nFirst filter done.");
-
 		countEasy = 0;
-		int countWithOne = 0;
-		int countWithMore = 0;
-		double numberOfSolutions = 0;
-		Set<PartialSolution> filtered = new HashSet<PartialSolution>();
-		for (PartialSolution current : alreadyCalculated.values()) {
-			if (current == null) {
-				if (++countEasy % 1000 == 0) {
-					System.out.print("!");
-				}
-			} else {
-				Field currentField = current.getField();
-				List<Card> allCards = currentField.getAllCards();
-				List<Condition> borderline = calcBorderline(currentField);
-				FieldWithConditions fieldWithConditions = new FieldWithConditions(currentField.getRows(),
-						currentField.getCols(), allCards.size(), borderline);
-				Set<Field> solutions = new HashSet<Field>(
-						solver.findAllSolutions(new GenericGameConfig(allCards, fieldWithConditions)));
-				if (solutions.size() == 1) {
-					filtered.add(current);
-					if (++countWithOne % 1000 == 0) {
-						System.out.print("o");
-					}
-				} else {
-					if (++countWithMore % 1000 == 0) {
-						System.out.print("m");
-					}
-				}
-
-				numberOfSolutions += solutions.size();
-
-			}
-
-		}
+		countWithOne = 0;
+		countWithMore = 0;
+		numberOfSolutions = 0;
+		filtered = Collections.synchronizedSet(new HashSet<PartialSolution>());
+		
+		alreadyCalculated.values().parallelStream().forEach((PartialSolution current) -> filterTwo(current));
 
 		System.out.println("\nAverage number of solutions: " + (numberOfSolutions / count));
 		return filtered;
+	}
+
+	private void filterOne(PartialSolution partialSolution) {
+		Field currentField = partialSolution.getField();
+		Set<Integer> idsForField = idsForField(currentField);
+
+		List<Condition> borderline = calcBorderline(currentField);
+		PartialSolutionId partialSolutionId = new PartialSolutionId(idsForField, borderline);
+		if (alreadyCalculated.containsKey(partialSolutionId)) {
+			alreadyCalculated.put(partialSolutionId, null);
+			if (++countEasy % 1000 == 0) {
+				System.out.print("!");
+			}
+		} else {
+			alreadyCalculated.put(partialSolutionId, partialSolution);
+			if (++count % 1000 == 0) {
+				System.out.print("#");
+			}
+		}
+	}
+
+	private void filterTwo(PartialSolution current) {
+		Solver solver = new Solver();
+		if (current == null) {
+			if (++countEasy % 1000 == 0) {
+				System.out.print("!");
+			}
+		} else {
+			Field currentField = current.getField();
+			List<Card> allCards = currentField.getAllCards();
+			List<Condition> borderline = calcBorderline(currentField);
+			FieldWithConditions fieldWithConditions = new FieldWithConditions(currentField.getRows(),
+					currentField.getCols(), allCards.size(), borderline);
+			Set<Field> solutions = new HashSet<Field>(
+					solver.findAllSolutions(new GenericGameConfig(allCards, fieldWithConditions)));
+			if (solutions.size() == 1) {
+				filtered.add(current);
+				if (++countWithOne % 1000 == 0) {
+					System.out.print("o");
+				}
+			} else {
+				if (++countWithMore % 1000 == 0) {
+					System.out.print("m");
+				}
+			}
+
+			numberOfSolutions += solutions.size();
+
+		}
 	}
 
 	private class PartialSolutionId {
