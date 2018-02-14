@@ -14,8 +14,8 @@ import org.whatsoftwarecando.legespiel.IPicture;
  * different cards you can create, that have all of 4 possible pictures on them
  * and are different (even when rotating them).
  * 
- * This is to confirm the theoretical result of: 4! : 4 (because there are 4 different
- * rotations)
+ * This is to confirm the theoretical result of: 4! : 4 (because there are 4
+ * different rotations)
  * 
  * @author Andreas
  *
@@ -36,18 +36,15 @@ public class HowManyPermutations {
 
 	public static void main(String[] argv) {
 		List<Card> picturesForCards = getAvailableCards();
-		List<List<Card>> result = new DuplicateCardsFinder()
-				.findDuplicateCards(picturesForCards);
+		List<List<Card>> result = new DuplicateCardsFinder().findDuplicateCards(picturesForCards);
 		System.out.println("Number of different cards: " + result.size());
 	}
 
 	private static List<Card> getAvailableCards() {
-		List<List<Picture>> picturesForCards = findPermutations(Arrays
-				.asList(Picture.values()));
+		List<List<Picture>> picturesForCards = findPermutations(Arrays.asList(Picture.values()));
 		List<Card> cards = new LinkedList<Card>();
 		for (List<Picture> pictures : picturesForCards) {
-			cards.add(new Card(pictures.get(0), pictures.get(1), pictures
-					.get(2), pictures.get(3)));
+			cards.add(new Card(pictures.get(0), pictures.get(1), pictures.get(2), pictures.get(3)));
 		}
 		return new ArrayList<Card>(cards);
 	}

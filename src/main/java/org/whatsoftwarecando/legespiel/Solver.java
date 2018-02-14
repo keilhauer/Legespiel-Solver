@@ -32,7 +32,8 @@ public class Solver {
 		System.out.println("Using GameConfig: " + gameConfig.getClass().getSimpleName());
 		System.out.println("Looking for duplicate cards: ");
 		boolean foundDuplicateCards = false;
-		for (List<Card> duplicates : new DuplicateCardsFinder().findDuplicateCards(gameConfig.getAvailableCardsInstance())) {
+		for (List<Card> duplicates : new DuplicateCardsFinder()
+				.findDuplicateCards(gameConfig.getAvailableCardsInstance())) {
 			if (duplicates.size() > 1) {
 				System.out.println(duplicates);
 				foundDuplicateCards = true;
@@ -74,10 +75,11 @@ public class Solver {
 		}
 
 		// Writing Html
-		Path templateFile = Paths.get(Solver.class.getResource("all-solutions.template.html").toURI());
+		Path templateFile = Paths.get(Solver.class.getResource("solutions.template.html").toURI());
 		String allSolutionsHtmlTemplate = new String(Files.readAllBytes(templateFile), "UTF-8");
-		String allSolutionsHtml = allSolutionsHtmlTemplate.replace("%title%", title + " - " + gameConfig.getClass().getSimpleName()).replace("%content%",
-				sb.toString());
+		String allSolutionsHtml = allSolutionsHtmlTemplate
+				.replace("%title%", title + " - " + gameConfig.getClass().getSimpleName())
+				.replace("%content%", sb.toString());
 		Path htmlOutputFile = Paths
 				.get("html-output/" + gameConfig.getClass().getSimpleName() + "/" + filename + ".html");
 		Files.createDirectories(htmlOutputFile.getParent());

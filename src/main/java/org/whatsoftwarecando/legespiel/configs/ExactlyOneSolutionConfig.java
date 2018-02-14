@@ -160,10 +160,12 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	private static double numberOfSolutions;
 	private static Set<PartialSolution> filtered;
 	private static Map<PartialSolutionId, PartialSolution> alreadyCalculated;
-	
+
+	private static final Object workLock = new Object();
+
 	@Override
 	public Set<PartialSolution> filterPartialSolutions(Collection<PartialSolution> partialSolutions) {
-		
+
 		alreadyCalculated = Collections.synchronizedMap(new HashMap<PartialSolutionId, PartialSolution>());
 		count = 0;
 		countEasy = 0;
@@ -175,7 +177,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		countWithMore = 0;
 		numberOfSolutions = 0;
 		filtered = Collections.synchronizedSet(new HashSet<PartialSolution>());
-		
+
 		alreadyCalculated.values().parallelStream().forEach((PartialSolution current) -> filterTwo(current));
 
 		System.out.println("\nAverage number of solutions: " + (numberOfSolutions / count));
@@ -188,15 +190,17 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 
 		List<Condition> borderline = calcBorderline(currentField);
 		PartialSolutionId partialSolutionId = new PartialSolutionId(idsForField, borderline);
-		if (alreadyCalculated.containsKey(partialSolutionId)) {
-			alreadyCalculated.put(partialSolutionId, null);
-			if (++countEasy % 1000 == 0) {
-				System.out.print("!");
-			}
-		} else {
-			alreadyCalculated.put(partialSolutionId, partialSolution);
-			if (++count % 1000 == 0) {
-				System.out.print("#");
+		synchronized (workLock) {
+			if (alreadyCalculated.containsKey(partialSolutionId)) {
+				alreadyCalculated.put(partialSolutionId, null);
+				if (++countEasy % 1000 == 0) {
+					System.out.print("!");
+				}
+			} else {
+				alreadyCalculated.put(partialSolutionId, partialSolution);
+				if (++count % 1000 == 0) {
+					System.out.print("#");
+				}
 			}
 		}
 	}
