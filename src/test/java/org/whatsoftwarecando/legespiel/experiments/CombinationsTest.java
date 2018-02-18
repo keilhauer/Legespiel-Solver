@@ -4,7 +4,6 @@ import java.math.BigInteger;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.whatsoftwarecando.legespiel.experiments.Combinations;
 
 public class CombinationsTest {
 
@@ -18,19 +17,19 @@ public class CombinationsTest {
 			System.out.println(c.nextActiveIndexes());
 		}
 	}
-	
+
 	@Test
 	public void testGetTotalNumberOfCombinations() {
 		Combinations c = new Combinations(3, 7);
-		Assert.assertEquals(35, c.getTotalNumberOfCombinations());
+		Assert.assertEquals(BigInteger.valueOf(35), c.getTotalNumberOfCombinations());
 	}
-	
+
 	@Test
 	public void testGetTotalNumberOfCombinations2() {
 		Combinations c = new Combinations(9, 24);
-		Assert.assertEquals(1307504, c.getTotalNumberOfCombinations());
+		Assert.assertEquals(BigInteger.valueOf(1307504), c.getTotalNumberOfCombinations());
 	}
-	
+
 	@Test
 	public void testFactorial() {
 		Combinations c = new Combinations(-1, -1);

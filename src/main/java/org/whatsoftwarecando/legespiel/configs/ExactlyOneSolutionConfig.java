@@ -19,6 +19,7 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 import org.whatsoftwarecando.legespiel.PartialSolution;
 import org.whatsoftwarecando.legespiel.Solver;
+import org.whatsoftwarecando.legespiel.experiments.AllPossibleCardsForPictures;
 
 public class ExactlyOneSolutionConfig extends GameConfig {
 
@@ -30,7 +31,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		this(3, 3, true);
 	}
 
-	public ExactlyOneSolutionConfig(int rowsInField, int colsInField, boolean eliminateDuplicateCards) {
+	private ExactlyOneSolutionConfig(int rowsInField, int colsInField, boolean eliminateDuplicateCards) {
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
 		this.eliminateDuplicateCards = eliminateDuplicateCards;

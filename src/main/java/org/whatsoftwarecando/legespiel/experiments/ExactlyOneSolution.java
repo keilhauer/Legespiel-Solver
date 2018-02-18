@@ -8,7 +8,6 @@ import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.IPicture;
 import org.whatsoftwarecando.legespiel.Solver;
-import org.whatsoftwarecando.legespiel.configs.AllPossibleCardsForPictures;
 import org.whatsoftwarecando.legespiel.configs.GenericGameConfig;
 
 public class ExactlyOneSolution {

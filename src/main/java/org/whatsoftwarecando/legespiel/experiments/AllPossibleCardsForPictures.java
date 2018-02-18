@@ -1,4 +1,4 @@
-package org.whatsoftwarecando.legespiel.configs;
+package org.whatsoftwarecando.legespiel.experiments;
 
 import java.util.Arrays;
 import java.util.LinkedList;
