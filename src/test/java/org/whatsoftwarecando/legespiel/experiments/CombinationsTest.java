@@ -19,13 +19,13 @@ public class CombinationsTest {
 	}
 
 	@Test
-	public void testGetTotalNumberOfCombinations() {
+	public void testGetTotalNumberOfCombinations3OutOf7() {
 		Combinations c = new Combinations(3, 7);
 		Assert.assertEquals(BigInteger.valueOf(35), c.getTotalNumberOfCombinations());
 	}
 
 	@Test
-	public void testGetTotalNumberOfCombinations2() {
+	public void testGetTotalNumberOfCombinations9OutOf24() {
 		Combinations c = new Combinations(9, 24);
 		Assert.assertEquals(BigInteger.valueOf(1307504), c.getTotalNumberOfCombinations());
 	}
