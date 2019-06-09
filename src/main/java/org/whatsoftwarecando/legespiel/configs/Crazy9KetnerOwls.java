@@ -9,7 +9,8 @@ import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on Crazy9 Ketner Owls (see
- * http://heye-puzzle.de/product/crazy9-ketner-owls/ )
+ * http://heye-puzzle.de/product/crazy9-ketner-owls/ ). More pictures here:
+ * https://goldkindchen.blogspot.com/2017/03/produktvorstellung-crazy-9-das.html
  */
 public class Crazy9KetnerOwls extends GameConfig {
 
@@ -37,15 +38,16 @@ public class Crazy9KetnerOwls extends GameConfig {
 	@Override
 	protected ArrayList<Card> createAvailableCards() {
 		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.BLUE_2, Picture.PURPLE_1, Picture.GREEN_2, Picture.BLUE_1));
-		availableCards.add(new Card(Picture.PINK_2, Picture.GREEN_1, Picture.PURPLE_2, Picture.BLUE_1));
-		availableCards.add(new Card(Picture.BLUE_2, Picture.PURPLE_1, Picture.GREEN_2, Picture.PINK_1));
-		availableCards.add(new Card(Picture.BLUE_2, Picture.GREEN_1, Picture.PINK_2, Picture.PURPLE_1));
-		availableCards.add(new Card(Picture.BLUE_2, Picture.PINK_1, Picture.PURPLE_2, Picture.GREEN_1));
-		availableCards.add(new Card(Picture.PINK_2, Picture.PURPLE_1, Picture.BLUE_2, Picture.GREEN_1));
-		availableCards.add(new Card(Picture.PURPLE_2, Picture.PINK_2, Picture.PINK_1, Picture.GREEN_1));
-		availableCards.add(new Card(Picture.GREEN_2, Picture.PINK_2, Picture.BLUE_1, Picture.PURPLE_1));
-		availableCards.add(new Card(Picture.GREEN_2, Picture.BLUE_2, Picture.PINK_1, Picture.PURPLE_1));
+		// Duplicate cards: 3rd, 8th
+		availableCards.add(new Card(Picture.GREEN_1, Picture.PURPLE_1, Picture.BLUE_2, Picture.PINK_2));
+		availableCards.add(new Card(Picture.PURPLE_1, Picture.BLUE_1, Picture.PINK_2, Picture.GREEN_2));
+		availableCards.add(new Card(Picture.PURPLE_1, Picture.PINK_1, Picture.BLUE_2, Picture.GREEN_2));
+		availableCards.add(new Card(Picture.PINK_1, Picture.GREEN_1, Picture.BLUE_2, Picture.PURPLE_2));
+		availableCards.add(new Card(Picture.GREEN_1, Picture.BLUE_1, Picture.PINK_2, Picture.PURPLE_2));
+		availableCards.add(new Card(Picture.GREEN_1, Picture.PINK_1, Picture.PINK_2, Picture.PURPLE_2));
+		availableCards.add(new Card(Picture.PURPLE_1, Picture.GREEN_1, Picture.PINK_2, Picture.BLUE_2));
+		availableCards.add(new Card(Picture.PURPLE_1, Picture.PINK_1, Picture.BLUE_2, Picture.GREEN_2));
+		availableCards.add(new Card(Picture.PURPLE_1, Picture.BLUE_1, Picture.BLUE_2, Picture.GREEN_2));
 		return availableCards;
 	}
 
