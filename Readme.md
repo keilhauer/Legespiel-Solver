@@ -18,7 +18,7 @@ and the pictures on the cards. When you are done, you can use the class name
 of your GameConfig as a program argument for Solver (also see .launch-Files in
 this folder).
 
-##Licence
+## Licence
 The software is published under the terms of the following license:
 
 Copyright (c) 2014 Andreas Keilhauer (www.keilhauer.eu)
