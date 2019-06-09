@@ -1,6 +1,11 @@
+# Legespiel-Solver
+
+## What it is And How it Works
 Legespiel-Solver was written to accompany the following blog post:
 
-https://whatsoftwarecando.org/backtracking-nursery-solve-legespiel/
+[Backtracking in The Nursery – How to Solve a “Legespiel”](https://whatsoftwarecando.org/backtracking-nursery-solve-legespiel/)
+
+There is also a [List of Legespiel variations with solutions](https://whatsoftwarecando.org/list-of-legespiel-variations-with-solutions/) available.
 
 The Class org.whatsoftwarecando.legespiel.Solver can find all solutions
 of a certain kind of tile-based game (German: "Legespiel"), in which cards have
@@ -13,9 +18,8 @@ and the pictures on the cards. When you are done, you can use the class name
 of your GameConfig as a program argument for Solver (also see .launch-Files in
 this folder).
 
-
+##Licence
 The software is published under the terms of the following license:
-
 
 Copyright (c) 2014 Andreas Keilhauer (www.keilhauer.eu)
 
