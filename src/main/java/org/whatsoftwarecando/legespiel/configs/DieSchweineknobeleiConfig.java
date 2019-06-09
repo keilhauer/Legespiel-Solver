@@ -44,7 +44,7 @@ public class DieSchweineknobeleiConfig extends GameConfig {
 	protected ArrayList<Card> createAvailableCards() {
 		ArrayList<Card> availableCards = new ArrayList<Card>();
 
-		// Identical cards: 2nd, 9th; 3rd, 5th, 6th, 8th; 4th, 7th
+		// Identical cards: 3rd, 5th
 		availableCards.add(new Card(Picture.PINK_UP, Picture.STRIPES_UP, Picture.STRIPES_UP, Picture.PINK_UP));
 		availableCards
 				.add(new Card(Picture.BLUE_DROPS_UP, Picture.STRIPES_LOW, Picture.BLACK_SPOTS_UP, Picture.PINK_LOW));
