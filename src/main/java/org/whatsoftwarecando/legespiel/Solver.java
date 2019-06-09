@@ -48,7 +48,8 @@ public class Solver {
 
 		long timeNeeded = System.nanoTime() - startTime;
 		System.out.println("Tried " + solver.numberOfTries() + " card rotations -> Found all " + solutions.size()
-				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms");
+				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms => Measure of difficulty: "
+				+ solver.numberOfTries() / (double) solutions.size());
 		writeHtml(gameConfig, solutions, "allSolutions", "All Solutions");
 
 		List<Field> originalSolutions = solver.removeRotationBasedDuplicates(solutions);
