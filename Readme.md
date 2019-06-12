@@ -5,12 +5,12 @@ Legespiel-Solver was written to accompany the following blog post:
 
 [Backtracking in The Nursery – How to Solve a “Legespiel”](https://whatsoftwarecando.org/backtracking-nursery-solve-legespiel/)
 
-There is also a [List of Legespiel variations with solutions](https://whatsoftwarecando.org/list-of-legespiel-variations-with-solutions/) available.
+There is also a [List of Scramble Squares Puzzles with Solutions](https://whatsoftwarecando.org/list-of-scramble-squares-puzzles-with-solutions/) available.
 
 The Class org.whatsoftwarecando.legespiel.Solver can find all solutions
-of a certain kind of tile-based game (German: "Legespiel"), in which cards have
-to be put in a square (or sometimes a rectangle) so that the pictures on the
-four sides of the cards fit the ones of the cards around it.
+of a certain kind of tile-based game called Scramble Squares (in German: "Legespiel"),
+in which cards have to be put in a square (or sometimes a rectangle) so that the
+pictures on the four sides of the cards fit the ones of the cards around it.
 
 You can solve other games of this kind by creating an own implementation of
 GameConfig. By doing that, you can change the dimensions of the playing field
