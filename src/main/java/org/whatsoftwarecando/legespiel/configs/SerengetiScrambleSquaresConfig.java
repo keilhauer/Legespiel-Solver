@@ -7,6 +7,9 @@ import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
+/**
+ * see https://www.youtube.com/watch?v=Mux4NpO_fsA
+ */
 public class SerengetiScrambleSquaresConfig extends GameConfig {
 
 	enum Picture implements IPicture {
