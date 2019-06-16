@@ -8,7 +8,7 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
- * see https://www.youtube.com/watch?v=Mux4NpO_fsA
+ * see https://www.flickr.com/photos/greatshotsbyjf/6649252505
  */
 public class CatsScrambleSquaresConfig extends GameConfig {
 
@@ -38,22 +38,22 @@ public class CatsScrambleSquaresConfig extends GameConfig {
 	protected ArrayList<Card> createAvailableCards() {
 		ArrayList<Card> availableCards = new ArrayList<Card>();
 		availableCards
-				.add(new Card(Picture.WHITE_RED_UP, Picture.BROWN_UP, Picture.WHITE_GRAY_LOW, Picture.BLACK_LEFT));
+				.add(new Card(Picture.BROWN_LOW, Picture.WHITE_GRAY_LOW, Picture.BLACK_LEFT, Picture.WHITE_RED_LOW));
 		availableCards
-				.add(new Card(Picture.WHITE_GRAY_LOW, Picture.BROWN_LOW, Picture.BLACK_LEFT, Picture.WHITE_RED_UP));
+				.add(new Card(Picture.WHITE_RED_UP, Picture.BLACK_RIGHT, Picture.WHITE_GRAY_LOW, Picture.BROWN_UP));
 		availableCards
-				.add(new Card(Picture.BLACK_RIGHT, Picture.WHITE_RED_UP, Picture.BROWN_UP, Picture.WHITE_GRAY_UP));
+				.add(new Card(Picture.BLACK_RIGHT, Picture.WHITE_GRAY_UP, Picture.WHITE_RED_UP, Picture.BLACK_RIGHT));
 		availableCards
-				.add(new Card(Picture.BROWN_UP, Picture.WHITE_RED_UP, Picture.WHITE_GRAY_LOW, Picture.WHITE_GRAY_UP));
-		availableCards.add(new Card(Picture.BROWN_LOW, Picture.WHITE_RED_LOW, Picture.BLACK_LEFT, Picture.BROWN_LOW));
+				.add(new Card(Picture.WHITE_RED_UP, Picture.WHITE_GRAY_UP, Picture.BLACK_RIGHT, Picture.BROWN_UP));
 		availableCards
-				.add(new Card(Picture.WHITE_GRAY_UP, Picture.BROWN_LOW, Picture.WHITE_RED_LOW, Picture.BLACK_LEFT));
+				.add(new Card(Picture.BROWN_LOW, Picture.BLACK_LEFT, Picture.WHITE_GRAY_UP, Picture.WHITE_RED_LOW));
 		availableCards
-				.add(new Card(Picture.WHITE_RED_UP, Picture.BLACK_RIGHT, Picture.BLACK_RIGHT, Picture.WHITE_GRAY_UP));
+				.add(new Card(Picture.BLACK_LEFT, Picture.WHITE_GRAY_LOW, Picture.BROWN_UP, Picture.WHITE_RED_UP));
 		availableCards
-				.add(new Card(Picture.BLACK_LEFT, Picture.BROWN_LOW, Picture.WHITE_RED_LOW, Picture.WHITE_GRAY_LOW));
+				.add(new Card(Picture.BROWN_LOW, Picture.WHITE_RED_UP, Picture.WHITE_GRAY_LOW, Picture.BLACK_LEFT));
 		availableCards
-				.add(new Card(Picture.WHITE_GRAY_LOW, Picture.WHITE_RED_UP, Picture.BROWN_UP, Picture.BLACK_RIGHT));
+				.add(new Card(Picture.WHITE_RED_UP, Picture.WHITE_GRAY_UP, Picture.BROWN_UP, Picture.WHITE_GRAY_LOW));
+		availableCards.add(new Card(Picture.WHITE_RED_LOW, Picture.BROWN_LOW, Picture.BROWN_LOW, Picture.BLACK_LEFT));
 		return availableCards;
 	}
 
