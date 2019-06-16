@@ -30,7 +30,7 @@ public class CardToGraphics {
 		Graphics2D g2d = img.createGraphics();
 		g2d.setFont(font);
 		for (Card card : cards) {
-			while (findMaxWidth(g2d, card) > CARD_SIZE / 2 - MARGIN * 3) {
+			while (findMaxWidth(g2d, card) > CARD_SIZE / 2.0 - MARGIN * 3) {
 				font = new Font("Courier", Font.PLAIN, font.getSize() - 1);
 				g2d.setFont(font);
 			}
@@ -54,14 +54,14 @@ public class CardToGraphics {
 		g2d.fillRect(0, 0, CARD_SIZE, CARD_SIZE);
 		g2d.setColor(Color.BLACK);
 		String northStr = card.getNorth().toString();
-		drawString(g2d, northStr, CARD_SIZE / 2 - strWidth(g2d, northStr) / 2, strHeight(northStr, g2d) / 2 + MARGIN);
+		drawString(g2d, northStr, (CARD_SIZE - strWidth(g2d, northStr)) / 2.0, strHeight(northStr, g2d) / 2.0 + MARGIN);
 		String westStr = card.getWest().toString();
-		drawString(g2d, westStr, MARGIN, CARD_SIZE / 2 + strHeight(westStr, g2d) / 2);
+		drawString(g2d, westStr, MARGIN, (CARD_SIZE - MARGIN + strHeight(westStr, g2d)) / 2.0);
 		String eastStr = card.getEast().toString();
 		drawString(g2d, eastStr, CARD_SIZE - MARGIN - strWidth(g2d, eastStr),
-				CARD_SIZE / 2 + strHeight(eastStr, g2d) / 2);
+				(CARD_SIZE - MARGIN + strHeight(eastStr, g2d)) / 2.0);
 		String southStr = card.getSouth().toString();
-		drawString(g2d, southStr, CARD_SIZE / 2 - strWidth(g2d, southStr) / 2, CARD_SIZE - MARGIN);
+		drawString(g2d, southStr, (CARD_SIZE - strWidth(g2d, southStr)) / 2.0, CARD_SIZE - MARGIN);
 
 		Stroke dashed = new BasicStroke(0.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 5, 5 }, 0);
 		g2d.setStroke(dashed);
@@ -70,7 +70,7 @@ public class CardToGraphics {
 		g2d.setColor(Color.RED);
 		g2d.setStroke(new BasicStroke(1.0f));
 		String cardNumberStr = String.valueOf(card.getId());
-		drawString(g2d, cardNumberStr, CARD_SIZE / 2 - strWidth(g2d, cardNumberStr) / 2, CARD_SIZE / 2 - MARGIN);
+		drawString(g2d, cardNumberStr, (CARD_SIZE - strWidth(g2d, cardNumberStr)) / 2.0, CARD_SIZE / 2.0 - MARGIN);
 		g2d.setColor(Color.BLACK);
 		drawRect(g2d, INTER_CARD_SPACING, INTER_CARD_SPACING, CARD_SIZE - INTER_CARD_SPACING * 2,
 				CARD_SIZE - INTER_CARD_SPACING * 2);
