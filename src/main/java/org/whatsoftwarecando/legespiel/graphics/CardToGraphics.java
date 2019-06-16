@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import org.whatsoftwarecando.legespiel.Card;
+import org.whatsoftwarecando.legespiel.IPicture;
 
 public class CardToGraphics {
 
@@ -53,14 +53,14 @@ public class CardToGraphics {
 		g2d.setColor(BG_COLOR);
 		g2d.fillRect(0, 0, CARD_SIZE, CARD_SIZE);
 		g2d.setColor(Color.BLACK);
-		String northStr = card.getNorth().toString();
-		drawString(g2d, northStr, (CARD_SIZE - strWidth(g2d, northStr)) / 2.0, strHeight(northStr, g2d) / 2.0 + MARGIN);
-		String westStr = card.getWest().toString();
-		drawString(g2d, westStr, MARGIN, (CARD_SIZE - MARGIN + strHeight(westStr, g2d)) / 2.0);
-		String eastStr = card.getEast().toString();
+		String northStr = pictureToStr(card.getNorth());
+		drawString(g2d, northStr, (CARD_SIZE - strWidth(g2d, northStr)) / 2.0, strHeight(northStr, g2d, font) + MARGIN);
+		String westStr = pictureToStr(card.getWest());
+		drawString(g2d, westStr, MARGIN, (CARD_SIZE + strHeight(westStr, g2d, font)) / 2.0);
+		String eastStr = pictureToStr(card.getEast());
 		drawString(g2d, eastStr, CARD_SIZE - MARGIN - strWidth(g2d, eastStr),
-				(CARD_SIZE - MARGIN + strHeight(eastStr, g2d)) / 2.0);
-		String southStr = card.getSouth().toString();
+				(CARD_SIZE + strHeight(eastStr, g2d, font)) / 2.0);
+		String southStr = pictureToStr(card.getSouth());
 		drawString(g2d, southStr, (CARD_SIZE - strWidth(g2d, southStr)) / 2.0, CARD_SIZE - MARGIN);
 
 		Stroke dashed = new BasicStroke(0.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 5, 5 }, 0);
@@ -83,11 +83,15 @@ public class CardToGraphics {
 		return bos.toByteArray();
 	}
 
+	private String pictureToStr(IPicture picture) {
+		return picture.toString().replace('_', ' ');
+	}
+
 	private int findMaxWidth(Graphics2D g2d, Card card) {
-		String northStr = card.getNorth().toString();
-		String westStr = card.getWest().toString();
-		String eastStr = card.getEast().toString();
-		String southStr = card.getSouth().toString();
+		String northStr = pictureToStr(card.getNorth());
+		String westStr = pictureToStr(card.getWest());
+		String eastStr = pictureToStr(card.getEast());
+		String southStr = pictureToStr(card.getSouth());
 		int northWidth = strWidth(g2d, northStr);
 		int westWidth = strWidth(g2d, westStr);
 		int eastWidth = strWidth(g2d, eastStr);
@@ -104,13 +108,14 @@ public class CardToGraphics {
 		g2d.drawString(str, (int) Math.round(x), (int) Math.round(y));
 	}
 
-	private int strWidth(Graphics2D g2d, String eastStr) {
-		return g2d.getFontMetrics().stringWidth(eastStr);
+	private int strWidth(Graphics2D g2d, String str) {
+		return g2d.getFontMetrics().stringWidth(str);
 	}
 
-	private int strHeight(String str, Graphics2D g2d) {
-		Rectangle2D bounds = g2d.getFontMetrics().getStringBounds(str, g2d);
-		return (int) Math.round(bounds.getHeight());
+	private double strHeight(String str, Graphics2D g2d, Font font) {
+		double height = font.createGlyphVector(g2d.getFontMetrics().getFontRenderContext(), str).getVisualBounds()
+				.getHeight();
+		return height;
 	}
 
 }
