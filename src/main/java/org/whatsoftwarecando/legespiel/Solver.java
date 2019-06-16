@@ -1,5 +1,6 @@
 package org.whatsoftwarecando.legespiel;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -87,8 +88,9 @@ public class Solver {
 		Files.write(htmlOutputFile, allSolutionsHtml.getBytes("UTF-8"));
 
 		CardToGraphics cardToGraphics = new CardToGraphics();
+		Font font = cardToGraphics.calculateFont(gameConfig.getAvailableCardsInstance());
 		for (Card card : gameConfig.getAvailableCardsInstance()) {
-			byte[] cardImage = cardToGraphics.convert(card, "png");
+			byte[] cardImage = cardToGraphics.convert(card, font, "png");
 			Path imageOutputFile = Paths
 					.get("html-output/" + gameConfig.getClass().getSimpleName() + "/card" + card.getId() + ".png");
 			Files.write(imageOutputFile, cardImage);

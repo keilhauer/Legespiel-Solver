@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -23,8 +24,21 @@ public class CardToGraphics {
 	private static final int INTER_CARD_SPACING = 2;
 	private static final int FONT_SIZE = 20;
 
-	public byte[] convert(Card card, String format) throws IOException {
+	public Font calculateFont(List<Card> cards) {
 		Font font = new Font("Courier", Font.PLAIN, FONT_SIZE);
+		BufferedImage img = new BufferedImage(CARD_SIZE, CARD_SIZE, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = img.createGraphics();
+		g2d.setFont(font);
+		for (Card card : cards) {
+			while (findMaxWidth(g2d, card) > CARD_SIZE / 2 - MARGIN * 3) {
+				font = new Font("Courier", Font.PLAIN, font.getSize() - 1);
+				g2d.setFont(font);
+			}
+		}
+		return font;
+	}
+
+	public byte[] convert(Card card, Font font, String format) throws IOException {
 		BufferedImage img = new BufferedImage(CARD_SIZE, CARD_SIZE, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = img.createGraphics();
 		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -36,10 +50,6 @@ public class CardToGraphics {
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 		g2d.setFont(font);
-		while(findMaxWidth(g2d, card) > CARD_SIZE / 2 - MARGIN * 2){
-			font = new Font("Courier", Font.PLAIN, font.getSize() - 1);
-			g2d.setFont(font);
-		}
 		g2d.setColor(BG_COLOR);
 		g2d.fillRect(0, 0, CARD_SIZE, CARD_SIZE);
 		g2d.setColor(Color.BLACK);
@@ -73,7 +83,7 @@ public class CardToGraphics {
 		return bos.toByteArray();
 	}
 
-	private int findMaxWidth(Graphics2D g2d, Card card){
+	private int findMaxWidth(Graphics2D g2d, Card card) {
 		String northStr = card.getNorth().toString();
 		String westStr = card.getWest().toString();
 		String eastStr = card.getEast().toString();
@@ -83,8 +93,9 @@ public class CardToGraphics {
 		int eastWidth = strWidth(g2d, eastStr);
 		int southWidth = strWidth(g2d, southStr);
 		return Math.max(Math.max(northWidth, westWidth), Math.max(eastWidth, southWidth));
-		
+
 	}
+
 	private void drawRect(Graphics2D g2d, int x, int y, int width, int height) {
 		g2d.drawRect(x, y, width, height);
 	}

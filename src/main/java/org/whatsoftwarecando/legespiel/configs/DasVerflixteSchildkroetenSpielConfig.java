@@ -15,8 +15,8 @@ public class DasVerflixteSchildkroetenSpielConfig extends GameConfig {
 
 	enum Picture implements IPicture {
 
-		RED_YELLOW_UPPER(1), RED_YELLOW_LOWER(1), RED_GREEN_UPPER(2), RED_GREEN_LOWER(2), RED_BLACK_UPPER(
-				3), RED_BLACK_LOWER(3), GREEN_YELLOW_UPPER(4), GREEN_YELLOW_LOWER(4);
+		RED_YELLOW_UP(1), RED_YELLOW_LOW(1), RED_GREEN_UP(2), RED_GREEN_LOW(2), RED_BLACK_UP(
+				3), RED_BLACK_LOW(3), GREEN_YELLOW_UP(4), GREEN_YELLOW_LOW(4);
 
 		private final int pairNumber;
 
@@ -39,24 +39,24 @@ public class DasVerflixteSchildkroetenSpielConfig extends GameConfig {
 	protected ArrayList<Card> createAvailableCards() {
 		ArrayList<Card> availableCards = new ArrayList<Card>();
 		// Duplicate cards: 3rd, 8th
-		availableCards.add(new Card(Picture.RED_YELLOW_LOWER, Picture.RED_GREEN_LOWER, Picture.RED_BLACK_UPPER,
-				Picture.GREEN_YELLOW_UPPER));
-		availableCards.add(new Card(Picture.RED_GREEN_LOWER, Picture.RED_BLACK_LOWER, Picture.GREEN_YELLOW_UPPER,
-				Picture.RED_YELLOW_UPPER));
-		availableCards.add(new Card(Picture.RED_GREEN_LOWER, Picture.GREEN_YELLOW_LOWER, Picture.RED_BLACK_UPPER,
-				Picture.RED_YELLOW_UPPER));
-		availableCards.add(new Card(Picture.GREEN_YELLOW_LOWER, Picture.RED_YELLOW_LOWER, Picture.RED_BLACK_UPPER,
-				Picture.RED_GREEN_UPPER));
-		availableCards.add(new Card(Picture.RED_YELLOW_LOWER, Picture.RED_BLACK_LOWER, Picture.GREEN_YELLOW_UPPER,
-				Picture.RED_GREEN_UPPER));
-		availableCards.add(new Card(Picture.RED_YELLOW_LOWER, Picture.GREEN_YELLOW_LOWER, Picture.GREEN_YELLOW_UPPER,
-				Picture.RED_GREEN_UPPER));
-		availableCards.add(new Card(Picture.RED_GREEN_LOWER, Picture.RED_YELLOW_LOWER, Picture.GREEN_YELLOW_UPPER,
-				Picture.RED_BLACK_UPPER));
-		availableCards.add(new Card(Picture.RED_GREEN_LOWER, Picture.GREEN_YELLOW_LOWER, Picture.RED_BLACK_UPPER,
-				Picture.RED_YELLOW_UPPER));
-		availableCards.add(new Card(Picture.RED_GREEN_LOWER, Picture.RED_BLACK_LOWER, Picture.RED_BLACK_UPPER,
-				Picture.RED_YELLOW_UPPER));
+		availableCards.add(new Card(Picture.RED_YELLOW_LOW, Picture.RED_GREEN_LOW, Picture.RED_BLACK_UP,
+				Picture.GREEN_YELLOW_UP));
+		availableCards.add(new Card(Picture.RED_GREEN_LOW, Picture.RED_BLACK_LOW, Picture.GREEN_YELLOW_UP,
+				Picture.RED_YELLOW_UP));
+		availableCards.add(new Card(Picture.RED_GREEN_LOW, Picture.GREEN_YELLOW_LOW, Picture.RED_BLACK_UP,
+				Picture.RED_YELLOW_UP));
+		availableCards.add(new Card(Picture.GREEN_YELLOW_LOW, Picture.RED_YELLOW_LOW, Picture.RED_BLACK_UP,
+				Picture.RED_GREEN_UP));
+		availableCards.add(new Card(Picture.RED_YELLOW_LOW, Picture.RED_BLACK_LOW, Picture.GREEN_YELLOW_UP,
+				Picture.RED_GREEN_UP));
+		availableCards.add(new Card(Picture.RED_YELLOW_LOW, Picture.GREEN_YELLOW_LOW, Picture.GREEN_YELLOW_UP,
+				Picture.RED_GREEN_UP));
+		availableCards.add(new Card(Picture.RED_GREEN_LOW, Picture.RED_YELLOW_LOW, Picture.GREEN_YELLOW_UP,
+				Picture.RED_BLACK_UP));
+		availableCards.add(new Card(Picture.RED_GREEN_LOW, Picture.GREEN_YELLOW_LOW, Picture.RED_BLACK_UP,
+				Picture.RED_YELLOW_UP));
+		availableCards.add(new Card(Picture.RED_GREEN_LOW, Picture.RED_BLACK_LOW, Picture.RED_BLACK_UP,
+				Picture.RED_YELLOW_UP));
 		return availableCards;
 	}
 
