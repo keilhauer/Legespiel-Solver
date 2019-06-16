@@ -53,7 +53,7 @@ public class CatsScrambleSquaresConfig extends GameConfig {
 		availableCards
 				.add(new Card(Picture.BLACK_LEFT, Picture.BROWN_LOW, Picture.WHITE_RED_LOW, Picture.WHITE_GRAY_LOW));
 		availableCards
-				.add(new Card(Picture.WHITE_GRAY_LOW, Picture.WHITE_RED_LOW, Picture.BROWN_UP, Picture.BLACK_RIGHT));
+				.add(new Card(Picture.WHITE_GRAY_LOW, Picture.WHITE_RED_UP, Picture.BROWN_UP, Picture.BLACK_RIGHT));
 		return availableCards;
 	}
 
