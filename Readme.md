@@ -3,7 +3,7 @@
 ## What it is And How it Works
 Legespiel-Solver was written to accompany the following blog post:
 
-[Backtracking in The Nursery – How to Solve a “Legespiel”](https://whatsoftwarecando.org/backtracking-nursery-solve-legespiel/)
+[Backtracking in The Nursery – How to Solve Scramble Squares](https://whatsoftwarecando.org/backtracking-nursery-solve-scramble-squares/)
 
 There is also a [List of Scramble Squares Puzzles with Solutions](https://whatsoftwarecando.org/list-of-scramble-squares-puzzles-with-solutions/) available.
 
