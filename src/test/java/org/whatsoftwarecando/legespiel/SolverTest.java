@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
-import org.whatsoftwarecando.legespiel.configs.AsterixKartenlegespielConfig;
+import org.whatsoftwarecando.legespiel.configs.AsterixKnobeleiConfig;
 import org.whatsoftwarecando.legespiel.configs.Crazy9KetnerOwls;
 import org.whatsoftwarecando.legespiel.configs.DasVerrueckteLoriotLegespielConfig;
 import org.whatsoftwarecando.legespiel.configs.FourPicturesConfig;
@@ -24,7 +24,7 @@ public class SolverTest {
 	@Test
 	public void testNumberOfSolutions() {
 		testNumberOfSolutions(148, 37, new AbsolutKniffligConfig());
-		testNumberOfSolutions(48, 3, new AsterixKartenlegespielConfig());
+		testNumberOfSolutions(48, 3, new AsterixKnobeleiConfig());
 		testNumberOfSolutions(16, 2, new Crazy9KetnerOwls());
 		testNumberOfSolutions(48, 3, new DasVerrueckteLoriotLegespielConfig());
 		testNumberOfSolutions(37120, 145, new FourPicturesConfig());
@@ -47,7 +47,7 @@ public class SolverTest {
 	@Test
 	public void testAlwaysSameSolutions() {
 		testAlwaysSameSolutions(new AbsolutKniffligConfig());
-		testAlwaysSameSolutions(new AsterixKartenlegespielConfig());
+		testAlwaysSameSolutions(new AsterixKnobeleiConfig());
 		testAlwaysSameSolutions(new Crazy9KetnerOwls());
 		testAlwaysSameSolutions(new DasVerrueckteLoriotLegespielConfig());
 		testAlwaysSameSolutions(new FourPicturesConfig());

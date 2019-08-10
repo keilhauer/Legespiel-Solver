@@ -8,6 +8,6 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.debug.core.source_locator_id" value="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.whatsoftwarecando.legespiel.Solver"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="AsterixKartenlegespielConfig"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="AsterixKnobeleiConfig"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Legespiel-Solver"/>
 </launchConfiguration>

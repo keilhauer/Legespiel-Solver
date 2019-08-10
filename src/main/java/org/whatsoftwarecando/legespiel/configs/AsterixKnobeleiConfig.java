@@ -8,16 +8,16 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
- * Configuration based on "Asterix Kartenlegespiel": see
+ * Configuration based on "Asterix-Knobelei": see
  * http://www.comedix.de/medien/lit/kartenlegespiel.php for more information
  *
  */
-public class AsterixKartenlegespielConfig extends GameConfig {
+public class AsterixKnobeleiConfig extends GameConfig {
 
 	enum Picture implements IPicture {
 
-		ASTERIX_UP(1), ASTERIX_LOW(1), OBELIX_UP(2), OBELIX_LOW(2), MIRACULIX_UP(3), MIRACULIX_LOW(3), MAJESTIX_UP(
-				4), MAJESTIX_LOW(4);
+		ASTERIX_UP(1), ASTERIX_LOW(1), OBELIX_UP(2), OBELIX_LOW(2), DRUID_UP(3), DRUID_LOW(3), CHIEF_UP(4), CHIEF_LOW(
+				4);
 
 		private final int pairNumber;
 
@@ -39,24 +39,15 @@ public class AsterixKartenlegespielConfig extends GameConfig {
 	@Override
 	protected ArrayList<Card> createAvailableCards() {
 		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards
-				.add(new Card(Picture.ASTERIX_UP, Picture.MAJESTIX_LOW, Picture.MIRACULIX_LOW, Picture.OBELIX_UP));
-		availableCards
-				.add(new Card(Picture.OBELIX_LOW, Picture.MIRACULIX_UP, Picture.ASTERIX_LOW, Picture.MAJESTIX_UP));
-		availableCards
-				.add(new Card(Picture.MAJESTIX_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP, Picture.MIRACULIX_LOW));
-		availableCards
-				.add(new Card(Picture.OBELIX_LOW, Picture.MAJESTIX_UP, Picture.MIRACULIX_UP, Picture.ASTERIX_LOW));
-		availableCards
-				.add(new Card(Picture.MAJESTIX_LOW, Picture.MIRACULIX_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP));
-		availableCards
-				.add(new Card(Picture.MIRACULIX_UP, Picture.ASTERIX_LOW, Picture.MAJESTIX_UP, Picture.MAJESTIX_UP));
-		availableCards
-				.add(new Card(Picture.ASTERIX_UP, Picture.MAJESTIX_LOW, Picture.MIRACULIX_LOW, Picture.OBELIX_UP));
-		availableCards
-				.add(new Card(Picture.OBELIX_LOW, Picture.MIRACULIX_UP, Picture.ASTERIX_LOW, Picture.MAJESTIX_UP));
-		availableCards
-				.add(new Card(Picture.MAJESTIX_LOW, Picture.ASTERIX_UP, Picture.MIRACULIX_LOW, Picture.OBELIX_UP));
+		availableCards.add(new Card(Picture.ASTERIX_UP, Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.OBELIX_UP));
+		availableCards.add(new Card(Picture.OBELIX_LOW, Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP));
+		availableCards.add(new Card(Picture.CHIEF_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP, Picture.DRUID_LOW));
+		availableCards.add(new Card(Picture.OBELIX_LOW, Picture.CHIEF_UP, Picture.DRUID_UP, Picture.ASTERIX_LOW));
+		availableCards.add(new Card(Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP));
+		availableCards.add(new Card(Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP, Picture.CHIEF_UP));
+		availableCards.add(new Card(Picture.ASTERIX_UP, Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.OBELIX_UP));
+		availableCards.add(new Card(Picture.OBELIX_LOW, Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP));
+		availableCards.add(new Card(Picture.CHIEF_LOW, Picture.ASTERIX_UP, Picture.DRUID_LOW, Picture.OBELIX_UP));
 		return availableCards;
 	}
 

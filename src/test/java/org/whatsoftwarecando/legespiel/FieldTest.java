@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
-import org.whatsoftwarecando.legespiel.configs.AsterixKartenlegespielConfig;
+import org.whatsoftwarecando.legespiel.configs.AsterixKnobeleiConfig;
 import org.whatsoftwarecando.legespiel.configs.UliSteinNochVerwzickterGehtNichtConfig;
 
 public class FieldTest {
@@ -29,7 +29,7 @@ public class FieldTest {
 
 	@Test
 	public void testAddAsterix() {
-		AsterixKartenlegespielConfig config = new AsterixKartenlegespielConfig();
+		AsterixKnobeleiConfig config = new AsterixKnobeleiConfig();
 		Field board = config.getEmptyFieldInstance();
 		for (Card card : config.getAvailableCardsInstance()) {
 			board = board.addedIfFits(card);
