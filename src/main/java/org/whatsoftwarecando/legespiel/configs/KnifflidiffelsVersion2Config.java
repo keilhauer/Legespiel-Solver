@@ -9,7 +9,7 @@ import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on "Knifflidiffels". This is version 2 according to
- * http://www.juliesdiddlsamling.dk/spil/spil01.htm#table3
+ * https://whatsoftwarecando.org/list-of-scramble-squares-puzzles-with-solutions/
  */
 public class KnifflidiffelsVersion2Config extends GameConfig {
 
