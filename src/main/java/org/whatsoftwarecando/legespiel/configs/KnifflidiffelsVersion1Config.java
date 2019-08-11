@@ -32,7 +32,6 @@ public class KnifflidiffelsVersion1Config extends GameConfig {
 	protected ArrayList<Card> createAvailableCards() {
 		ArrayList<Card> availableCards = new ArrayList<Card>();
 
-		// Identical cards: 2nd, 9th; 3rd, 5th, 6th, 8th; 4th, 7th
 		availableCards.add(new Card(Picture.BALLOONS, Picture.BEAR, Picture.GIRL, Picture.BOY));
 		availableCards.add(new Card(Picture.BOY, Picture.GIRL, Picture.BEAR, Picture.BALLOONS));
 		availableCards.add(new Card(Picture.BALLOONS, Picture.BEAR, Picture.GIRL, Picture.BOY));
