@@ -9,8 +9,8 @@ import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
  * Configuration based on "Absolut knifflig!". See
- * http://whatsoftwarecando.org/en/backtracking-nursery-solve-legespiel/ for
- * more information.
+ * https://whatsoftwarecando.org/backtracking-nursery-solve-scramble-squares/
+ * for more information.
  */
 public class AbsolutKniffligConfig extends GameConfig {
 
