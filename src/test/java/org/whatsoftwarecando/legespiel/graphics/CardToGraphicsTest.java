@@ -1,5 +1,6 @@
 package org.whatsoftwarecando.legespiel.graphics;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,6 @@ public class CardToGraphicsTest {
 		ArrayList<Card> availableCards = new Crazy9KetnerOwls().getAvailableCardsInstance();
 		Font font = new CardToGraphics().calculateFont(availableCards);
 		Card card = availableCards.get(0);
-		new CardToGraphics().convert(card, font, "png");
+		new CardToGraphics().convert(card, font, Color.red, "png");
 	}
 }

@@ -18,7 +18,7 @@ import org.whatsoftwarecando.legespiel.IPicture;
 
 public class CardToGraphics {
 
-	private static final Color BG_COLOR = new Color(255, 255, 224);
+	private static final Color BG_COLOR = new Color(250, 250, 250);
 	private static final int CARD_SIZE = 300;
 	private static final int MARGIN = 10;
 	private static final int INTER_CARD_SPACING = 2;
@@ -38,7 +38,7 @@ public class CardToGraphics {
 		return font;
 	}
 
-	public byte[] convert(Card card, Font font, String format) throws IOException {
+	public byte[] convert(Card card, Font font, Color color, String format) throws IOException {
 		BufferedImage img = new BufferedImage(CARD_SIZE, CARD_SIZE, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = img.createGraphics();
 		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -50,7 +50,11 @@ public class CardToGraphics {
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 		g2d.setFont(font);
-		g2d.setColor(BG_COLOR);
+		if (color == null) {
+			g2d.setColor(BG_COLOR);
+		} else {
+			g2d.setColor(color);
+		}
 		g2d.fillRect(0, 0, CARD_SIZE, CARD_SIZE);
 		g2d.setColor(Color.BLACK);
 		String northStr = pictureToStr(card.getNorth());
