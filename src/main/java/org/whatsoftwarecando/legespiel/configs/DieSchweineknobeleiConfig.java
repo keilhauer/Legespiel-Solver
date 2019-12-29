@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -41,25 +38,17 @@ public class DieSchweineknobeleiConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
+	protected void createAvailableCards() {
 
 		// Identical cards: 3rd, 5th
-		availableCards.add(new Card(Picture.PINK_UP, Picture.STRIPES_UP, Picture.STRIPES_UP, Picture.PINK_UP));
-		availableCards
-				.add(new Card(Picture.BLUE_DROPS_UP, Picture.STRIPES_LOW, Picture.BLACK_SPOTS_UP, Picture.PINK_LOW));
-		availableCards.add(new Card(Picture.PINK_UP, Picture.BLACK_SPOTS_LOW, Picture.STRIPES_UP, Picture.PINK_UP));
-		availableCards
-				.add(new Card(Picture.PINK_LOW, Picture.BLACK_SPOTS_LOW, Picture.BLACK_SPOTS_UP, Picture.STRIPES_UP));
-		availableCards.add(new Card(Picture.PINK_UP, Picture.BLACK_SPOTS_LOW, Picture.STRIPES_UP, Picture.PINK_UP));
-		availableCards
-				.add(new Card(Picture.PINK_LOW, Picture.STRIPES_LOW, Picture.STRIPES_UP, Picture.BLUE_DROPS_DOWN));
-		availableCards.add(
-				new Card(Picture.STRIPES_LOW, Picture.BLUE_DROPS_DOWN, Picture.BLUE_DROPS_UP, Picture.BLACK_SPOTS_LOW));
-		availableCards
-				.add(new Card(Picture.PINK_LOW, Picture.BLUE_DROPS_DOWN, Picture.BLACK_SPOTS_UP, Picture.STRIPES_LOW));
-		availableCards
-				.add(new Card(Picture.BLUE_DROPS_UP, Picture.BLACK_SPOTS_LOW, Picture.PINK_UP, Picture.STRIPES_LOW));
-		return availableCards;
+		addCard(Picture.PINK_UP, Picture.STRIPES_UP, Picture.STRIPES_UP, Picture.PINK_UP);
+		addCard(Picture.BLUE_DROPS_UP, Picture.STRIPES_LOW, Picture.BLACK_SPOTS_UP, Picture.PINK_LOW);
+		addCard(Picture.PINK_UP, Picture.BLACK_SPOTS_LOW, Picture.STRIPES_UP, Picture.PINK_UP);
+		addCard(Picture.PINK_LOW, Picture.BLACK_SPOTS_LOW, Picture.BLACK_SPOTS_UP, Picture.STRIPES_UP);
+		addCard(Picture.PINK_UP, Picture.BLACK_SPOTS_LOW, Picture.STRIPES_UP, Picture.PINK_UP);
+		addCard(Picture.PINK_LOW, Picture.STRIPES_LOW, Picture.STRIPES_UP, Picture.BLUE_DROPS_DOWN);
+		addCard(Picture.STRIPES_LOW, Picture.BLUE_DROPS_DOWN, Picture.BLUE_DROPS_UP, Picture.BLACK_SPOTS_LOW);
+		addCard(Picture.PINK_LOW, Picture.BLUE_DROPS_DOWN, Picture.BLACK_SPOTS_UP, Picture.STRIPES_LOW);
+		addCard(Picture.BLUE_DROPS_UP, Picture.BLACK_SPOTS_LOW, Picture.PINK_UP, Picture.STRIPES_LOW);
 	}
 }

@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -41,18 +38,16 @@ public class UliSteinNochVerzwickterConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.PENGUIN_RIGHT, Picture.MOUSE_RIGHT, Picture.CAT_LEFT, Picture.PIG_LEFT));
-		availableCards.add(new Card(Picture.PIG_LEFT, Picture.CAT_RIGHT, Picture.MOUSE_RIGHT, Picture.PENGUIN_LEFT));
-		availableCards.add(new Card(Picture.CAT_RIGHT, Picture.MOUSE_LEFT, Picture.PENGUIN_LEFT, Picture.PIG_RIGHT));
-		availableCards.add(new Card(Picture.PIG_RIGHT, Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT, Picture.CAT_LEFT));
-		availableCards.add(new Card(Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT, Picture.CAT_LEFT, Picture.PIG_RIGHT));
-		availableCards.add(new Card(Picture.PIG_LEFT, Picture.CAT_RIGHT, Picture.MOUSE_LEFT, Picture.PENGUIN_RIGHT));
-		availableCards.add(new Card(Picture.CAT_RIGHT, Picture.PIG_LEFT, Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT));
-		availableCards.add(new Card(Picture.PIG_LEFT, Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT, Picture.CAT_RIGHT));
-		availableCards.add(new Card(Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT, Picture.PIG_RIGHT, Picture.CAT_LEFT));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.PENGUIN_RIGHT, Picture.MOUSE_RIGHT, Picture.CAT_LEFT, Picture.PIG_LEFT);
+		addCard(Picture.PIG_LEFT, Picture.CAT_RIGHT, Picture.MOUSE_RIGHT, Picture.PENGUIN_LEFT);
+		addCard(Picture.CAT_RIGHT, Picture.MOUSE_LEFT, Picture.PENGUIN_LEFT, Picture.PIG_RIGHT);
+		addCard(Picture.PIG_RIGHT, Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT, Picture.CAT_LEFT);
+		addCard(Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT, Picture.CAT_LEFT, Picture.PIG_RIGHT);
+		addCard(Picture.PIG_LEFT, Picture.CAT_RIGHT, Picture.MOUSE_LEFT, Picture.PENGUIN_RIGHT);
+		addCard(Picture.CAT_RIGHT, Picture.PIG_LEFT, Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT);
+		addCard(Picture.PIG_LEFT, Picture.PENGUIN_RIGHT, Picture.MOUSE_LEFT, Picture.CAT_RIGHT);
+		addCard(Picture.PENGUIN_LEFT, Picture.MOUSE_RIGHT, Picture.PIG_RIGHT, Picture.CAT_LEFT);
 	}
 
 }

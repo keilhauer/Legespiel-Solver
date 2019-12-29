@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -36,19 +33,17 @@ public class Crazy9KetnerOwls extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
+	protected void createAvailableCards() {
 		// Duplicate cards: 3rd, 8th
-		availableCards.add(new Card(Picture.GREEN_1, Picture.PURPLE_1, Picture.BLUE_2, Picture.PINK_2));
-		availableCards.add(new Card(Picture.PURPLE_1, Picture.BLUE_1, Picture.PINK_2, Picture.GREEN_2));
-		availableCards.add(new Card(Picture.PURPLE_1, Picture.PINK_1, Picture.BLUE_2, Picture.GREEN_2));
-		availableCards.add(new Card(Picture.PINK_1, Picture.GREEN_1, Picture.BLUE_2, Picture.PURPLE_2));
-		availableCards.add(new Card(Picture.GREEN_1, Picture.BLUE_1, Picture.PINK_2, Picture.PURPLE_2));
-		availableCards.add(new Card(Picture.GREEN_1, Picture.PINK_1, Picture.PINK_2, Picture.PURPLE_2));
-		availableCards.add(new Card(Picture.PURPLE_1, Picture.GREEN_1, Picture.PINK_2, Picture.BLUE_2));
-		availableCards.add(new Card(Picture.PURPLE_1, Picture.PINK_1, Picture.BLUE_2, Picture.GREEN_2));
-		availableCards.add(new Card(Picture.PURPLE_1, Picture.BLUE_1, Picture.BLUE_2, Picture.GREEN_2));
-		return availableCards;
+		addCard(Picture.GREEN_1, Picture.PURPLE_1, Picture.BLUE_2, Picture.PINK_2);
+		addCard(Picture.PURPLE_1, Picture.BLUE_1, Picture.PINK_2, Picture.GREEN_2);
+		addCard(Picture.PURPLE_1, Picture.PINK_1, Picture.BLUE_2, Picture.GREEN_2);
+		addCard(Picture.PINK_1, Picture.GREEN_1, Picture.BLUE_2, Picture.PURPLE_2);
+		addCard(Picture.GREEN_1, Picture.BLUE_1, Picture.PINK_2, Picture.PURPLE_2);
+		addCard(Picture.GREEN_1, Picture.PINK_1, Picture.PINK_2, Picture.PURPLE_2);
+		addCard(Picture.PURPLE_1, Picture.GREEN_1, Picture.PINK_2, Picture.BLUE_2);
+		addCard(Picture.PURPLE_1, Picture.PINK_1, Picture.BLUE_2, Picture.GREEN_2);
+		addCard(Picture.PURPLE_1, Picture.BLUE_1, Picture.BLUE_2, Picture.GREEN_2);
 	}
 
 	@Override

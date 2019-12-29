@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -17,6 +14,7 @@ public class ButterfliesScrambleSquaresConfig extends GameConfig {
 
 		RED_UP(1), RED_LOW(1), ORANGE_UP(2), ORANGE_LOW(2), YELLOW_BLACK_UP(3), YELLOW_BLACK_LOW(3), BLUE_UP(
 				4), BLUE_LOW(4);
+
 		private final int pairNumber;
 
 		private Picture(int pairNumber) {
@@ -35,19 +33,16 @@ public class ButterfliesScrambleSquaresConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.RED_LOW, Picture.ORANGE_LOW, Picture.YELLOW_BLACK_UP, Picture.BLUE_LOW));
-		availableCards.add(new Card(Picture.RED_UP, Picture.YELLOW_BLACK_LOW, Picture.BLUE_LOW, Picture.ORANGE_LOW));
-		availableCards.add(new Card(Picture.RED_LOW, Picture.BLUE_UP, Picture.YELLOW_BLACK_UP, Picture.ORANGE_UP));
-		availableCards.add(new Card(Picture.BLUE_UP, Picture.RED_UP, Picture.ORANGE_LOW, Picture.YELLOW_BLACK_LOW));
-		availableCards.add(new Card(Picture.ORANGE_UP, Picture.BLUE_UP, Picture.YELLOW_BLACK_UP, Picture.RED_LOW));
-		availableCards.add(new Card(Picture.ORANGE_LOW, Picture.YELLOW_BLACK_LOW, Picture.BLUE_LOW, Picture.RED_UP));
-		availableCards
-				.add(new Card(Picture.YELLOW_BLACK_UP, Picture.YELLOW_BLACK_LOW, Picture.ORANGE_LOW, Picture.BLUE_UP));
-		availableCards.add(new Card(Picture.RED_UP, Picture.ORANGE_UP, Picture.ORANGE_UP, Picture.BLUE_LOW));
-		availableCards.add(new Card(Picture.RED_LOW, Picture.BLUE_LOW, Picture.YELLOW_BLACK_LOW, Picture.RED_UP));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.RED_LOW, Picture.ORANGE_LOW, Picture.YELLOW_BLACK_UP, Picture.BLUE_LOW);
+		addCard(Picture.RED_UP, Picture.YELLOW_BLACK_LOW, Picture.BLUE_LOW, Picture.ORANGE_LOW);
+		addCard(Picture.RED_LOW, Picture.BLUE_UP, Picture.YELLOW_BLACK_UP, Picture.ORANGE_UP);
+		addCard(Picture.BLUE_UP, Picture.RED_UP, Picture.ORANGE_LOW, Picture.YELLOW_BLACK_LOW);
+		addCard(Picture.ORANGE_UP, Picture.BLUE_UP, Picture.YELLOW_BLACK_UP, Picture.RED_LOW);
+		addCard(Picture.ORANGE_LOW, Picture.YELLOW_BLACK_LOW, Picture.BLUE_LOW, Picture.RED_UP);
+		addCard(Picture.YELLOW_BLACK_UP, Picture.YELLOW_BLACK_LOW, Picture.ORANGE_LOW, Picture.BLUE_UP);
+		addCard(Picture.RED_UP, Picture.ORANGE_UP, Picture.ORANGE_UP, Picture.BLUE_LOW);
+		addCard(Picture.RED_LOW, Picture.BLUE_LOW, Picture.YELLOW_BLACK_LOW, Picture.RED_UP);
 	}
 
 	@Override

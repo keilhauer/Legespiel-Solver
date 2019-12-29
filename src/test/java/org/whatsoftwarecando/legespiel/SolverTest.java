@@ -78,7 +78,7 @@ public class SolverTest {
 			}
 			long endTime = System.nanoTime();
 			System.out.println("Time needed: " + Util.nanosToMilliseconds(endTime - startTime) + " ms");
-			Collections.shuffle(gameConfig.getAvailableCardsInstance());
+			Collections.shuffle(gameConfig.getAvailableCards());
 		}
 	}
 }

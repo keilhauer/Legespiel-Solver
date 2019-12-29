@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -37,18 +34,16 @@ public class AsterixKnobeleiConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.ASTERIX_UP, Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.OBELIX_UP));
-		availableCards.add(new Card(Picture.OBELIX_LOW, Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP));
-		availableCards.add(new Card(Picture.CHIEF_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP, Picture.DRUID_LOW));
-		availableCards.add(new Card(Picture.OBELIX_LOW, Picture.CHIEF_UP, Picture.DRUID_UP, Picture.ASTERIX_LOW));
-		availableCards.add(new Card(Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP));
-		availableCards.add(new Card(Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP, Picture.CHIEF_UP));
-		availableCards.add(new Card(Picture.ASTERIX_UP, Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.OBELIX_UP));
-		availableCards.add(new Card(Picture.OBELIX_LOW, Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP));
-		availableCards.add(new Card(Picture.CHIEF_LOW, Picture.ASTERIX_UP, Picture.DRUID_LOW, Picture.OBELIX_UP));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.ASTERIX_UP, Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.OBELIX_UP);
+		addCard(Picture.OBELIX_LOW, Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP);
+		addCard(Picture.CHIEF_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP, Picture.DRUID_LOW);
+		addCard(Picture.OBELIX_LOW, Picture.CHIEF_UP, Picture.DRUID_UP, Picture.ASTERIX_LOW);
+		addCard(Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.ASTERIX_UP, Picture.OBELIX_UP);
+		addCard(Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP, Picture.CHIEF_UP);
+		addCard(Picture.ASTERIX_UP, Picture.CHIEF_LOW, Picture.DRUID_LOW, Picture.OBELIX_UP);
+		addCard(Picture.OBELIX_LOW, Picture.DRUID_UP, Picture.ASTERIX_LOW, Picture.CHIEF_UP);
+		addCard(Picture.CHIEF_LOW, Picture.ASTERIX_UP, Picture.DRUID_LOW, Picture.OBELIX_UP);
 	}
 
 	@Override

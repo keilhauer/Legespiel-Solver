@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -29,25 +26,23 @@ public class KnifflidiffelsVersion4Config extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
+	protected void createAvailableCards() {
 
 		// Cards 1-4 (identical)
-		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL));
-		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL));
-		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL));
-		availableCards.add(new Card(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL));
+		addCard(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL);
+		addCard(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL);
+		addCard(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL);
+		addCard(Picture.DOG, Picture.BOY, Picture.SHEEPS, Picture.GIRL);
 
 		// Cards 5-6 (identical)
-		availableCards.add(new Card(Picture.GIRL, Picture.BOY, Picture.SHEEPS, Picture.DOG));
-		availableCards.add(new Card(Picture.GIRL, Picture.BOY, Picture.SHEEPS, Picture.DOG));
+		addCard(Picture.GIRL, Picture.BOY, Picture.SHEEPS, Picture.DOG);
+		addCard(Picture.GIRL, Picture.BOY, Picture.SHEEPS, Picture.DOG);
 
 		// Cards 7-8 (identical)
-		availableCards.add(new Card(Picture.SHEEPS, Picture.BOY, Picture.GIRL, Picture.DOG));
-		availableCards.add(new Card(Picture.SHEEPS, Picture.BOY, Picture.GIRL, Picture.DOG));
+		addCard(Picture.SHEEPS, Picture.BOY, Picture.GIRL, Picture.DOG);
+		addCard(Picture.SHEEPS, Picture.BOY, Picture.GIRL, Picture.DOG);
 
 		// Card 9
-		availableCards.add(new Card(Picture.BOY, Picture.SHEEPS, Picture.DOG, Picture.GIRL));
-		return availableCards;
+		addCard(Picture.BOY, Picture.SHEEPS, Picture.DOG, Picture.GIRL);
 	}
 }

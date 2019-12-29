@@ -3,7 +3,7 @@ package org.whatsoftwarecando.legespiel.graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.Card;
@@ -13,9 +13,9 @@ public class CardToGraphicsTest {
 
 	@Test
 	public void test() throws IOException {
-		ArrayList<Card> availableCards = new Crazy9KetnerOwls().getAvailableCardsInstance();
-		Font font = new CardToGraphics().calculateFont(availableCards);
+		List<Card> availableCards = new Crazy9KetnerOwls().getAvailableCards();
+		Font font = new CardToGraphicsConverter().calculateFont(availableCards);
 		Card card = availableCards.get(0);
-		new CardToGraphics().convert(card, font, Color.red, "png");
+		new CardToGraphicsConverter().convert(card, font, Color.red, "png");
 	}
 }

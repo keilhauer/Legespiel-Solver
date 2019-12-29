@@ -1,6 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,8 +34,8 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		this.rowsInField = rowsInField;
 		this.colsInField = colsInField;
 		this.eliminateDuplicateCards = eliminateDuplicateCards;
-		System.out.println("Available cards: " + this.getAvailableCardsInstance());
-		System.out.println("Number of available cards: " + this.getAvailableCardsInstance().size());
+		this.output("Available cards: " + this.getAvailableCards());
+		this.output("Number of available cards: " + this.getAvailableCards().size());
 	}
 
 	public enum Pictures implements IPicture {
@@ -50,15 +49,15 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>(
-				AllPossibleCardsForPictures.generateCards(Pictures.values(), eliminateDuplicateCards));
-		return availableCards;
+	protected void createAvailableCards() {
+		List<Card> allCards = AllPossibleCardsForPictures.generateCards(Pictures.values(), eliminateDuplicateCards,
+				this.cardCreator);
+		this.getAvailableCards().addAll(allCards);
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [availableCards=" + this.getAvailableCardsInstance() + "]";
+		return this.getClass().getSimpleName() + " [availableCards=" + this.getAvailableCards() + "]";
 	}
 
 	@Override
@@ -102,7 +101,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 			}
 		}
 
-		System.out.println("\nFirst filter done.");
+		this.output("\nFirst filter done.");
 		countFiltered = 0;
 		Set<Field> noDuplicates = new HashSet<Field>();
 		for (Field currentSolution : solutionIdsWithFirstFound.values()) {
@@ -113,15 +112,15 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 				}
 			}
 		}
-		System.out.println("\nDuplicates removed.");
-		System.out.println("Solutions left: " + noDuplicates.size());
+		this.output("\nDuplicates removed.");
+		this.output("Solutions left: " + noDuplicates.size());
 		Set<Field> onlyOneSolution = new HashSet<Field>();
 		Solver solver = new Solver();
 		int countCorrect = 0;
 		int countIncorrect = 0;
 		for (Field solution : noDuplicates) {
 			GenericGameConfig currentSolutionConfig = new GenericGameConfig(solution.getAllCards(),
-					this.getEmptyFieldInstance());
+					this.getEmptyField());
 			List<Field> solutionsForCurrent = solver.findAllSolutions(currentSolutionConfig);
 			List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates(solutionsForCurrent);
 			if (solutionsWithoutRotations.size() == 1) {
@@ -135,7 +134,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 				}
 			}
 		}
-		System.out.println("\nExtracted all configurations with exactly one solution.");
+		this.output("\nExtracted all configurations with exactly one solution.");
 
 		return onlyOneSolution;
 	}
@@ -172,7 +171,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		countEasy = 0;
 		partialSolutions.parallelStream().forEach(partialSolution -> filterOne(partialSolution));
 
-		System.out.println("\nFirst filter done.");
+		this.output("\nFirst filter done.");
 		countEasy = 0;
 		countWithOne = 0;
 		countWithMore = 0;
@@ -181,7 +180,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 
 		alreadyCalculated.values().parallelStream().forEach((PartialSolution current) -> filterTwo(current));
 
-		System.out.println("\nAverage number of solutions: " + (numberOfSolutions / count));
+		this.output("\nAverage number of solutions: " + (numberOfSolutions / count));
 		return filtered;
 	}
 

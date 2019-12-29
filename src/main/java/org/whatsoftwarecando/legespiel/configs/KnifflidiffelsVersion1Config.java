@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -29,18 +26,15 @@ public class KnifflidiffelsVersion1Config extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-
-		availableCards.add(new Card(Picture.BALLOONS, Picture.BEAR, Picture.GIRL, Picture.BOY));
-		availableCards.add(new Card(Picture.BOY, Picture.GIRL, Picture.BEAR, Picture.BALLOONS));
-		availableCards.add(new Card(Picture.BALLOONS, Picture.BEAR, Picture.GIRL, Picture.BOY));
-		availableCards.add(new Card(Picture.BALLOONS, Picture.GIRL, Picture.BEAR, Picture.BOY));
-		availableCards.add(new Card(Picture.BOY, Picture.BEAR, Picture.GIRL, Picture.BALLOONS));
-		availableCards.add(new Card(Picture.GIRL, Picture.BALLOONS, Picture.BOY, Picture.BEAR));
-		availableCards.add(new Card(Picture.GIRL, Picture.BEAR, Picture.BALLOONS, Picture.BOY));
-		availableCards.add(new Card(Picture.GIRL, Picture.BALLOONS, Picture.BEAR, Picture.BOY));
-		availableCards.add(new Card(Picture.BALLOONS, Picture.GIRL, Picture.BOY, Picture.BEAR));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.BALLOONS, Picture.BEAR, Picture.GIRL, Picture.BOY);
+		addCard(Picture.BOY, Picture.GIRL, Picture.BEAR, Picture.BALLOONS);
+		addCard(Picture.BALLOONS, Picture.BEAR, Picture.GIRL, Picture.BOY);
+		addCard(Picture.BALLOONS, Picture.GIRL, Picture.BEAR, Picture.BOY);
+		addCard(Picture.BOY, Picture.BEAR, Picture.GIRL, Picture.BALLOONS);
+		addCard(Picture.GIRL, Picture.BALLOONS, Picture.BOY, Picture.BEAR);
+		addCard(Picture.GIRL, Picture.BEAR, Picture.BALLOONS, Picture.BOY);
+		addCard(Picture.GIRL, Picture.BALLOONS, Picture.BEAR, Picture.BOY);
+		addCard(Picture.BALLOONS, Picture.GIRL, Picture.BOY, Picture.BEAR);
 	}
 }

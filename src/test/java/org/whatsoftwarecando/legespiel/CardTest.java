@@ -1,4 +1,4 @@
-package org.whatsoftwarecando.legespiel.configs;
+package org.whatsoftwarecando.legespiel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,16 +6,24 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.whatsoftwarecando.legespiel.Card;
-import org.whatsoftwarecando.legespiel.Field;
-import org.whatsoftwarecando.legespiel.GameConfig;
+import org.whatsoftwarecando.legespiel.configs.DasVerrueckteLoriotLegespielConfig;
 
 public class CardTest {
 
+	private enum TestPicture implements IPicture {
+		
+		ONE, TWO, THREE, FOUR;
+
+		@Override
+		public boolean matches(IPicture other) {
+			return this == other;
+		}
+
+	}
 	@Test
 	public void testTurnedClockwise() {
-		Card testCard = new Card(AbsolutKniffligConfig.Picture.PIPPI_1, AbsolutKniffligConfig.Picture.PIPPI_2,
-				AbsolutKniffligConfig.Picture.MONKEY_1, AbsolutKniffligConfig.Picture.MONKEY_2);
+		CardCreator cc = new CardCreator();
+		Card testCard = cc.createCard(TestPicture.ONE, TestPicture.TWO, TestPicture.THREE, TestPicture.FOUR);
 		Card tmp = testCard.turned90DegreesClockwise();
 		tmp = tmp.turned90DegreesClockwise();
 		tmp = tmp.turned90DegreesClockwise();
@@ -32,8 +40,8 @@ public class CardTest {
 	@Test
 	public void testSimpleSolution() {
 		GameConfig config = new DasVerrueckteLoriotLegespielConfig();
-		Field field = config.getEmptyFieldInstance();
-		for (Card current : config.getAvailableCardsInstance()) {
+		Field field = config.getEmptyField();
+		for (Card current : config.getAvailableCards()) {
 			field = field.addedIfFits(current);
 			assertNotNull(field);
 		}

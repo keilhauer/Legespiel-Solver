@@ -26,13 +26,11 @@ public class Field implements Comparable<Field> {
 		this(rows, cols, cards, 1, 0);
 	}
 
-	protected Field(int rows, int cols, Card[][] cards, int currentRow,
-			int currentColumn) {
+	protected Field(int rows, int cols, Card[][] cards, int currentRow, int currentColumn) {
 		this.rows = rows;
 		this.cols = cols;
 		this.cards = cards;
-		this.currentCoordinates = new CardCoordinate(this, currentRow,
-				currentColumn);
+		this.currentCoordinates = new CardCoordinate(this, currentRow, currentColumn);
 	}
 
 	Field(int rows, int cols, List<Card> allCards) {
@@ -200,10 +198,8 @@ public class Field implements Comparable<Field> {
 		}
 	}
 
-	protected Field createField(int currentRow, int currentColumn,
-			Card[][] cardsCopy) {
-		return new Field(this.rows, this.cols, cardsCopy, currentRow,
-				currentColumn);
+	protected Field createField(int currentRow, int currentColumn, Card[][] cardsCopy) {
+		return new Field(this.rows, this.cols, cardsCopy, currentRow, currentColumn);
 	}
 
 	Field copy() {
@@ -227,9 +223,9 @@ public class Field implements Comparable<Field> {
 
 	/**
 	 * Rotating the whole board by 90 degrees clockwise means that the first row
-	 * become the last column and the second row becomes the last but one column
-	 * and so on. Of course the individual cards also have to be rotated by the
-	 * same angle.
+	 * become the last column and the second row becomes the last but one column and
+	 * so on. Of course the individual cards also have to be rotated by the same
+	 * angle.
 	 * 
 	 * @return the Board rotated by 90 degrees clockwise
 	 */
@@ -240,8 +236,7 @@ public class Field implements Comparable<Field> {
 			int resultColumn = (this.rows + 1) - r;
 			int rowCount = 1;
 			for (Card card : row) {
-				resultCards[rowCount - 1][resultColumn - 1] = card
-						.turned90DegreesClockwise();
+				resultCards[rowCount - 1][resultColumn - 1] = card.turned90DegreesClockwise();
 				rowCount++;
 			}
 		}
@@ -282,8 +277,7 @@ public class Field implements Comparable<Field> {
 		for (int r = 1; r <= this.rows; r++) {
 			result.append("\t<tr>\n");
 			for (int c = 1; c <= this.cols; c++) {
-				result.append("\t\t<td>" + this.getCard(r, c).toHtmlString()
-						+ "</td>\n");
+				result.append("\t\t<td>" + this.getCard(r, c).toHtmlString() + "</td>\n");
 			}
 			result.append("\t</tr>\n");
 		}
@@ -294,8 +288,7 @@ public class Field implements Comparable<Field> {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(this.getClass().getSimpleName() + " [rows=" + rows
-				+ ", cols=" + cols + ":\n");
+		sb.append(this.getClass().getSimpleName() + " [rows=" + rows + ", cols=" + cols + ":\n");
 		for (int row = 0; row < this.rows; row++) {
 			for (int col = 0; col < this.cols; col++) {
 				sb.append(this.cards[row][col]);

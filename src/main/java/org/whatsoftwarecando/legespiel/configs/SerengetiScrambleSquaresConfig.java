@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -35,18 +32,16 @@ public class SerengetiScrambleSquaresConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.RHINO_LOW, Picture.ZEBRA_LOW, Picture.GIRAFFE_UP, Picture.ELEPHANT_UP));
-		availableCards.add(new Card(Picture.ELEPHANT_LOW, Picture.GIRAFFE_LOW, Picture.ZEBRA_LOW, Picture.RHINO_UP));
-		availableCards.add(new Card(Picture.GIRAFFE_LOW, Picture.ZEBRA_UP, Picture.ELEPHANT_LOW, Picture.RHINO_LOW));
-		availableCards.add(new Card(Picture.ELEPHANT_LOW, Picture.ZEBRA_LOW, Picture.GIRAFFE_LOW, Picture.RHINO_UP));
-		availableCards.add(new Card(Picture.RHINO_LOW, Picture.GIRAFFE_UP, Picture.ZEBRA_UP, Picture.ELEPHANT_UP));
-		availableCards.add(new Card(Picture.RHINO_UP, Picture.ZEBRA_LOW, Picture.GIRAFFE_UP, Picture.ELEPHANT_LOW));
-		availableCards.add(new Card(Picture.RHINO_LOW, Picture.ELEPHANT_LOW, Picture.ZEBRA_LOW, Picture.RHINO_UP));
-		availableCards.add(new Card(Picture.ELEPHANT_LOW, Picture.ZEBRA_UP, Picture.GIRAFFE_UP, Picture.ZEBRA_LOW));
-		availableCards.add(new Card(Picture.ELEPHANT_UP, Picture.GIRAFFE_LOW, Picture.GIRAFFE_UP, Picture.RHINO_UP));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.RHINO_LOW, Picture.ZEBRA_LOW, Picture.GIRAFFE_UP, Picture.ELEPHANT_UP);
+		addCard(Picture.ELEPHANT_LOW, Picture.GIRAFFE_LOW, Picture.ZEBRA_LOW, Picture.RHINO_UP);
+		addCard(Picture.GIRAFFE_LOW, Picture.ZEBRA_UP, Picture.ELEPHANT_LOW, Picture.RHINO_LOW);
+		addCard(Picture.ELEPHANT_LOW, Picture.ZEBRA_LOW, Picture.GIRAFFE_LOW, Picture.RHINO_UP);
+		addCard(Picture.RHINO_LOW, Picture.GIRAFFE_UP, Picture.ZEBRA_UP, Picture.ELEPHANT_UP);
+		addCard(Picture.RHINO_UP, Picture.ZEBRA_LOW, Picture.GIRAFFE_UP, Picture.ELEPHANT_LOW);
+		addCard(Picture.RHINO_LOW, Picture.ELEPHANT_LOW, Picture.ZEBRA_LOW, Picture.RHINO_UP);
+		addCard(Picture.ELEPHANT_LOW, Picture.ZEBRA_UP, Picture.GIRAFFE_UP, Picture.ZEBRA_LOW);
+		addCard(Picture.ELEPHANT_UP, Picture.GIRAFFE_LOW, Picture.GIRAFFE_UP, Picture.RHINO_UP);
 	}
 
 	@Override

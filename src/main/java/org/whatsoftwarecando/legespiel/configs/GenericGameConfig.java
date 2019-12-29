@@ -9,9 +9,6 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 
 public class GenericGameConfig extends GameConfig {
 
-	private final ArrayList<Card> availableCards;
-	private final Field emptyField;
-
 	/**
 	 * @param availableCards
 	 * @param emptyField
@@ -25,18 +22,18 @@ public class GenericGameConfig extends GameConfig {
 	protected Field createEmptyField() {
 		return emptyField;
 	}
-	
+
 	@Override
-	public boolean isBfsNeeded(){
+	public boolean isBfsNeeded() {
 		return false;
-	}
-	
-	@Override
-	public void output(String str){
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		return availableCards;
+	public void output(String str) {
+	}
+
+	@Override
+	protected void createAvailableCards() {
+		// Nothing to do.
 	}
 }

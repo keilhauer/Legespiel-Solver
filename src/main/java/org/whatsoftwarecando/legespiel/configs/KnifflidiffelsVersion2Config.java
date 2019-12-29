@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -29,18 +26,15 @@ public class KnifflidiffelsVersion2Config extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-
-		availableCards.add(new Card(Picture.BOY, Picture.BEAR, Picture.BUNNY, Picture.GIRL));
-		availableCards.add(new Card(Picture.BOY, Picture.BUNNY, Picture.BEAR, Picture.GIRL));
-		availableCards.add(new Card(Picture.GIRL, Picture.BEAR, Picture.BOY, Picture.BUNNY));
-		availableCards.add(new Card(Picture.GIRL, Picture.BOY, Picture.BEAR, Picture.BUNNY));
-		availableCards.add(new Card(Picture.GIRL, Picture.BEAR, Picture.BOY, Picture.BUNNY));
-		availableCards.add(new Card(Picture.BUNNY, Picture.BOY, Picture.BEAR, Picture.GIRL));
-		availableCards.add(new Card(Picture.BUNNY, Picture.BEAR, Picture.BOY, Picture.GIRL));
-		availableCards.add(new Card(Picture.BUNNY, Picture.BOY, Picture.BEAR, Picture.GIRL));
-		availableCards.add(new Card(Picture.GIRL, Picture.BEAR, Picture.BUNNY, Picture.BOY));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.BOY, Picture.BEAR, Picture.BUNNY, Picture.GIRL);
+		addCard(Picture.BOY, Picture.BUNNY, Picture.BEAR, Picture.GIRL);
+		addCard(Picture.GIRL, Picture.BEAR, Picture.BOY, Picture.BUNNY);
+		addCard(Picture.GIRL, Picture.BOY, Picture.BEAR, Picture.BUNNY);
+		addCard(Picture.GIRL, Picture.BEAR, Picture.BOY, Picture.BUNNY);
+		addCard(Picture.BUNNY, Picture.BOY, Picture.BEAR, Picture.GIRL);
+		addCard(Picture.BUNNY, Picture.BEAR, Picture.BOY, Picture.GIRL);
+		addCard(Picture.BUNNY, Picture.BOY, Picture.BEAR, Picture.GIRL);
+		addCard(Picture.GIRL, Picture.BEAR, Picture.BUNNY, Picture.BOY);
 	}
 }

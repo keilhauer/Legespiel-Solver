@@ -3,7 +3,7 @@ package org.whatsoftwarecando.legespiel;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
@@ -16,7 +16,7 @@ public class FieldTest {
 	public void testAddAbsolutKnifflig() {
 		Field board = new Field(3, 3);
 		int count = 0;
-		for (Card card : new AbsolutKniffligConfig().getAvailableCardsInstance()) {
+		for (Card card : new AbsolutKniffligConfig().getAvailableCards()) {
 			board = board.addedIfFits(card);
 			count++;
 			if (count <= 8) {
@@ -30,8 +30,8 @@ public class FieldTest {
 	@Test
 	public void testAddAsterix() {
 		AsterixKnobeleiConfig config = new AsterixKnobeleiConfig();
-		Field board = config.getEmptyFieldInstance();
-		for (Card card : config.getAvailableCardsInstance()) {
+		Field board = config.getEmptyField();
+		for (Card card : config.getAvailableCards()) {
 			board = board.addedIfFits(card);
 		}
 		assertTrue(board.isFull());
@@ -40,7 +40,7 @@ public class FieldTest {
 	@Test
 	public void testAddUliStein() {
 		Field board = new Field(3, 3);
-		for (Card card : new UliSteinNochVerwzickterGehtNichtConfig().getAvailableCardsInstance()) {
+		for (Card card : new UliSteinNochVerwzickterGehtNichtConfig().getAvailableCards()) {
 			board = board.addedIfFits(card);
 		}
 		assertTrue(board.isFull());
@@ -48,7 +48,7 @@ public class FieldTest {
 
 	@Test
 	public void testTurnedClockwise360() {
-		Field board = new Field(3, 3, new AbsolutKniffligConfig().getAvailableCardsInstance());
+		Field board = new Field(3, 3, new AbsolutKniffligConfig().getAvailableCards());
 		Field boardTurned = board.copy();
 		boardTurned = boardTurned.turned90DegreesClockwise();
 		boardTurned = boardTurned.turned90DegreesClockwise();
@@ -59,7 +59,7 @@ public class FieldTest {
 
 	@Test
 	public void testTurnedClockwise90() {
-		ArrayList<Card> allCards = new AbsolutKniffligConfig().getAvailableCardsInstance();
+		List<Card> allCards = new AbsolutKniffligConfig().getAvailableCards();
 		Field field = new Field(3, 3, allCards);
 		Field boardTurned90 = field.copy();
 		boardTurned90 = boardTurned90.turned90DegreesClockwise();
@@ -76,7 +76,7 @@ public class FieldTest {
 
 	@Test
 	public void testTurnNonSquareField() {
-		ArrayList<Card> allCards = new AbsolutKniffligConfig().getAvailableCardsInstance();
+		List<Card> allCards = new AbsolutKniffligConfig().getAvailableCards();
 		Field field = new Field(2, 3, allCards.subList(0, 6));
 		Field boardTurned90 = field.copy();
 		boardTurned90 = boardTurned90.turned90DegreesClockwise();

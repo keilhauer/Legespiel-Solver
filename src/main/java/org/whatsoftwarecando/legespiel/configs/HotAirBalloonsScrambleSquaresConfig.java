@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -17,6 +14,7 @@ public class HotAirBalloonsScrambleSquaresConfig extends GameConfig {
 
 		RAINBOW_SQUARES_UP(1), RAINBOW_SQUARES_LOW(1), EAGLE_LEFT(2), EAGLE_RIGHT(2), VIOLET_YELLOW_LEFT(
 				3), VIOLET_YELLOW_RIGHT(3), ZIGZAG_UP(4), ZIGZAG_LOW(4);
+
 		private final int pairNumber;
 
 		private Picture(int pairNumber) {
@@ -35,27 +33,17 @@ public class HotAirBalloonsScrambleSquaresConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.VIOLET_YELLOW_LEFT, Picture.RAINBOW_SQUARES_UP, Picture.ZIGZAG_UP,
-				Picture.EAGLE_LEFT));
-		availableCards.add(new Card(Picture.EAGLE_LEFT, Picture.ZIGZAG_LOW, Picture.VIOLET_YELLOW_LEFT,
-				Picture.RAINBOW_SQUARES_UP));
-		availableCards.add(new Card(Picture.ZIGZAG_UP, Picture.VIOLET_YELLOW_RIGHT, Picture.RAINBOW_SQUARES_UP,
-				Picture.EAGLE_LEFT));
-		availableCards.add(new Card(Picture.EAGLE_RIGHT, Picture.RAINBOW_SQUARES_LOW, Picture.ZIGZAG_LOW,
-				Picture.VIOLET_YELLOW_LEFT));
-		availableCards.add(new Card(Picture.RAINBOW_SQUARES_LOW, Picture.ZIGZAG_UP, Picture.VIOLET_YELLOW_RIGHT,
-				Picture.RAINBOW_SQUARES_UP));
-		availableCards.add(new Card(Picture.EAGLE_RIGHT, Picture.VIOLET_YELLOW_RIGHT, Picture.VIOLET_YELLOW_LEFT,
-				Picture.ZIGZAG_UP));
-		availableCards.add(new Card(Picture.VIOLET_YELLOW_RIGHT, Picture.ZIGZAG_UP, Picture.RAINBOW_SQUARES_LOW,
-				Picture.EAGLE_RIGHT));
-		availableCards.add(
-				new Card(Picture.RAINBOW_SQUARES_LOW, Picture.ZIGZAG_LOW, Picture.EAGLE_LEFT, Picture.EAGLE_RIGHT));
-		availableCards.add(new Card(Picture.ZIGZAG_UP, Picture.VIOLET_YELLOW_RIGHT, Picture.EAGLE_LEFT,
-				Picture.RAINBOW_SQUARES_LOW));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.VIOLET_YELLOW_LEFT, Picture.RAINBOW_SQUARES_UP, Picture.ZIGZAG_UP, Picture.EAGLE_LEFT);
+		addCard(Picture.EAGLE_LEFT, Picture.ZIGZAG_LOW, Picture.VIOLET_YELLOW_LEFT, Picture.RAINBOW_SQUARES_UP);
+		addCard(Picture.ZIGZAG_UP, Picture.VIOLET_YELLOW_RIGHT, Picture.RAINBOW_SQUARES_UP, Picture.EAGLE_LEFT);
+		addCard(Picture.EAGLE_RIGHT, Picture.RAINBOW_SQUARES_LOW, Picture.ZIGZAG_LOW, Picture.VIOLET_YELLOW_LEFT);
+		addCard(Picture.RAINBOW_SQUARES_LOW, Picture.ZIGZAG_UP, Picture.VIOLET_YELLOW_RIGHT,
+				Picture.RAINBOW_SQUARES_UP);
+		addCard(Picture.EAGLE_RIGHT, Picture.VIOLET_YELLOW_RIGHT, Picture.VIOLET_YELLOW_LEFT, Picture.ZIGZAG_UP);
+		addCard(Picture.VIOLET_YELLOW_RIGHT, Picture.ZIGZAG_UP, Picture.RAINBOW_SQUARES_LOW, Picture.EAGLE_RIGHT);
+		addCard(Picture.RAINBOW_SQUARES_LOW, Picture.ZIGZAG_LOW, Picture.EAGLE_LEFT, Picture.EAGLE_RIGHT);
+		addCard(Picture.ZIGZAG_UP, Picture.VIOLET_YELLOW_RIGHT, Picture.EAGLE_LEFT, Picture.RAINBOW_SQUARES_LOW);
 	}
 
 	@Override

@@ -7,26 +7,33 @@ import java.util.Set;
 
 public abstract class GameConfig {
 
-	private ArrayList<Card> AVAILABLE_CARDS_INSTANCE = null;
+	protected ArrayList<Card> availableCards = null;
 
-	protected abstract ArrayList<Card> createAvailableCards();
+	protected CardCreator cardCreator = null;
 
-	public synchronized ArrayList<Card> getAvailableCardsInstance() {
-		if (AVAILABLE_CARDS_INSTANCE == null) {
-			AVAILABLE_CARDS_INSTANCE = createAvailableCards();
+	protected abstract void createAvailableCards();
+
+	public GameConfig() {
+		this.cardCreator = new CardCreator();
+	}
+
+	public final synchronized ArrayList<Card> getAvailableCards() {
+		if (availableCards == null) {
+			availableCards = new ArrayList<Card>();
+			createAvailableCards();
 		}
-		return AVAILABLE_CARDS_INSTANCE;
+		return availableCards;
 	}
 
 	protected abstract Field createEmptyField();
 
-	private Field EMPTY_FIELD_INSTANCE = null;
+	protected Field emptyField = null;
 
-	public synchronized final Field getEmptyFieldInstance() {
-		if (EMPTY_FIELD_INSTANCE == null) {
-			EMPTY_FIELD_INSTANCE = createEmptyField();
+	public synchronized final Field getEmptyField() {
+		if (emptyField == null) {
+			emptyField = createEmptyField();
 		}
-		return EMPTY_FIELD_INSTANCE;
+		return emptyField;
 	}
 
 	public boolean isBfsNeeded() {
@@ -43,6 +50,10 @@ public abstract class GameConfig {
 
 	public void output(String str) {
 		System.out.println(str);
+	}
+
+	protected void addCard(IPicture north, IPicture west, IPicture east, IPicture south) {
+		this.availableCards.add(cardCreator.createCard(north, west, east, south));
 	}
 
 }

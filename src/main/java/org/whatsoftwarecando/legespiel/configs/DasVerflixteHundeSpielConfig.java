@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -36,28 +33,18 @@ public class DasVerflixteHundeSpielConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		// Duplicate cards:
-		availableCards.add(new Card(Picture.BLACK_FRONT, Picture.WHITE_BROWN_FRONT, Picture.WHITE_BROWN_BACK,
-				Picture.BLACK_WHITE_BACK));
-		availableCards.add(new Card(Picture.BLACK_BROWN_FRONT, Picture.WHITE_BROWN_FRONT, Picture.BLACK_WHITE_BACK,
-				Picture.WHITE_BROWN_BACK));
-		availableCards.add(new Card(Picture.BLACK_FRONT, Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_BACK,
-				Picture.BLACK_WHITE_BACK));
-		availableCards.add(
-				new Card(Picture.BLACK_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_WHITE_BACK, Picture.BLACK_BACK));
-		availableCards.add(new Card(Picture.BLACK_WHITE_FRONT, Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_BACK,
-				Picture.BLACK_BACK));
-		availableCards.add(new Card(Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_BACK,
-				Picture.BLACK_WHITE_BACK));
-		availableCards.add(new Card(Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_WHITE_BACK,
-				Picture.WHITE_BROWN_BACK));
-		availableCards.add(new Card(Picture.BLACK_WHITE_FRONT, Picture.BLACK_BROWN_FRONT, Picture.WHITE_BROWN_BACK,
-				Picture.BLACK_BACK));
-		availableCards.add(new Card(Picture.BLACK_WHITE_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_BROWN_BACK,
-				Picture.BLACK_BACK));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.BLACK_FRONT, Picture.WHITE_BROWN_FRONT, Picture.WHITE_BROWN_BACK, Picture.BLACK_WHITE_BACK);
+		addCard(Picture.BLACK_BROWN_FRONT, Picture.WHITE_BROWN_FRONT, Picture.BLACK_WHITE_BACK,
+				Picture.WHITE_BROWN_BACK);
+		addCard(Picture.BLACK_FRONT, Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_BACK, Picture.BLACK_WHITE_BACK);
+		addCard(Picture.BLACK_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_WHITE_BACK, Picture.BLACK_BACK);
+		addCard(Picture.BLACK_WHITE_FRONT, Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_BACK, Picture.BLACK_BACK);
+		addCard(Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_BACK, Picture.BLACK_WHITE_BACK);
+		addCard(Picture.WHITE_BROWN_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_WHITE_BACK,
+				Picture.WHITE_BROWN_BACK);
+		addCard(Picture.BLACK_WHITE_FRONT, Picture.BLACK_BROWN_FRONT, Picture.WHITE_BROWN_BACK, Picture.BLACK_BACK);
+		addCard(Picture.BLACK_WHITE_FRONT, Picture.BLACK_BROWN_FRONT, Picture.BLACK_BROWN_BACK, Picture.BLACK_BACK);
 	}
 
 	@Override

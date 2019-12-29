@@ -16,10 +16,10 @@ import javax.imageio.ImageIO;
 import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.IPicture;
 
-public class CardToGraphics {
+public class CardToGraphicsConverter {
 
 	private static final Color BG_COLOR = new Color(250, 250, 250);
-	private static final int CARD_SIZE = 300;
+	protected static final int CARD_SIZE = 300;
 	private static final int MARGIN = 10;
 	private static final int INTER_CARD_SPACING = 2;
 	private static final int FONT_SIZE = 20;
@@ -39,8 +39,21 @@ public class CardToGraphics {
 	}
 
 	public byte[] convert(Card card, Font font, Color color, String format) throws IOException {
+		BufferedImage img = convert(card, font, color);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ImageIO.write(img, format, bos);
+		return bos.toByteArray();
+	}
+
+	public BufferedImage convert(Card card, Font font, Color color) {
 		BufferedImage img = new BufferedImage(CARD_SIZE, CARD_SIZE, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = img.createGraphics();
+		drawCard(card, font, color, g2d);
+		g2d.dispose();
+		return img;
+	}
+
+	protected void drawCard(Card card, Font font, Color color, Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -76,15 +89,11 @@ public class CardToGraphics {
 		String cardNumberStr = String.valueOf(card.getId());
 		drawString(g2d, cardNumberStr, (CARD_SIZE - strWidth(g2d, cardNumberStr)) / 2.0, CARD_SIZE / 2.0 - MARGIN);
 		g2d.setColor(Color.BLACK);
-		drawRect(g2d, INTER_CARD_SPACING, INTER_CARD_SPACING, CARD_SIZE - INTER_CARD_SPACING * 2,
+		g2d.drawRect(INTER_CARD_SPACING, INTER_CARD_SPACING, CARD_SIZE - INTER_CARD_SPACING * 2,
 				CARD_SIZE - INTER_CARD_SPACING * 2);
 		g2d.setBackground(Color.YELLOW);
 		g2d.setColor(Color.GRAY);
-		drawRect(g2d, 0, 0, CARD_SIZE, CARD_SIZE);
-		g2d.dispose();
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		ImageIO.write(img, format, bos);
-		return bos.toByteArray();
+		g2d.drawRect(0, 0, CARD_SIZE, CARD_SIZE);
 	}
 
 	private String pictureToStr(IPicture picture) {
@@ -102,10 +111,6 @@ public class CardToGraphics {
 		int southWidth = strWidth(g2d, southStr);
 		return Math.max(Math.max(northWidth, westWidth), Math.max(eastWidth, southWidth));
 
-	}
-
-	private void drawRect(Graphics2D g2d, int x, int y, int width, int height) {
-		g2d.drawRect(x, y, width, height);
 	}
 
 	private void drawString(Graphics2D g2d, String str, double x, double y) {

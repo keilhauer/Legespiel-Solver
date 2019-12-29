@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -40,17 +37,15 @@ public class WitchesPuzzleConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.GREEN_1, Picture.YELLOW_2, Picture.RED_1, Picture.GREEN_2));
-		availableCards.add(new Card(Picture.GREEN_1, Picture.RED_2, Picture.BLUE_1, Picture.YELLOW_2));
-		availableCards.add(new Card(Picture.YELLOW_1, Picture.BLUE_1, Picture.GREEN_2, Picture.RED_2));
-		availableCards.add(new Card(Picture.GREEN_2, Picture.RED_1, Picture.YELLOW_2, Picture.BLUE_1));
-		availableCards.add(new Card(Picture.RED_2, Picture.BLUE_2, Picture.BLUE_1, Picture.YELLOW_1));
-		availableCards.add(new Card(Picture.BLUE_2, Picture.RED_2, Picture.GREEN_1, Picture.BLUE_1));
-		availableCards.add(new Card(Picture.BLUE_2, Picture.RED_1, Picture.YELLOW_2, Picture.GREEN_1));
-		availableCards.add(new Card(Picture.RED_2, Picture.GREEN_1, Picture.BLUE_2, Picture.BLUE_1));
-		availableCards.add(new Card(Picture.RED_2, Picture.YELLOW_1, Picture.YELLOW_2, Picture.GREEN_1));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.GREEN_1, Picture.YELLOW_2, Picture.RED_1, Picture.GREEN_2);
+		addCard(Picture.GREEN_1, Picture.RED_2, Picture.BLUE_1, Picture.YELLOW_2);
+		addCard(Picture.YELLOW_1, Picture.BLUE_1, Picture.GREEN_2, Picture.RED_2);
+		addCard(Picture.GREEN_2, Picture.RED_1, Picture.YELLOW_2, Picture.BLUE_1);
+		addCard(Picture.RED_2, Picture.BLUE_2, Picture.BLUE_1, Picture.YELLOW_1);
+		addCard(Picture.BLUE_2, Picture.RED_2, Picture.GREEN_1, Picture.BLUE_1);
+		addCard(Picture.BLUE_2, Picture.RED_1, Picture.YELLOW_2, Picture.GREEN_1);
+		addCard(Picture.RED_2, Picture.GREEN_1, Picture.BLUE_2, Picture.BLUE_1);
+		addCard(Picture.RED_2, Picture.YELLOW_1, Picture.YELLOW_2, Picture.GREEN_1);
 	}
 }

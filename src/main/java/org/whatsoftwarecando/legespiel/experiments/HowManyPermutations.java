@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.whatsoftwarecando.legespiel.Card;
+import org.whatsoftwarecando.legespiel.CardCreator;
 import org.whatsoftwarecando.legespiel.DuplicateCardsFinder;
 import org.whatsoftwarecando.legespiel.IPicture;
 
@@ -43,8 +44,9 @@ public class HowManyPermutations {
 	private static List<Card> getAvailableCards() {
 		List<List<Picture>> picturesForCards = findPermutations(Arrays.asList(Picture.values()));
 		List<Card> cards = new LinkedList<Card>();
+		CardCreator cc = new CardCreator();
 		for (List<Picture> pictures : picturesForCards) {
-			cards.add(new Card(pictures.get(0), pictures.get(1), pictures.get(2), pictures.get(3)));
+			cards.add(cc.createCard(pictures.get(0), pictures.get(1), pictures.get(2), pictures.get(3)));
 		}
 		return new ArrayList<Card>(cards);
 	}

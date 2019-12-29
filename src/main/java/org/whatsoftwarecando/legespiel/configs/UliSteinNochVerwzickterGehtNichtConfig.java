@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -41,26 +38,15 @@ public class UliSteinNochVerwzickterGehtNichtConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards
-				.add(new Card(Picture.GLASS_RIGHT, Picture.REACHING_RIGHT, Picture.FOOTBALL_LEFT, Picture.TEA_LEFT));
-		availableCards
-				.add(new Card(Picture.TEA_LEFT, Picture.FOOTBALL_RIGHT, Picture.REACHING_RIGHT, Picture.GLASS_LEFT));
-		availableCards
-				.add(new Card(Picture.FOOTBALL_RIGHT, Picture.REACHING_LEFT, Picture.GLASS_LEFT, Picture.TEA_RIGHT));
-		availableCards
-				.add(new Card(Picture.TEA_RIGHT, Picture.GLASS_LEFT, Picture.REACHING_RIGHT, Picture.FOOTBALL_LEFT));
-		availableCards
-				.add(new Card(Picture.GLASS_RIGHT, Picture.REACHING_LEFT, Picture.FOOTBALL_LEFT, Picture.TEA_RIGHT));
-		availableCards
-				.add(new Card(Picture.TEA_LEFT, Picture.FOOTBALL_RIGHT, Picture.REACHING_LEFT, Picture.GLASS_RIGHT));
-		availableCards
-				.add(new Card(Picture.FOOTBALL_RIGHT, Picture.TEA_LEFT, Picture.GLASS_LEFT, Picture.REACHING_RIGHT));
-		availableCards
-				.add(new Card(Picture.TEA_LEFT, Picture.GLASS_RIGHT, Picture.REACHING_LEFT, Picture.FOOTBALL_RIGHT));
-		availableCards
-				.add(new Card(Picture.GLASS_LEFT, Picture.REACHING_RIGHT, Picture.TEA_RIGHT, Picture.FOOTBALL_LEFT));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.GLASS_RIGHT, Picture.REACHING_RIGHT, Picture.FOOTBALL_LEFT, Picture.TEA_LEFT);
+		addCard(Picture.TEA_LEFT, Picture.FOOTBALL_RIGHT, Picture.REACHING_RIGHT, Picture.GLASS_LEFT);
+		addCard(Picture.FOOTBALL_RIGHT, Picture.REACHING_LEFT, Picture.GLASS_LEFT, Picture.TEA_RIGHT);
+		addCard(Picture.TEA_RIGHT, Picture.GLASS_LEFT, Picture.REACHING_RIGHT, Picture.FOOTBALL_LEFT);
+		addCard(Picture.GLASS_RIGHT, Picture.REACHING_LEFT, Picture.FOOTBALL_LEFT, Picture.TEA_RIGHT);
+		addCard(Picture.TEA_LEFT, Picture.FOOTBALL_RIGHT, Picture.REACHING_LEFT, Picture.GLASS_RIGHT);
+		addCard(Picture.FOOTBALL_RIGHT, Picture.TEA_LEFT, Picture.GLASS_LEFT, Picture.REACHING_RIGHT);
+		addCard(Picture.TEA_LEFT, Picture.GLASS_RIGHT, Picture.REACHING_LEFT, Picture.FOOTBALL_RIGHT);
+		addCard(Picture.GLASS_LEFT, Picture.REACHING_RIGHT, Picture.TEA_RIGHT, Picture.FOOTBALL_LEFT);
 	}
 }

@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -36,18 +33,16 @@ public class AbsolutKniffligConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.MONKEY_2, Picture.PIPPI_1, Picture.HORSE_2, Picture.PIPPI_1));
-		availableCards.add(new Card(Picture.MONKEY_2, Picture.HORSE_1, Picture.PIPPI_1, Picture.MONKEY_2));
-		availableCards.add(new Card(Picture.HORSE_2, Picture.PIPPI_2, Picture.PIPPI_1, Picture.MONKEY_2));
-		availableCards.add(new Card(Picture.PIPPI_2, Picture.HORSE_2, Picture.HORSE_1, Picture.MONKEY_1));
-		availableCards.add(new Card(Picture.MONKEY_1, Picture.HORSE_2, Picture.PIPPI_2, Picture.HORSE_2));
-		availableCards.add(new Card(Picture.MONKEY_1, Picture.PIPPI_1, Picture.HORSE_1, Picture.PIPPI_1));
-		availableCards.add(new Card(Picture.MONKEY_2, Picture.MONKEY_1, Picture.HORSE_1, Picture.PIPPI_2));
-		availableCards.add(new Card(Picture.HORSE_1, Picture.HORSE_2, Picture.MONKEY_1, Picture.PIPPI_2));
-		availableCards.add(new Card(Picture.PIPPI_2, Picture.HORSE_1, Picture.MONKEY_2, Picture.MONKEY_1));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.MONKEY_2, Picture.PIPPI_1, Picture.HORSE_2, Picture.PIPPI_1);
+		addCard(Picture.MONKEY_2, Picture.HORSE_1, Picture.PIPPI_1, Picture.MONKEY_2);
+		addCard(Picture.HORSE_2, Picture.PIPPI_2, Picture.PIPPI_1, Picture.MONKEY_2);
+		addCard(Picture.PIPPI_2, Picture.HORSE_2, Picture.HORSE_1, Picture.MONKEY_1);
+		addCard(Picture.MONKEY_1, Picture.HORSE_2, Picture.PIPPI_2, Picture.HORSE_2);
+		addCard(Picture.MONKEY_1, Picture.PIPPI_1, Picture.HORSE_1, Picture.PIPPI_1);
+		addCard(Picture.MONKEY_2, Picture.MONKEY_1, Picture.HORSE_1, Picture.PIPPI_2);
+		addCard(Picture.HORSE_1, Picture.HORSE_2, Picture.MONKEY_1, Picture.PIPPI_2);
+		addCard(Picture.PIPPI_2, Picture.HORSE_1, Picture.MONKEY_2, Picture.MONKEY_1);
 	}
 
 	@Override

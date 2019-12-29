@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -36,25 +33,22 @@ public class DasVerrueckteLoriotLegespielConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
+	protected void createAvailableCards() {
 
-		availableCards.add(new Card(Picture.MAN_1, Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1, Picture.WOMAN_BLUE_2));
-		availableCards.add(new Card(Picture.WOMAN_BLUE_1, Picture.MAN_HAT_2, Picture.MAN_2, Picture.WOMAN_GREEN_1));
-		availableCards.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_1, Picture.MAN_HAT_1, Picture.WOMAN_BLUE_2));
+		addCard(Picture.MAN_1, Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1, Picture.WOMAN_BLUE_2);
+		addCard(Picture.WOMAN_BLUE_1, Picture.MAN_HAT_2, Picture.MAN_2, Picture.WOMAN_GREEN_1);
+		addCard(Picture.WOMAN_GREEN_2, Picture.MAN_1, Picture.MAN_HAT_1, Picture.WOMAN_BLUE_2);
 
 		// cards 4 and 5 are identical
-		availableCards.add(new Card(Picture.WOMAN_BLUE_1, Picture.WOMAN_GREEN_1, Picture.MAN_HAT_2, Picture.MAN_2));
-		availableCards.add(new Card(Picture.WOMAN_BLUE_1, Picture.WOMAN_GREEN_1, Picture.MAN_HAT_2, Picture.MAN_2));
+		addCard(Picture.WOMAN_BLUE_1, Picture.WOMAN_GREEN_1, Picture.MAN_HAT_2, Picture.MAN_2);
+		addCard(Picture.WOMAN_BLUE_1, Picture.WOMAN_GREEN_1, Picture.MAN_HAT_2, Picture.MAN_2);
 
 		// cards 6 and 7 are identical
-		availableCards.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1, Picture.MAN_1, Picture.WOMAN_BLUE_2));
-		availableCards.add(new Card(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1, Picture.MAN_1, Picture.WOMAN_BLUE_2));
+		addCard(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1, Picture.MAN_1, Picture.WOMAN_BLUE_2);
+		addCard(Picture.WOMAN_GREEN_2, Picture.MAN_HAT_1, Picture.MAN_1, Picture.WOMAN_BLUE_2);
 
-		availableCards.add(new Card(Picture.WOMAN_BLUE_1, Picture.MAN_2, Picture.WOMAN_GREEN_1, Picture.WOMAN_GREEN_1));
-		availableCards.add(new Card(Picture.MAN_1, Picture.MAN_HAT_1, Picture.WOMAN_GREEN_2, Picture.WOMAN_BLUE_2));
-
-		return availableCards;
+		addCard(Picture.WOMAN_BLUE_1, Picture.MAN_2, Picture.WOMAN_GREEN_1, Picture.WOMAN_GREEN_1);
+		addCard(Picture.MAN_1, Picture.MAN_HAT_1, Picture.WOMAN_GREEN_2, Picture.WOMAN_BLUE_2);
 	}
 
 	@Override

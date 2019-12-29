@@ -1,8 +1,5 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import java.util.ArrayList;
-
-import org.whatsoftwarecando.legespiel.Card;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
@@ -16,6 +13,7 @@ public class RetrieverScrambleSquaresConfig extends GameConfig {
 	enum Picture implements IPicture {
 
 		GOLDEN_1(1), GOLDEN_2(1), BLACK_1(2), BLACK_2(2), YELLOW_1(3), YELLOW_2(3), CHOCOLATE_1(4), CHOCOLATE_2(4);
+
 		private final int pairNumber;
 
 		private Picture(int pairNumber) {
@@ -34,18 +32,16 @@ public class RetrieverScrambleSquaresConfig extends GameConfig {
 	}
 
 	@Override
-	protected ArrayList<Card> createAvailableCards() {
-		ArrayList<Card> availableCards = new ArrayList<Card>();
-		availableCards.add(new Card(Picture.YELLOW_1, Picture.BLACK_1, Picture.CHOCOLATE_2, Picture.GOLDEN_1));
-		availableCards.add(new Card(Picture.GOLDEN_1, Picture.CHOCOLATE_1, Picture.YELLOW_1, Picture.BLACK_2));
-		availableCards.add(new Card(Picture.CHOCOLATE_1, Picture.YELLOW_2, Picture.GOLDEN_1, Picture.BLACK_1));
-		availableCards.add(new Card(Picture.GOLDEN_2, Picture.CHOCOLATE_1, Picture.YELLOW_1, Picture.BLACK_1));
-		availableCards.add(new Card(Picture.BLACK_1, Picture.YELLOW_2, Picture.GOLDEN_1, Picture.CHOCOLATE_1));
-		availableCards.add(new Card(Picture.BLACK_2, Picture.GOLDEN_2, Picture.YELLOW_2, Picture.CHOCOLATE_2));
-		availableCards.add(new Card(Picture.BLACK_2, Picture.GOLDEN_1, Picture.YELLOW_2, Picture.CHOCOLATE_1));
-		availableCards.add(new Card(Picture.CHOCOLATE_2, Picture.YELLOW_1, Picture.GOLDEN_2, Picture.BLACK_1));
-		availableCards.add(new Card(Picture.CHOCOLATE_1, Picture.GOLDEN_1, Picture.BLACK_1, Picture.YELLOW_1));
-		return availableCards;
+	protected void createAvailableCards() {
+		addCard(Picture.YELLOW_1, Picture.BLACK_1, Picture.CHOCOLATE_2, Picture.GOLDEN_1);
+		addCard(Picture.GOLDEN_1, Picture.CHOCOLATE_1, Picture.YELLOW_1, Picture.BLACK_2);
+		addCard(Picture.CHOCOLATE_1, Picture.YELLOW_2, Picture.GOLDEN_1, Picture.BLACK_1);
+		addCard(Picture.GOLDEN_2, Picture.CHOCOLATE_1, Picture.YELLOW_1, Picture.BLACK_1);
+		addCard(Picture.BLACK_1, Picture.YELLOW_2, Picture.GOLDEN_1, Picture.CHOCOLATE_1);
+		addCard(Picture.BLACK_2, Picture.GOLDEN_2, Picture.YELLOW_2, Picture.CHOCOLATE_2);
+		addCard(Picture.BLACK_2, Picture.GOLDEN_1, Picture.YELLOW_2, Picture.CHOCOLATE_1);
+		addCard(Picture.CHOCOLATE_2, Picture.YELLOW_1, Picture.GOLDEN_2, Picture.BLACK_1);
+		addCard(Picture.CHOCOLATE_1, Picture.GOLDEN_1, Picture.BLACK_1, Picture.YELLOW_1);
 	}
 
 	@Override

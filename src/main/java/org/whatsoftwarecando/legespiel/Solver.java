@@ -1,44 +1,20 @@
 package org.whatsoftwarecando.legespiel;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
-import org.whatsoftwarecando.legespiel.graphics.CardToGraphics;
+import org.whatsoftwarecando.legespiel.graphics.HtmlGenerator;
 
 public class Solver {
 
 	private long numberOfTries;
-
-	private static List<Color> DUPLICATE_COLORS = null;
-
-	private static synchronized List<Color> getInstanceColors() {
-		if (DUPLICATE_COLORS == null) {
-			DUPLICATE_COLORS = new LinkedList<Color>();
-			DUPLICATE_COLORS.add(new Color(208, 240, 192));
-			DUPLICATE_COLORS.add(new Color(115, 194, 251));
-			DUPLICATE_COLORS.add(new Color(255, 204, 203));
-			DUPLICATE_COLORS.add(Color.green);
-			DUPLICATE_COLORS.add(Color.blue);
-			DUPLICATE_COLORS.add(Color.red);
-		}
-		return DUPLICATE_COLORS;
-	}
 
 	public static void main(String[] argv) throws IOException, URISyntaxException, InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
@@ -49,43 +25,21 @@ public class Solver {
 			gameConfig = (GameConfig) Class.forName(AbsolutKniffligConfig.class.getPackage().getName() + "." + argv[0])
 					.newInstance();
 		}
-		System.out.println("Using GameConfig: " + gameConfig.getClass().getSimpleName());
-		System.out.println("Looking for duplicate cards: ");
-		boolean foundDuplicateCards = false;
-		Map<Card, Color> duplicateCardColorMap = new HashMap<>();
-
-		Iterator<Color> duplicateColors = getInstanceColors().iterator();
-		Color duplicateColor = null;
-		for (List<Card> duplicates : new DuplicateCardsFinder()
-				.findDuplicateCards(gameConfig.getAvailableCardsInstance())) {
-			if (duplicates.size() > 1) {
-				if (duplicateColors.hasNext()) {
-					duplicateColor = duplicateColors.next();
-				}
-				System.out.println(duplicates);
-				foundDuplicateCards = true;
-				for (Card duplicate : duplicates) {
-					duplicateCardColorMap.put(duplicate, duplicateColor);
-				}
-			}
-		}
-		if (!foundDuplicateCards) {
-			System.out.println("No duplicate cards found");
-		}
+		gameConfig.output("Using GameConfig: " + gameConfig.getClass().getSimpleName());
 		long startTime = System.nanoTime();
 		Solver solver = new Solver();
 		List<Field> solutions = solver.findAllSolutions(gameConfig);
 
 		long timeNeeded = System.nanoTime() - startTime;
-		System.out.println("Tried " + solver.numberOfTries() + " card rotations -> Found all " + solutions.size()
+		gameConfig.output("Tried " + solver.numberOfTries() + " card rotations -> Found all " + solutions.size()
 				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms => Measure of difficulty: "
 				+ solver.numberOfTries() / (double) solutions.size());
-		writeHtml(gameConfig, solutions, "allSolutions", "All Solutions", duplicateCardColorMap);
+		HtmlGenerator.getInstance().writeHtml(gameConfig, solutions, "allSolutions", "All Solutions");
 
 		List<Field> originalSolutions = solver.removeRotationBasedDuplicates(solutions);
-		System.out.println("Removed rotation based duplicates and other look-alikes -> " + originalSolutions.size()
+		gameConfig.output("Removed rotation based duplicates and other look-alikes -> " + originalSolutions.size()
 				+ " original solutions remaining");
-		writeHtml(gameConfig, originalSolutions, "originalSolutions", "Original Solutions", duplicateCardColorMap);
+		HtmlGenerator.getInstance().writeHtml(gameConfig, originalSolutions, "originalSolutions", "Original Solutions");
 	}
 
 	/**
@@ -97,47 +51,11 @@ public class Solver {
 		return numberOfTries;
 	}
 
-	private static void writeHtml(GameConfig gameConfig, Collection<Field> solutions, String filename, String title,
-			Map<Card, Color> duplicateCardColorMap)
-			throws URISyntaxException, UnsupportedEncodingException, IOException {
-		// Preparing HTML-Output
-		StringBuffer sb = new StringBuffer();
-		for (Field originalSolution : solutions) {
-			sb.append(originalSolution.toHtmlString());
-		}
-
-		// Writing Html
-		Path templateFile = Paths.get(Solver.class.getResource("solutions.template.html").toURI());
-		String allSolutionsHtmlTemplate = new String(Files.readAllBytes(templateFile), "UTF-8");
-		String allSolutionsHtml = allSolutionsHtmlTemplate
-				.replace("%title%", title + " - " + gameConfig.getClass().getSimpleName())
-				.replace("%content%", sb.toString());
-		Path htmlOutputFile = Paths
-				.get("html-output/" + gameConfig.getClass().getSimpleName() + "/" + filename + ".html");
-		Files.createDirectories(htmlOutputFile.getParent());
-		Files.write(htmlOutputFile, allSolutionsHtml.getBytes("UTF-8"));
-
-		generateImages(gameConfig, duplicateCardColorMap);
-		System.out.println("Written \"" + title + "\" to file: " + htmlOutputFile);
-	}
-
-	private static void generateImages(GameConfig gameConfig, Map<Card, Color> duplicateCardColorMap)
-			throws IOException {
-		CardToGraphics cardToGraphics = new CardToGraphics();
-		Font font = cardToGraphics.calculateFont(gameConfig.getAvailableCardsInstance());
-		for (Card card : gameConfig.getAvailableCardsInstance()) {
-			byte[] cardImage = cardToGraphics.convert(card, font, duplicateCardColorMap.get(card), "png");
-			Path imageOutputFile = Paths
-					.get("html-output/" + gameConfig.getClass().getSimpleName() + "/card" + card.getId() + ".png");
-			Files.write(imageOutputFile, cardImage);
-		}
-	}
-
 	public List<Field> findAllSolutions(GameConfig gameConfig) {
 		numberOfTries = 0;
-		Field emptyField = gameConfig.getEmptyFieldInstance();
+		Field emptyField = gameConfig.getEmptyField();
 		if (gameConfig.isBfsNeeded()) {
-			PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCardsInstance());
+			PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCards());
 			Set<PartialSolution> partialSolutions = new HashSet<PartialSolution>();
 			partialSolutions.add(startingConfig);
 			int cardsUntilFull = emptyField.getCardsUntilFull();
@@ -159,7 +77,7 @@ public class Solver {
 			gameConfig.output("Filtered: " + solutions.size());
 			return new LinkedList<Field>(solutions);
 		} else {
-			return findAllSolutions(emptyField, gameConfig.getAvailableCardsInstance());
+			return findAllSolutions(emptyField, gameConfig.getAvailableCards());
 		}
 
 	}

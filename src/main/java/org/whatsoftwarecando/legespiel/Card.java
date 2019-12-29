@@ -1,8 +1,6 @@
 package org.whatsoftwarecando.legespiel;
 
-public class Card implements Comparable<Card>{
-
-	private static int ID_COUNTER = 1;
+public class Card implements Comparable<Card> {
 
 	private final int id;
 	private final IPicture north;
@@ -11,16 +9,7 @@ public class Card implements Comparable<Card>{
 	private final IPicture south;
 	private final int rotationClockwise;
 
-	public Card(IPicture north, IPicture west, IPicture east, IPicture south) {
-		this(ID_COUNTER++, north, west, east, south, 0);
-	}
-
-	public Card(IPicture[] pictures) {
-		this(pictures[0], pictures[1], pictures[2], pictures[3]);
-	}
-
-	private Card(int id, IPicture north, IPicture west, IPicture east,
-			IPicture south, int rotationClockwise) {
+	Card(int id, IPicture north, IPicture west, IPicture east, IPicture south, int rotationClockwise) {
 		super();
 		this.id = id;
 		this.north = north;
@@ -55,8 +44,7 @@ public class Card implements Comparable<Card>{
 	}
 
 	public Card turned90DegreesClockwise() {
-		return new Card(this.id, this.west, this.south, this.north, this.east,
-				(this.rotationClockwise + 90) % 360);
+		return new Card(this.id, this.west, this.south, this.north, this.east, (this.rotationClockwise + 90) % 360);
 	}
 
 	@Override
@@ -79,33 +67,45 @@ public class Card implements Comparable<Card>{
 		if (getClass() != obj.getClass())
 			return false;
 		Card other = (Card) obj;
-		if (east != other.east)
+		if (east == null) {
+			if (other.east != null)
+				return false;
+		} else if (!east.equals(other.east))
 			return false;
-		if (north != other.north)
+		if (north == null) {
+			if (other.north != null)
+				return false;
+		} else if (!north.equals(other.north))
 			return false;
-		if (south != other.south)
+		if (south == null) {
+			if (other.south != null)
+				return false;
+		} else if (!south.equals(other.south))
 			return false;
-		if (west != other.west)
+		if (west == null) {
+			if (other.west != null)
+				return false;
+		} else if (!west.equals(other.west))
 			return false;
 		return true;
 	}
 
 	public String toHtmlString() {
 		String rotationDesc = "r" + this.rotationClockwise;
-		return "<img src=\"card" + this.id + ".png\" class =\"" + rotationDesc
-				+ "\" alt=\"" + id + "-" + rotationDesc + "\">";
+		return "<img src=\"card" + this.id + ".png\" class =\"" + rotationDesc + "\" alt=\"" + id + "-" + rotationDesc
+				+ "\">";
 	}
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", north=" + north + ", west=" + west
-				+ ", east=" + east + ", south=" + south + "]";
+		return "Card [id=" + id + ", north=" + north + ", west=" + west + ", east=" + east + ", south=" + south
+				+ ", rotationClockwise=" + rotationClockwise + "]";
 	}
 
 	@Override
 	public int compareTo(Card o) {
 		int compareIds = new Integer(this.getId()).compareTo(o.getId());
-		if(compareIds != 0){
+		if (compareIds != 0) {
 			return compareIds;
 		}
 		return new Integer(this.getRotationClockwise()).compareTo(o.getRotationClockwise());
