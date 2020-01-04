@@ -22,20 +22,22 @@ public class CardToGraphicsConverter {
 	protected static final int CARD_SIZE = 300;
 	private static final int MARGIN = 10;
 	private static final int INTER_CARD_SPACING = 2;
-	private static final int FONT_SIZE = 20;
 
-	public Font calculateFont(List<Card> cards) {
-		Font font = new Font("Courier", Font.PLAIN, FONT_SIZE);
+	public Font calculateFont(List<Card> availableCards) {
+		return calculateFont(new Font("SansSerif", Font.PLAIN, 20), availableCards);
+	}
+
+	public Font calculateFont(Font largestFont, List<Card> cards) {
 		BufferedImage img = new BufferedImage(CARD_SIZE, CARD_SIZE, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = img.createGraphics();
-		g2d.setFont(font);
+		g2d.setFont(largestFont);
 		for (Card card : cards) {
 			while (findMaxWidth(g2d, card) > CARD_SIZE / 2.0 - MARGIN * 3) {
-				font = new Font("Courier", Font.PLAIN, font.getSize() - 1);
-				g2d.setFont(font);
+				largestFont = largestFont.deriveFont((float) largestFont.getSize() - 1);
+				g2d.setFont(largestFont);
 			}
 		}
-		return font;
+		return largestFont;
 	}
 
 	public byte[] convert(Card card, Font font, Color color, String format) throws IOException {
