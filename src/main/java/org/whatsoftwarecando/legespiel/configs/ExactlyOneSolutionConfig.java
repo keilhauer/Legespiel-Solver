@@ -318,7 +318,7 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	@Override
-	public boolean isFilterLookAlikes() {
+	public boolean isFilterLookAlikesDuringSearch() {
 		return true;
 	}
 

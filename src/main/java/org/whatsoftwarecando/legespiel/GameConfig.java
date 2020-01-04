@@ -64,7 +64,7 @@ public abstract class GameConfig {
 		return Long.MAX_VALUE;
 	}
 
-	protected boolean isFilterLookAlikes() {
+	protected boolean isFilterLookAlikesDuringSearch() {
 		return false;
 	}
 

@@ -24,7 +24,7 @@ public class Solver {
 
 	public Solver(GameConfig gameConfig) {
 		this.gameConfig = gameConfig;
-		if (gameConfig.isFilterLookAlikes()) {
+		if (gameConfig.isFilterLookAlikesDuringSearch()) {
 			this.solutions = new LinkedHashSet<>();
 		} else {
 			this.solutions = new LinkedList<>();
@@ -68,47 +68,48 @@ public class Solver {
 	public Collection<Field> findAllSolutions() {
 		long startTime = System.nanoTime();
 		try {
-		numberOfTries = 0;
-		Field emptyField = gameConfig.getEmptyField();
-		if (gameConfig.isBfsNeeded()) {
-			PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCards());
-			Set<PartialSolution> partialSolutions = new HashSet<PartialSolution>();
-			partialSolutions.add(startingConfig);
-			int cardsUntilFull = emptyField.getCardsUntilFull();
-			for (int i = 1; i < cardsUntilFull; i++) {
-				gameConfig.output("Partial solutions with " + i + " cards:");
+			numberOfTries = 0;
+			Field emptyField = gameConfig.getEmptyField();
+			if (gameConfig.isBfsNeeded()) {
+				PartialSolution startingConfig = new PartialSolution(emptyField, gameConfig.getAvailableCards());
+				Set<PartialSolution> partialSolutions = new HashSet<PartialSolution>();
+				partialSolutions.add(startingConfig);
+				int cardsUntilFull = emptyField.getCardsUntilFull();
+				for (int i = 1; i < cardsUntilFull; i++) {
+					gameConfig.output("Partial solutions with " + i + " cards:");
+					partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
+					gameConfig.output("Total: " + partialSolutions.size());
+					partialSolutions = gameConfig.filterPartialSolutions(partialSolutions);
+					gameConfig.output("Filtered: " + partialSolutions.size());
+				}
+				gameConfig.output("Solutions: ");
 				partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
 				gameConfig.output("Total: " + partialSolutions.size());
-				partialSolutions = gameConfig.filterPartialSolutions(partialSolutions);
-				gameConfig.output("Filtered: " + partialSolutions.size());
-			}
-			gameConfig.output("Solutions: ");
-			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
-			gameConfig.output("Total: " + partialSolutions.size());
-			for (PartialSolution currentSolution : partialSolutions) {
-				addSolution(currentSolution.getField());
-			}
-			solutions = gameConfig.filterSolutions(solutions);
-			gameConfig.output("Filtered: " + solutions.size());
-			return new LinkedList<Field>(solutions);
-		} else {
-			findAllSolutions(emptyField, gameConfig.getAvailableCards());
-			if (solutions instanceof List) {
-				return solutions;
-			} else {
+				for (PartialSolution currentSolution : partialSolutions) {
+					addSolution(currentSolution.getField());
+				}
+				solutions = gameConfig.filterSolutions(solutions);
+				gameConfig.output("Filtered: " + solutions.size());
 				return new LinkedList<Field>(solutions);
+			} else {
+				findAllSolutions(emptyField, gameConfig.getAvailableCards());
+				if (solutions instanceof List) {
+					return solutions;
+				} else {
+					return new LinkedList<Field>(solutions);
+				}
 			}
-		}
 		} finally {
 			long timeNeeded = System.nanoTime() - startTime;
 			if (this.isSearchLimitReached()) {
-				gameConfig.output("Tried " + this.getNumberOfTries() + " card rotations -> Found (maybe not all) "
-						+ solutions.size() + " solutions in " + Util.nanosToMilliseconds(timeNeeded)
-						+ " ms => Measure of difficulty: " + this.getNumberOfTries() / (double) solutions.size());
+				gameConfig.output("Tried " + this.getNumberOfTries() + " card rotations => Found (maybe not all) "
+						+ solutions.size() + " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms");
 			} else {
-				gameConfig.output("Tried " + this.getNumberOfTries() + " card rotations -> Found all "
-						+ solutions.size() + " solutions in " + Util.nanosToMilliseconds(timeNeeded)
-						+ " ms => Measure of difficulty: " + this.getNumberOfTries() / (double) solutions.size());
+				gameConfig.output("Tried " + this.getNumberOfTries() + " card rotations => Found all "
+						+ solutions.size() + " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms");
+			}
+			if (!gameConfig.isFilterLookAlikesDuringSearch()) {
+				gameConfig.output("Measure of difficulty: " + this.getNumberOfTries() / (double) solutions.size());
 			}
 
 		}
@@ -120,10 +121,11 @@ public class Solver {
 		if (this.solutions.size() >= gameConfig.getMaxNumberOfSolutionsSearchLimit()
 				&& this.searchLimitReached == false) {
 			this.searchLimitReached = true;
-			gameConfig.output("Search limit for number of solutions ("
-						+ gameConfig.getMaxNumberOfSolutionsSearchLimit() + ") reached!");
+			gameConfig.output("Search limit for number of solutions (" + gameConfig.getMaxNumberOfSolutionsSearchLimit()
+					+ ") reached!");
 		}
 	}
+
 	Set<PartialSolution> findSolutionsWithOneMoreCard(Collection<PartialSolution> partialSolutions) {
 		Set<PartialSolution> partialSolutionsWithOneMoreCard = new HashSet<PartialSolution>();
 
@@ -159,7 +161,7 @@ public class Solver {
 
 	Collection<Field> nextPossibleMoves(Field field, List<Card> remainingCards) {
 		Collection<Field> fieldsWithOneMoreCard = null;
-		if (gameConfig.isFilterLookAlikes()) {
+		if (gameConfig.isFilterLookAlikesDuringSearch()) {
 			fieldsWithOneMoreCard = new LinkedHashSet<>();
 		} else {
 			fieldsWithOneMoreCard = new LinkedList<>();
@@ -209,7 +211,7 @@ public class Solver {
 				}
 			}
 		}
-		gameConfig.output("Removed rotation based duplicates and other look-alikes -> " + resultSet.size()
+		gameConfig.output("Removed rotation based duplicates and other look-alikes => " + resultSet.size()
 				+ " original solutions remaining");
 		return new LinkedList<Field>(resultSet);
 	}
