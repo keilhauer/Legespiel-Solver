@@ -31,14 +31,13 @@ public class ExactlyOneSolution {
 				AllPossibleCardsForPictures.generateCards(Pictures.values(), true, new CardCreator()));
 		System.out.println(availableCards.size() + " available Cards: " + availableCards);
 		Combinations combinations = new Combinations(9, availableCards.size());
-		Solver solver = new Solver();
 		System.out.println("Number of possible combinations: " + combinations.getTotalNumberOfCombinations());
 		
 		StreamSupport.stream(combinations.spliterator(), true)
-				.forEach(activeIndexes -> checkSolution(availableCards, activeIndexes, solver));
+				.forEach(activeIndexes -> checkSolution(availableCards, activeIndexes));
 	}
 
-	private static int checkSolution(ArrayList<Card> availableCards, List<Integer> activeIndexes, Solver solver) {
+	private static int checkSolution(ArrayList<Card> availableCards, List<Integer> activeIndexes) {
 		System.out.println(++combinationNumber);
 		long start = System.currentTimeMillis();
 		ArrayList<Card> currentCards = new ArrayList<Card>();
@@ -50,8 +49,9 @@ public class ExactlyOneSolution {
 		 * TODO: findAllSolutions should terminate as soon as it has found 2 original
 		 * solutions
 		 */
-		List<Field> allSolutions = solver.findAllSolutions(gameConfig);
-		List<Field> filtered = solver.removeRotationBasedDuplicates(allSolutions);
+		Solver solver = new Solver(gameConfig);
+		solver.findAllSolutions();
+		List<Field> filtered = solver.removeRotationBasedDuplicates();
 		if (filtered.size() == 1) {
 			System.out.println("One Solution for " + currentCards);
 		}

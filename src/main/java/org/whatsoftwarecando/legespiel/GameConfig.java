@@ -56,4 +56,17 @@ public abstract class GameConfig {
 		this.availableCards.add(cardCreator.createCard(north, west, east, south));
 	}
 
+	protected int getMaxNumberOfSolutionsSearchLimit() {
+		return Integer.MAX_VALUE;
+	}
+
+	protected long getMaxNumberOfTries() {
+		return Long.MAX_VALUE;
+	}
+
+	protected boolean isFilterLookAlikes() {
+		return false;
+	}
+
+
 }

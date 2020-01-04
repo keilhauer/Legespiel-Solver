@@ -2,6 +2,7 @@ package org.whatsoftwarecando.legespiel;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -37,10 +38,10 @@ public class SolverTest {
 
 	protected void testNumberOfSolutions(int numberOfAllSolutions, int numberOfOriginalSolutions,
 			GameConfig gameConfig) {
-		Solver solver = new Solver();
-		List<Field> solutions = solver.findAllSolutions(gameConfig);
+		Solver solver = new Solver(gameConfig);
+		Collection<Field> solutions = solver.findAllSolutions();
 		assertEquals(numberOfAllSolutions, solutions.size());
-		List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates(solutions);
+		List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates();
 		assertEquals(numberOfOriginalSolutions, solutionsWithoutRotations.size());
 	}
 
@@ -59,22 +60,22 @@ public class SolverTest {
 	}
 
 	private void testAlwaysSameSolutions(GameConfig gameConfig) {
-		Solver solver = new Solver();
-		List<Field> allCorrect = solver.findAllSolutions(gameConfig);
+		Solver solver = new Solver(gameConfig);
+		Collection<Field> allCorrect = solver.findAllSolutions();
 		System.out.println("Found " + allCorrect.size() + " solutions");
-		System.out.println("Number of tries " + solver.numberOfTries());
+		System.out.println("Number of tries " + solver.getNumberOfTries());
 
 		Set<Field> allCorrectSet = new HashSet<Field>(allCorrect);
-		long numberOfTriesExpected = solver.numberOfTries();
+		long numberOfTriesExpected = solver.getNumberOfTries();
 		for (int i = 0; i < 10; i++) {
 			long startTime = System.nanoTime();
-			List<Field> allCorrectControl = solver.findAllSolutions(gameConfig);
+			Collection<Field> allCorrectControl = solver.findAllSolutions();
 			if (!allCorrectSet.equals(new HashSet<Field>(allCorrectControl))) {
 				throw new RuntimeException("Unexpected " + allCorrectControl.size() + ": " + allCorrectControl);
 			}
-			System.out.println("Number of tries " + solver.numberOfTries());
-			if (numberOfTriesExpected != solver.numberOfTries()) {
-				throw new RuntimeException("Unexpected " + solver.numberOfTries());
+			System.out.println("Number of tries " + solver.getNumberOfTries());
+			if (numberOfTriesExpected != solver.getNumberOfTries()) {
+				throw new RuntimeException("Unexpected " + solver.getNumberOfTries());
 			}
 			long endTime = System.nanoTime();
 			System.out.println("Time needed: " + Util.nanosToMilliseconds(endTime - startTime) + " ms");

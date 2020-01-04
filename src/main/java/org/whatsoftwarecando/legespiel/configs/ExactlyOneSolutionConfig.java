@@ -115,14 +115,14 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 		this.output("\nDuplicates removed.");
 		this.output("Solutions left: " + noDuplicates.size());
 		Set<Field> onlyOneSolution = new HashSet<Field>();
-		Solver solver = new Solver();
 		int countCorrect = 0;
 		int countIncorrect = 0;
 		for (Field solution : noDuplicates) {
 			GenericGameConfig currentSolutionConfig = new GenericGameConfig(solution.getAllCards(),
 					this.getEmptyField());
-			List<Field> solutionsForCurrent = solver.findAllSolutions(currentSolutionConfig);
-			List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates(solutionsForCurrent);
+			Solver solver = new Solver(currentSolutionConfig);
+			solver.findAllSolutions();
+			List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates();
 			if (solutionsWithoutRotations.size() == 1) {
 				if (++countCorrect % 1000 == 0) {
 					System.out.print("1");
@@ -206,7 +206,6 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	private void filterTwo(PartialSolution current) {
-		Solver solver = new Solver();
 		if (current == null) {
 			if (++countEasy % 1000 == 0) {
 				System.out.print("!");
@@ -217,8 +216,9 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 			List<Condition> borderline = calcBorderline(currentField);
 			FieldWithConditions fieldWithConditions = new FieldWithConditions(currentField.getRows(),
 					currentField.getCols(), allCards.size(), borderline);
+			Solver solver = new Solver(new GenericGameConfig(allCards, fieldWithConditions));
 			Set<Field> solutions = new HashSet<Field>(
-					solver.findAllSolutions(new GenericGameConfig(allCards, fieldWithConditions)));
+					solver.findAllSolutions());
 			if (solutions.size() == 1) {
 				filtered.add(current);
 				if (++countWithOne % 1000 == 0) {
@@ -314,6 +314,11 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 
 	@Override
 	public boolean isBfsNeeded() {
+		return true;
+	}
+
+	@Override
+	public boolean isFilterLookAlikes() {
 		return true;
 	}
 

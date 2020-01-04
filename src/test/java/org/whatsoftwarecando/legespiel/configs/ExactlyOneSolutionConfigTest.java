@@ -2,6 +2,7 @@ package org.whatsoftwarecando.legespiel.configs;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,16 +59,17 @@ public class ExactlyOneSolutionConfigTest {
 	@Ignore
 	public void reallyOnlyOneSolution() {
 		ExactlyOneSolutionConfig testConfig = new ExactlyOneSolutionConfig();
-		Solver solver = new Solver();
-		List<Field> solutions = solver.findAllSolutions(testConfig);
+		Solver solver = new Solver(testConfig);
+		Collection<Field> solutions = solver.findAllSolutions();
 		Map<Field, List<Field>> moreSolutions = new HashMap<Field, List<Field>>();
 		Set<Field> correctSolutions = new HashSet<Field>();
 		Set<Field> noSolution = new HashSet<Field>();
 		for (Field solution : solutions) {
 			GenericGameConfig currentSolutionConfig = new GenericGameConfig(solution.getAllCards(),
 					testConfig.getEmptyField());
-			List<Field> solutionsForCurrent = solver.findAllSolutions(currentSolutionConfig);
-			List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates(solutionsForCurrent);
+			solver = new Solver(currentSolutionConfig);
+			solver.findAllSolutions();
+			List<Field> solutionsWithoutRotations = solver.removeRotationBasedDuplicates();
 			if (solutionsWithoutRotations.size() > 1) {
 				moreSolutions.put(solution, solutionsWithoutRotations);
 			} else if (solutionsWithoutRotations.size() == 1) {

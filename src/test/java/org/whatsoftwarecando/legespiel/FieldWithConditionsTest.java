@@ -2,6 +2,7 @@ package org.whatsoftwarecando.legespiel;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class FieldWithConditionsTest {
 		allCards.add(cc.createCard(Pictures.RED, Pictures.RED, Pictures.RED, Pictures.RED));
 		allCards.add(cc.createCard(Pictures.GREEN, Pictures.RED, Pictures.GREEN, Pictures.GREEN));
 		GenericGameConfig config = new GenericGameConfig(allCards, fieldWithCondition);
-		Solver solver = new Solver();
-		List<Field> solutions = solver.findAllSolutions(config);
+		Solver solver = new Solver(config);
+		Collection<Field> solutions = solver.findAllSolutions();
 		System.out.println(solutions);
 		assertEquals(8, solutions.size());
 	}

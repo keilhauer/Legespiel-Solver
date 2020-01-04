@@ -24,11 +24,6 @@ public class GenericGameConfig extends GameConfig {
 	}
 
 	@Override
-	public boolean isBfsNeeded() {
-		return false;
-	}
-
-	@Override
 	public void output(String str) {
 	}
 

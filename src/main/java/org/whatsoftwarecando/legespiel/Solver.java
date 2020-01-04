@@ -16,6 +16,22 @@ public class Solver {
 
 	private long numberOfTries;
 
+	private GameConfig gameConfig;
+
+	private Collection<Field> solutions;
+
+	private boolean searchLimitReached;
+
+	public Solver(GameConfig gameConfig) {
+		this.gameConfig = gameConfig;
+		if (gameConfig.isFilterLookAlikes()) {
+			this.solutions = new LinkedHashSet<>();
+		} else {
+			this.solutions = new LinkedList<>();
+		}
+		this.searchLimitReached = false;
+	}
+
 	public static void main(String[] argv) throws IOException, URISyntaxException, InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
 		GameConfig gameConfig = null;
@@ -26,19 +42,13 @@ public class Solver {
 					.newInstance();
 		}
 		gameConfig.output("Using GameConfig: " + gameConfig.getClass().getSimpleName());
-		long startTime = System.nanoTime();
-		Solver solver = new Solver();
-		List<Field> solutions = solver.findAllSolutions(gameConfig);
+		Solver solver = new Solver(gameConfig);
+		Collection<Field> solutions = solver.findAllSolutions();
 
-		long timeNeeded = System.nanoTime() - startTime;
-		gameConfig.output("Tried " + solver.numberOfTries() + " card rotations -> Found all " + solutions.size()
-				+ " solutions in " + Util.nanosToMilliseconds(timeNeeded) + " ms => Measure of difficulty: "
-				+ solver.numberOfTries() / (double) solutions.size());
 		HtmlGenerator.getInstance().writeHtml(gameConfig, solutions, "allSolutions", "All Solutions");
 
-		List<Field> originalSolutions = solver.removeRotationBasedDuplicates(solutions);
-		gameConfig.output("Removed rotation based duplicates and other look-alikes -> " + originalSolutions.size()
-				+ " original solutions remaining");
+		List<Field> originalSolutions = solver.removeRotationBasedDuplicates();
+
 		HtmlGenerator.getInstance().writeHtml(gameConfig, originalSolutions, "originalSolutions", "Original Solutions");
 	}
 
@@ -47,11 +57,17 @@ public class Solver {
 	 * @return number of card rotations tried since the last call of
 	 *         findAllSolutions(...)
 	 */
-	public long numberOfTries() {
+	public long getNumberOfTries() {
 		return numberOfTries;
 	}
 
-	public List<Field> findAllSolutions(GameConfig gameConfig) {
+	public boolean isSearchLimitReached() {
+		return searchLimitReached;
+	}
+
+	public Collection<Field> findAllSolutions() {
+		long startTime = System.nanoTime();
+		try {
 		numberOfTries = 0;
 		Field emptyField = gameConfig.getEmptyField();
 		if (gameConfig.isBfsNeeded()) {
@@ -69,24 +85,50 @@ public class Solver {
 			gameConfig.output("Solutions: ");
 			partialSolutions = findSolutionsWithOneMoreCard(partialSolutions);
 			gameConfig.output("Total: " + partialSolutions.size());
-			Set<Field> solutions = new HashSet<Field>();
 			for (PartialSolution currentSolution : partialSolutions) {
-				solutions.add(currentSolution.getField());
+				addSolution(currentSolution.getField());
 			}
 			solutions = gameConfig.filterSolutions(solutions);
 			gameConfig.output("Filtered: " + solutions.size());
 			return new LinkedList<Field>(solutions);
 		} else {
-			return findAllSolutions(emptyField, gameConfig.getAvailableCards());
+			findAllSolutions(emptyField, gameConfig.getAvailableCards());
+			if (solutions instanceof List) {
+				return solutions;
+			} else {
+				return new LinkedList<Field>(solutions);
+			}
+		}
+		} finally {
+			long timeNeeded = System.nanoTime() - startTime;
+			if (this.isSearchLimitReached()) {
+				gameConfig.output("Tried " + this.getNumberOfTries() + " card rotations -> Found (maybe not all) "
+						+ solutions.size() + " solutions in " + Util.nanosToMilliseconds(timeNeeded)
+						+ " ms => Measure of difficulty: " + this.getNumberOfTries() / (double) solutions.size());
+			} else {
+				gameConfig.output("Tried " + this.getNumberOfTries() + " card rotations -> Found all "
+						+ solutions.size() + " solutions in " + Util.nanosToMilliseconds(timeNeeded)
+						+ " ms => Measure of difficulty: " + this.getNumberOfTries() / (double) solutions.size());
+			}
+
 		}
 
 	}
 
+	private void addSolution(Field solution) {
+		this.solutions.add(solution);
+		if (this.solutions.size() >= gameConfig.getMaxNumberOfSolutionsSearchLimit()
+				&& this.searchLimitReached == false) {
+			this.searchLimitReached = true;
+			gameConfig.output("Search limit for number of solutions ("
+						+ gameConfig.getMaxNumberOfSolutionsSearchLimit() + ") reached!");
+		}
+	}
 	Set<PartialSolution> findSolutionsWithOneMoreCard(Collection<PartialSolution> partialSolutions) {
 		Set<PartialSolution> partialSolutionsWithOneMoreCard = new HashSet<PartialSolution>();
 
 		for (PartialSolution partialSolution : partialSolutions) {
-			List<Field> nextPossibleMoves = nextPossibleMoves(partialSolution.getField(),
+			Collection<Field> nextPossibleMoves = nextPossibleMoves(partialSolution.getField(),
 					partialSolution.getRemainingCards());
 			for (Field nextPossibleMove : nextPossibleMoves) {
 				List<Card> remaining = removed(nextPossibleMove.getLastCard(), partialSolution.getRemainingCards());
@@ -97,27 +139,39 @@ public class Solver {
 		return partialSolutionsWithOneMoreCard;
 	}
 
-	List<Field> findAllSolutions(Field field, List<Card> cards) {
-
-		List<Field> solutions = new LinkedList<Field>();
-
-		List<Field> nextPossibleMoves = nextPossibleMoves(field, cards);
+	Collection<Field> findAllSolutions(Field field, List<Card> cards) {
+		List<Field> partialSolutions = new LinkedList<>();
+		if (searchLimitReached) {
+			return partialSolutions;
+		}
+		Collection<Field> nextPossibleMoves = nextPossibleMoves(field, cards);
 		for (Field currentMove : nextPossibleMoves) {
 			if (currentMove.isFull()) {
-				solutions.add(currentMove);
+				addSolution(currentMove);
 			} else {
 				List<Card> remaining = removed(currentMove.getLastCard(), cards);
-				solutions.addAll(findAllSolutions(currentMove, remaining));
+				partialSolutions.addAll(findAllSolutions(currentMove, remaining));
 			}
 		}
 
-		return solutions;
+		return partialSolutions;
 	}
 
-	List<Field> nextPossibleMoves(Field field, List<Card> remainingCards) {
-
-		List<Field> fieldsWithOneMoreCard = new LinkedList<Field>();
-
+	Collection<Field> nextPossibleMoves(Field field, List<Card> remainingCards) {
+		Collection<Field> fieldsWithOneMoreCard = null;
+		if (gameConfig.isFilterLookAlikes()) {
+			fieldsWithOneMoreCard = new LinkedHashSet<>();
+		} else {
+			fieldsWithOneMoreCard = new LinkedList<>();
+		}
+		if (numberOfTries >= gameConfig.getMaxNumberOfTries()) {
+			if (this.searchLimitReached == false) {
+				this.searchLimitReached = true;
+				gameConfig
+						.output("Search limit for number of tries (" + gameConfig.getMaxNumberOfTries() + ") reached!");
+			}
+			return fieldsWithOneMoreCard;
+		}
 		for (Card card : remainingCards) {
 			Field addedUnturned = field.addedIfFits(card);
 			numberOfTries++;
@@ -137,7 +191,7 @@ public class Solver {
 		return fieldsWithOneMoreCard;
 	}
 
-	public List<Field> removeRotationBasedDuplicates(Collection<Field> solutions) {
+	public List<Field> removeRotationBasedDuplicates() {
 		LinkedHashSet<Field> resultSet = new LinkedHashSet<Field>(solutions);
 		for (Field solution : solutions) {
 			if (resultSet.contains(solution)) {
@@ -155,6 +209,8 @@ public class Solver {
 				}
 			}
 		}
+		gameConfig.output("Removed rotation based duplicates and other look-alikes -> " + resultSet.size()
+				+ " original solutions remaining");
 		return new LinkedList<Field>(resultSet);
 	}
 
