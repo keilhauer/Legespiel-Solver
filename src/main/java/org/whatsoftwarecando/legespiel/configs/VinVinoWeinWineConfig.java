@@ -5,7 +5,7 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
- * Configuration based on "Vino Vino Vino Wine" (see
+ * Configuration based on "Vin Vino Wein Wine" (see
  * https://www.bonanza.com/items/like/209090358/Vin-Vino-Wein-Wine-Scramble-Squares-Puzzle
  * )
  */
