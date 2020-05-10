@@ -9,7 +9,7 @@ import org.whatsoftwarecando.legespiel.IPicture;
  * https://www.bonanza.com/items/like/209090358/Vin-Vino-Wein-Wine-Scramble-Squares-Puzzle
  * )
  */
-public class VinoVinoVinoWineConfig extends GameConfig {
+public class VinVinoWeinWineConfig extends GameConfig {
 
 	enum Picture implements IPicture {
 
