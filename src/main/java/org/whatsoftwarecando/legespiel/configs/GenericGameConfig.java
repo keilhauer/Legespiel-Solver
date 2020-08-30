@@ -19,8 +19,13 @@ public class GenericGameConfig extends GameConfig {
 	}
 
 	@Override
-	protected Field createEmptyField() {
-		return emptyField;
+	protected byte getNumberOfRows() {
+		return (byte) emptyField.getRows();
+	}
+
+	@Override
+	protected byte getNumberOfColumns() {
+		return (byte) emptyField.getCols();
 	}
 
 	@Override

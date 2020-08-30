@@ -61,8 +61,13 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	@Override
-	protected Field createEmptyField() {
-		return new Field(this.rowsInField, this.colsInField);
+	protected byte getNumberOfRows() {
+		return 3;
+	}
+
+	@Override
+	protected byte getNumberOfColumns() {
+		return 3;
 	}
 
 	@Override

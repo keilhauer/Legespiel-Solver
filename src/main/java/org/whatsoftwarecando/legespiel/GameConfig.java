@@ -25,7 +25,13 @@ public abstract class GameConfig {
 		return availableCards;
 	}
 
-	protected abstract Field createEmptyField();
+	Field createEmptyField() {
+		return new Field(getNumberOfRows(), getNumberOfColumns());
+	}
+
+	protected abstract byte getNumberOfRows();
+
+	protected abstract byte getNumberOfColumns();
 
 	protected Field emptyField = null;
 

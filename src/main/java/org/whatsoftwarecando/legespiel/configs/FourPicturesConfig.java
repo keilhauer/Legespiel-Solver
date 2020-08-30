@@ -1,14 +1,18 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.configs.ExactlyOneSolutionConfig.Pictures;
 
 public class FourPicturesConfig extends GameConfig {
 
 	@Override
-	protected Field createEmptyField() {
-		return new Field(3, 3);
+	protected byte getNumberOfRows() {
+		return 3;
+	}
+
+	@Override
+	protected byte getNumberOfColumns() {
+		return 3;
 	}
 
 	@Override
