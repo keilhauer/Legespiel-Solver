@@ -48,12 +48,12 @@ public class VinVinoWeinWineConfig extends GameConfig {
 	}
 
 	@Override
-	protected byte getNumberOfRows() {
+	public byte getNumberOfRows() {
 		return 3;
 	}
 
 	@Override
-	protected byte getNumberOfColumns() {
+	public byte getNumberOfColumns() {
 		return 3;
 	}
 

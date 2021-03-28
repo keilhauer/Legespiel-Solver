@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="C:/Users/Shadow/.m2/repository/org/whatsoftwarecando/legespiel/legespiel-solver/1.0/legespiel-solver-1.0.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Legespiel-Solver/simple-build.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="false" exportJavaFiles="false" exportOutputFolder="true">
+        <file path="/Legespiel-Solver/Readme.md"/>
+        <file path="/Legespiel-Solver/_config.yml"/>
+        <file path="/Legespiel-Solver/.travis.yml"/>
+        <file path="/Legespiel-Solver/.gitignore"/>
+        <file path="/Legespiel-Solver/.gitattributes"/>
+        <file path="/Legespiel-Solver/.project"/>
+        <javaElement handleIdentifier="=Legespiel-Solver/src\/main\/java"/>
+        <file path="/Legespiel-Solver/.classpath"/>
+        <javaElement handleIdentifier="=Legespiel-Solver/src\/main\/resources"/>
+    </selectedElements>
+</jardesc>

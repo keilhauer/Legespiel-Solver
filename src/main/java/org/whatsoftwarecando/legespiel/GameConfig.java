@@ -29,9 +29,9 @@ public abstract class GameConfig {
 		return new Field(getNumberOfRows(), getNumberOfColumns());
 	}
 
-	protected abstract byte getNumberOfRows();
+	public abstract byte getNumberOfRows();
 
-	protected abstract byte getNumberOfColumns();
+	public abstract byte getNumberOfColumns();
 
 	protected Field emptyField = null;
 

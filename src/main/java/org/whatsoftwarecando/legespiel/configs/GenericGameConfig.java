@@ -19,12 +19,12 @@ public class GenericGameConfig extends GameConfig {
 	}
 
 	@Override
-	protected byte getNumberOfRows() {
+	public byte getNumberOfRows() {
 		return (byte) emptyField.getRows();
 	}
 
 	@Override
-	protected byte getNumberOfColumns() {
+	public byte getNumberOfColumns() {
 		return (byte) emptyField.getCols();
 	}
 

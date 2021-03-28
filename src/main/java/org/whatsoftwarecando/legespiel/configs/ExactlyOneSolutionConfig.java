@@ -22,8 +22,6 @@ import org.whatsoftwarecando.legespiel.experiments.AllPossibleCardsForPictures;
 
 public class ExactlyOneSolutionConfig extends GameConfig {
 
-	private final int rowsInField;
-	private final int colsInField;
 	private final boolean eliminateDuplicateCards;
 
 	public ExactlyOneSolutionConfig() {
@@ -31,8 +29,6 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	private ExactlyOneSolutionConfig(int rowsInField, int colsInField, boolean eliminateDuplicateCards) {
-		this.rowsInField = rowsInField;
-		this.colsInField = colsInField;
 		this.eliminateDuplicateCards = eliminateDuplicateCards;
 		this.output("Available cards: " + this.getAvailableCards());
 		this.output("Number of available cards: " + this.getAvailableCards().size());
@@ -61,12 +57,12 @@ public class ExactlyOneSolutionConfig extends GameConfig {
 	}
 
 	@Override
-	protected byte getNumberOfRows() {
+	public byte getNumberOfRows() {
 		return 3;
 	}
 
 	@Override
-	protected byte getNumberOfColumns() {
+	public byte getNumberOfColumns() {
 		return 3;
 	}
 
