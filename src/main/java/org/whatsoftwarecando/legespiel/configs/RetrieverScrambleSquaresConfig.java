@@ -11,7 +11,7 @@ public class RetrieverScrambleSquaresConfig extends GameConfig {
 
 	enum Picture implements IPicture {
 
-		GOLDEN_1(1), GOLDEN_2(1), BLACK_1(2), BLACK_2(2), YELLOW_1(3), YELLOW_2(3), CHOCOLATE_1(4), CHOCOLATE_2(4);
+		WITH_STICK_FRONT(1), WITH_STICK_BACK(1), BLACK_FRONT(2), BLACK_BACK(2), PANTING_FRONT(3), PANGTIN_BACK(3), BROWN_FRONT(4), BROWN_BACK(4);
 
 		private final int pairNumber;
 
@@ -32,15 +32,15 @@ public class RetrieverScrambleSquaresConfig extends GameConfig {
 
 	@Override
 	protected void createAvailableCards() {
-		addCard(Picture.YELLOW_1, Picture.BLACK_1, Picture.CHOCOLATE_2, Picture.GOLDEN_1);
-		addCard(Picture.GOLDEN_1, Picture.CHOCOLATE_1, Picture.YELLOW_1, Picture.BLACK_2);
-		addCard(Picture.CHOCOLATE_1, Picture.YELLOW_2, Picture.GOLDEN_1, Picture.BLACK_1);
-		addCard(Picture.GOLDEN_2, Picture.CHOCOLATE_1, Picture.YELLOW_1, Picture.BLACK_1);
-		addCard(Picture.BLACK_1, Picture.YELLOW_2, Picture.GOLDEN_1, Picture.CHOCOLATE_1);
-		addCard(Picture.BLACK_2, Picture.GOLDEN_2, Picture.YELLOW_2, Picture.CHOCOLATE_2);
-		addCard(Picture.BLACK_2, Picture.GOLDEN_1, Picture.YELLOW_2, Picture.CHOCOLATE_1);
-		addCard(Picture.CHOCOLATE_2, Picture.YELLOW_1, Picture.GOLDEN_2, Picture.BLACK_1);
-		addCard(Picture.CHOCOLATE_1, Picture.GOLDEN_1, Picture.BLACK_1, Picture.YELLOW_1);
+		addCard(Picture.PANTING_FRONT, Picture.BLACK_FRONT, Picture.BROWN_BACK, Picture.WITH_STICK_FRONT);
+		addCard(Picture.WITH_STICK_FRONT, Picture.BROWN_FRONT, Picture.PANTING_FRONT, Picture.BLACK_BACK);
+		addCard(Picture.BROWN_FRONT, Picture.PANGTIN_BACK, Picture.WITH_STICK_FRONT, Picture.BLACK_FRONT);
+		addCard(Picture.WITH_STICK_BACK, Picture.BROWN_FRONT, Picture.PANTING_FRONT, Picture.BLACK_FRONT);
+		addCard(Picture.BLACK_FRONT, Picture.PANGTIN_BACK, Picture.WITH_STICK_FRONT, Picture.BROWN_FRONT);
+		addCard(Picture.BLACK_BACK, Picture.WITH_STICK_BACK, Picture.PANGTIN_BACK, Picture.BROWN_BACK);
+		addCard(Picture.BLACK_BACK, Picture.WITH_STICK_FRONT, Picture.PANGTIN_BACK, Picture.BROWN_FRONT);
+		addCard(Picture.BROWN_BACK, Picture.PANTING_FRONT, Picture.WITH_STICK_BACK, Picture.BLACK_FRONT);
+		addCard(Picture.BROWN_FRONT, Picture.WITH_STICK_FRONT, Picture.BLACK_FRONT, Picture.PANTING_FRONT);
 	}
 
 	@Override
