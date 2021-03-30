@@ -4,7 +4,7 @@ import org.whatsoftwarecando.legespiel.GameConfig;
 import org.whatsoftwarecando.legespiel.IPicture;
 
 /**
- * Configuration based on Das verflixte Schildkrötenspiel (see
+ * Configuration based on Das verflixte Hundespiel (see
  * https://prlbr.de/2011/08/hundepuzzle/
  */
 public class DasVerflixteHundeSpielConfig extends GameConfig {
