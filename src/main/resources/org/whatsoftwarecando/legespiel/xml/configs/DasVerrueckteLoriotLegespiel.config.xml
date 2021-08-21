@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Das verrückte Loriot Legespiel</name>
+	<description>Find a video of one solution here https://www.youtube.com/watch?v=YvcbBUoSa_U</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="MAN 1" matchWithIds="7" />
+		<picture id="2" name="WOMAN GREEN 2" matchWithIds="8" />
+		<picture id="3" name="MAN HAT 1" matchWithIds="6" />
+		<picture id="4" name="WOMAN BLUE 2" matchWithIds="5" />
+		<picture id="5" name="WOMAN BLUE 1" matchWithIds="4" />
+		<picture id="6" name="MAN HAT 2" matchWithIds="3" />
+		<picture id="7" name="MAN 2" matchWithIds="1" />
+		<picture id="8" name="WOMAN GREEN 1" matchWithIds="2" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="5" west="6" east="7" south="8" />
+		<card north="2" west="1" east="3" south="4" />
+		<card north="5" west="8" east="6" south="7" />
+		<card north="5" west="8" east="6" south="7" />
+		<card north="2" west="3" east="1" south="4" />
+		<card north="2" west="3" east="1" south="4" />
+		<card north="5" west="7" east="8" south="8" />
+		<card north="1" west="3" east="2" south="4" />
+	</cards>
+</legespielConfiguration>

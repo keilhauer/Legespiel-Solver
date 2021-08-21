@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+    xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Die Katzen-Knobelei</name>
+	<description>See https://www.ebay-kleinanzeigen.de/s-anzeige/die-katzen-knobelei-spiel-alt-selten-raritaet-sammler-ass/1594696783-240-8325
+	---
+	This content submitted by a user of Legespiel-Solver online. Thank you! &lt;3</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Rot Kopf" matchWithIds="6" />
+		<picture id="2" name="Lila Kopf" matchWithIds="3" />
+		<picture id="3" name="Lila Schwanz" matchWithIds="2" />
+		<picture id="4" name="Blau Schwanz" matchWithIds="7" />
+		<picture id="5" name="Orange Kopf" matchWithIds="8" />
+		<picture id="6" name="Rot Schwanz" matchWithIds="1" />
+		<picture id="7" name="Blau Kopf" matchWithIds="4" />
+		<picture id="8" name="Orange Schwanz" matchWithIds="5" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="5" west="4" east="2" south="6" />
+		<card north="7" west="5" east="3" south="6" />
+		<card north="5" west="2" east="4" south="6" />
+		<card north="7" west="5" east="8" south="6" />
+		<card north="1" west="5" east="3" south="4" />
+		<card north="1" west="2" east="8" south="4" />
+		<card north="2" west="4" east="1" south="8" />
+		<card north="7" west="2" east="6" south="8" />
+	</cards>
+</legespielConfiguration>

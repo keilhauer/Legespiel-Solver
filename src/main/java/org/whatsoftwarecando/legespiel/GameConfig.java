@@ -74,5 +74,9 @@ public abstract class GameConfig {
 		return false;
 	}
 
+	public String getName() {
+		return getClass().getSimpleName();
+	}
+
 
 }

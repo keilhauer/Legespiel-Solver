@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="http://whatsoftwarecando.org"
+	elementFormDefault="qualified" xmlns="http://whatsoftwarecando.org"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:appinfo>Legespiel-Solver</xs:appinfo>
+		<xs:documentation>
+			Schema for describing a scramble squares puzzle (or
+			German: Legespiel). For more information visit
+			https://github.com/keilhauer/Legespiel-Solver
+		</xs:documentation>
+	</xs:annotation>
+	<xs:element name="legespielConfiguration"
+		type="legespielConfigurationType" />
+	<xs:complexType name="pictureType">
+		<xs:attribute type="xs:byte" name="id" use="required" />
+		<xs:attribute type="xs:string" name="name" use="required" />
+		<xs:attribute type="xs:string" name="matchWithIds"
+			use="required" />
+	</xs:complexType>
+	<xs:complexType name="picturesType">
+		<xs:sequence>
+			<xs:element type="pictureType" name="picture"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cardType">
+		<xs:attribute type="xs:byte" name="north" use="required" />
+		<xs:attribute type="xs:byte" name="west" use="required" />
+		<xs:attribute type="xs:byte" name="east" use="required" />
+		<xs:attribute type="xs:byte" name="south" use="required" />
+	</xs:complexType>
+	<xs:complexType name="cardsType">
+		<xs:sequence>
+			<xs:element type="cardType" name="card"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="legespielConfigurationType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="name" minOccurs="0" />
+			<xs:element type="xs:string" name="description" minOccurs="0" />
+			<xs:element type="xs:byte" name="numberOfRows" />
+			<xs:element type="xs:byte" name="numberOfColumns" />
+			<xs:element type="picturesType" name="pictures" />
+			<xs:element type="cardsType" name="cards" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+

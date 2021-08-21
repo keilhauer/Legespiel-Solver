@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Vin, Vino, Wein, Wine!</name>
+	<description>See https://www.bonanza.com/items/like/209090358/Vin-Vino-Wein-Wine-Scramble-Squares-Puzzle</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="GREEN VINE RIGHT" matchWithIds="5" />
+		<picture id="2" name="BARREL UPPER" matchWithIds="6" />
+		<picture id="3" name="TREE UPPER" matchWithIds="7" />
+		<picture id="4" name="BLUE VINE RIGHT" matchWithIds="8" />
+		<picture id="5" name="GREEN VINE LEFT" matchWithIds="1" />
+		<picture id="6" name="BARREL LOWER" matchWithIds="2" />
+		<picture id="7" name="TREE LOWER" matchWithIds="3" />
+		<picture id="8" name="BLUE VINE LEFT" matchWithIds="4" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="4" west="3" east="2" south="5" />
+		<card north="2" west="3" east="5" south="4" />
+		<card north="6" west="3" east="7" south="4" />
+		<card north="2" west="7" east="1" south="8" />
+		<card north="8" west="1" east="3" south="2" />
+		<card north="8" west="1" east="5" south="2" />
+		<card north="4" west="1" east="7" south="6" />
+		<card north="6" west="3" east="1" south="4" />
+	</cards>
+</legespielConfiguration>

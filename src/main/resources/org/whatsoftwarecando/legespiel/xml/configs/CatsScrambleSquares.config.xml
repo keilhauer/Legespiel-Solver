@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Cats Scramble Squares</name>
+	<description>see https://www.flickr.com/photos/greatshotsbyjf/6649252505</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="BROWN LOW" matchWithIds="7" />
+		<picture id="2" name="WHITE GRAY LOW" matchWithIds="8" />
+		<picture id="3" name="BLACK LEFT" matchWithIds="6" />
+		<picture id="4" name="WHITE RED LOW" matchWithIds="5" />
+		<picture id="5" name="WHITE RED UP" matchWithIds="4" />
+		<picture id="6" name="BLACK RIGHT" matchWithIds="3" />
+		<picture id="7" name="BROWN UP" matchWithIds="1" />
+		<picture id="8" name="WHITE GRAY UP" matchWithIds="2" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="5" west="6" east="2" south="7" />
+		<card north="6" west="8" east="5" south="6" />
+		<card north="5" west="8" east="6" south="7" />
+		<card north="1" west="3" east="8" south="4" />
+		<card north="3" west="2" east="7" south="5" />
+		<card north="1" west="5" east="2" south="3" />
+		<card north="5" west="8" east="7" south="2" />
+		<card north="4" west="1" east="1" south="3" />
+	</cards>
+</legespielConfiguration>

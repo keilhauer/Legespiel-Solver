@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.whatsoftwarecando.legespiel.configs.AbsolutKniffligConfig;
 import org.whatsoftwarecando.legespiel.graphics.HtmlGenerator;
+import org.whatsoftwarecando.legespiel.xml.GameConfigFromXml;
 
 public class Solver {
 
@@ -36,7 +37,9 @@ public class Solver {
 			IllegalAccessException, ClassNotFoundException {
 		GameConfig gameConfig = null;
 		if (argv.length == 0) {
-			gameConfig = new AbsolutKniffligConfig();
+			throw new RuntimeException("Parameter is missing!");
+		} else if (argv[0].endsWith(".xml")) {
+			gameConfig = new GameConfigFromXml("configs/" + argv[0]);
 		} else {
 			gameConfig = (GameConfig) Class.forName(AbsolutKniffligConfig.class.getPackage().getName() + "." + argv[0])
 					.newInstance();

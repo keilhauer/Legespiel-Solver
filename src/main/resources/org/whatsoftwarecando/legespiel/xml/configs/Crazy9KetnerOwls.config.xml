@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Crazy9 Ketner Owls</name>
+	<description>See http://heye-puzzle.de/product/crazy9-ketner-owls/ .
+		More pictures here:
+		https://goldkindchen.blogspot.com/2017/03/produktvorstellung-crazy-9-das.html
+	</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="GREEN 1" matchWithIds="6" />
+		<picture id="2" name="PURPLE 1" matchWithIds="8" />
+		<picture id="3" name="BLUE 2" matchWithIds="5" />
+		<picture id="4" name="PINK 2" matchWithIds="7" />
+		<picture id="5" name="BLUE 1" matchWithIds="3" />
+		<picture id="6" name="GREEN 2" matchWithIds="1" />
+		<picture id="7" name="PINK 1" matchWithIds="4" />
+		<picture id="8" name="PURPLE 2" matchWithIds="2" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="2" west="5" east="4" south="6" />
+		<card north="2" west="7" east="3" south="6" />
+		<card north="7" west="1" east="3" south="8" />
+		<card north="1" west="5" east="4" south="8" />
+		<card north="1" west="7" east="4" south="8" />
+		<card north="2" west="1" east="4" south="3" />
+		<card north="2" west="7" east="3" south="6" />
+		<card north="2" west="5" east="3" south="6" />
+	</cards>
+</legespielConfiguration>

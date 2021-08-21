@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Hot Air Balloons Scramble Squares</name>
+	<description>See https://www.worthpoint.com/worthopedia/scramble-squares-puzzles-lot-hot-air-1849556943</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="VIOLET YELLOW LEFT" matchWithIds="6" />
+		<picture id="2" name="RAINBOW SQUARES UP" matchWithIds="8" />
+		<picture id="3" name="ZIGZAG UP" matchWithIds="5" />
+		<picture id="4" name="EAGLE LEFT" matchWithIds="7" />
+		<picture id="5" name="ZIGZAG LOW" matchWithIds="3" />
+		<picture id="6" name="VIOLET YELLOW RIGHT" matchWithIds="1" />
+		<picture id="7" name="EAGLE RIGHT" matchWithIds="4" />
+		<picture id="8" name="RAINBOW SQUARES LOW" matchWithIds="2" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="4" west="5" east="1" south="2" />
+		<card north="3" west="6" east="2" south="4" />
+		<card north="7" west="8" east="5" south="1" />
+		<card north="8" west="3" east="6" south="2" />
+		<card north="7" west="6" east="1" south="3" />
+		<card north="6" west="3" east="8" south="7" />
+		<card north="8" west="5" east="4" south="7" />
+		<card north="3" west="6" east="4" south="8" />
+	</cards>
+</legespielConfiguration>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Diddl Knifflidiffels (Version 4)</name>
+	<description>This is version 4 according to
+		https://whatsoftwarecando.org/list-of-scramble-squares-puzzles-with-solutions/
+		.
+	</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="BEAR" matchWithIds="1" />
+		<picture id="2" name="BOY" matchWithIds="2" />
+		<picture id="3" name="GIRL" matchWithIds="3" />
+		<picture id="4" name="BUNNY" matchWithIds="4" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="3" south="4" />
+		<card north="2" west="3" east="1" south="4" />
+		<card north="2" west="1" east="3" south="4" />
+		<card north="4" west="1" east="3" south="2" />
+		<card north="4" west="3" east="1" south="2" />
+		<card north="4" west="1" east="3" south="2" />
+		<card north="2" west="3" east="1" south="4" />
+		<card north="2" west="1" east="4" south="3" />
+		<card north="2" west="4" east="1" south="3" />
+	</cards>
+</legespielConfiguration>

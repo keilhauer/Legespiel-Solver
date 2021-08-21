@@ -81,10 +81,10 @@ public class HtmlGenerator {
 		Path templateFile = Paths.get(Solver.class.getResource("solutions.template.html").toURI());
 		String allSolutionsHtmlTemplate = new String(Files.readAllBytes(templateFile), "UTF-8");
 		String allSolutionsHtml = allSolutionsHtmlTemplate
-				.replace("%title%", title + " - " + gameConfig.getClass().getSimpleName())
+				.replace("%title%", title + " - " + gameConfig.getName())
 				.replace("%content%", sb.toString());
 		Path htmlOutputFile = Paths
-				.get("html-output/" + gameConfig.getClass().getSimpleName() + "/" + filename + ".html");
+				.get("html-output/" + gameConfig.getName() + "/" + filename + ".html");
 		Files.createDirectories(htmlOutputFile.getParent());
 		Files.write(htmlOutputFile, allSolutionsHtml.getBytes("UTF-8"));
 
@@ -98,7 +98,7 @@ public class HtmlGenerator {
 		for (Card card : gameConfig.getAvailableCards()) {
 			byte[] cardImage = cardToGraphics.convert(card, font, duplicateCardColorMap.get(card.getId()), "png");
 			Path imageOutputFile = Paths
-					.get("html-output/" + gameConfig.getClass().getSimpleName() + "/card" + card.getId() + ".png");
+					.get("html-output/" + gameConfig.getName() + "/card" + card.getId() + ".png");
 			Files.write(imageOutputFile, cardImage);
 		}
 	}
