@@ -1,14 +1,8 @@
 package org.whatsoftwarecando.legespiel.configs;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Collection;
-import java.util.List;
-
 import org.junit.Test;
-import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
-import org.whatsoftwarecando.legespiel.Solver;
+import org.whatsoftwarecando.legespiel.GameConfigEqualityChecker;
 import org.whatsoftwarecando.legespiel.xml.GameConfigFromXml;
 
 public class ConfigsTest {
@@ -50,16 +44,7 @@ public class ConfigsTest {
 		}
 		GameConfig gameConfig2 = new GameConfigFromXml(xmlName);
 
-		Solver solver1 = new Solver(gameConfig1);
-		Collection<Field> solutions1 = solver1.findAllSolutions();
-		List<Field> reducedSolutions1 = solver1.removeRotationBasedDuplicates();
-
-		Solver solver2 = new Solver(gameConfig2);
-		Collection<Field> solutions2 = solver2.findAllSolutions();
-		List<Field> reducedSolutions2 = solver2.removeRotationBasedDuplicates();
-
-		assertEquals(reducedSolutions1.size(), reducedSolutions2.size());
-		assertEquals(solutions1.size(), solutions2.size());
+		GameConfigEqualityChecker.testSolutionsMatches(gameConfig1, gameConfig2);
 
 	}
 }
