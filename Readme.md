@@ -5,7 +5,7 @@ Legespiel-Solver was written to accompany the following blog post:
 
 [Backtracking in The Nursery – How to Solve Scramble Squares](https://whatsoftwarecando.org/backtracking-nursery-solve-scramble-squares/)
 
-There is also a [List of Scramble Squares Puzzles with Solutions](https://whatsoftwarecando.org/list-of-scramble-squares-puzzles-with-solutions/) and a [Scramble Squares Solver Online](http://keilhauer-it.de:3258/scramble-squares-solver/) available.
+There is also a [List of Scramble Squares Puzzles with Solutions](https://whatsoftwarecando.org/list-of-scramble-squares-puzzles-with-solutions/) and a [Scramble Squares Solver Online](https://whatsoftwarecando.org/en/solve-scramble-squares-puzzles-online/) available.
 
 The Class org.whatsoftwarecando.legespiel.Solver can find all solutions
 of a certain kind of tile-based game called Scramble Squares (in German: "Legespiel"),
