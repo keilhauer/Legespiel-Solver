@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
 	<name>Das verflixte Tom &amp; Jerry Spiel</name>
-	<description>Quasthoff - version 2</description>
+	<description></description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>
 	<pictures>
