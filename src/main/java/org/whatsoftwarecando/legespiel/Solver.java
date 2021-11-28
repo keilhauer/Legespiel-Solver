@@ -144,22 +144,20 @@ public class Solver {
 		return partialSolutionsWithOneMoreCard;
 	}
 
-	Collection<Field> findAllSolutions(Field field, List<Card> cards) {
-		List<Field> partialSolutions = new LinkedList<>();
+	void findAllSolutions(Field field, List<Card> cards) {
 		if (searchLimitReached) {
-			return partialSolutions;
+			return;
 		}
 		Collection<Field> nextPossibleMoves = nextPossibleMoves(field, cards);
 		for (Field currentMove : nextPossibleMoves) {
 			if (currentMove.isFull()) {
 				addSolution(currentMove);
 			} else {
-				List<Card> remaining = removed(currentMove.getLastCard(), cards);
-				partialSolutions.addAll(findAllSolutions(currentMove, remaining));
+				List<Card> remainingCards = removed(currentMove.getLastCard(), cards);
+				findAllSolutions(currentMove, remainingCards);
 			}
 		}
 
-		return partialSolutions;
 	}
 
 	Collection<Field> nextPossibleMoves(Field field, List<Card> remainingCards) {
