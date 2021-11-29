@@ -60,6 +60,7 @@ public class SolverTest {
 	}
 
 	private void testAlwaysSameSolutions(GameConfig gameConfig) {
+		System.out.println("Solutions for " + gameConfig.getClass().getSimpleName());
 		Solver solver = new Solver(gameConfig);
 		Collection<Field> allCorrect = solver.findAllSolutions();
 		System.out.println("Found " + allCorrect.size() + " solutions");
@@ -68,6 +69,7 @@ public class SolverTest {
 		Set<Field> allCorrectSet = new HashSet<Field>(allCorrect);
 		long numberOfTriesExpected = solver.getNumberOfTries();
 		for (int i = 0; i < 10; i++) {
+			solver = new Solver(gameConfig);
 			long startTime = System.nanoTime();
 			Collection<Field> allCorrectControl = solver.findAllSolutions();
 			if (!allCorrectSet.equals(new HashSet<Field>(allCorrectControl))) {
