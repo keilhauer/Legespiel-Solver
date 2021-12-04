@@ -19,12 +19,12 @@ import org.whatsoftwarecando.legespiel.IPicture;
 public class CardToGraphicsConverter {
 
 	private static final Color BG_COLOR = new Color(250, 250, 250);
-	protected static final int CARD_SIZE = 300;
-	private static final int MARGIN = 10;
+	protected static final int CARD_SIZE = 400;
+	private static final int MARGIN = 13;
 	private static final int INTER_CARD_SPACING = 2;
 
 	public Font calculateFont(List<Card> availableCards) {
-		return calculateFont(new Font("SansSerif", Font.PLAIN, 20), availableCards);
+		return calculateFont(new Font("SansSerif", Font.PLAIN, 25), availableCards);
 	}
 
 	public Font calculateFont(Font largestFont, List<Card> cards) {
