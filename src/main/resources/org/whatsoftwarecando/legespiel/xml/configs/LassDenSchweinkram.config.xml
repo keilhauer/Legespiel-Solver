@@ -14,8 +14,8 @@ xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://wha
 		<picture id="4" name="Orange lower" matchWithIds="3" />
 		<picture id="5" name="Blue hat upper" matchWithIds="6" />
 		<picture id="6" name="Blue hat lower" matchWithIds="5" />
-		<picture id="7" name="Angry bow tie upper" matchWithIds="8" />
-		<picture id="8" name="Angry bow tie lower" matchWithIds="7" />
+		<picture id="7" name="Whistling bowtie upper" matchWithIds="8" />
+		<picture id="8" name="Whistling bowtie lower" matchWithIds="7" />
 	</pictures>
 	<cards>
 		<card north="2" west="5" east="4" south="7" />
