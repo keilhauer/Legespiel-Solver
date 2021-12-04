@@ -72,6 +72,8 @@ public class HtmlGenerator {
 	public void writeHtml(GameConfig gameConfig, Collection<Field> solutions, String filename, String title)
 			throws URISyntaxException, UnsupportedEncodingException, IOException {
 		// Preparing HTML-Output
+		solutions = Solver.beautifySolutions(solutions);
+		gameConfig.output("Turned solutions for best readability.");
 		StringBuffer sb = new StringBuffer();
 		for (Field originalSolution : solutions) {
 			sb.append(originalSolution.toHtmlString());

@@ -230,4 +230,16 @@ public class Solver {
 		return result;
 	}
 
+	public static List<Field> beautifySolutions(Collection<Field> solutions) {
+		List<Field> result = new LinkedList<Field>();
+		for (Field solution : solutions) {
+			if (solution.isFull()) {
+				result.add(solution.beautify());
+			} else {
+				result.add(solution);
+			}
+		}
+		return result;
+	}
+
 }
