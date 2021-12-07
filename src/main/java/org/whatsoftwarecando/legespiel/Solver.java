@@ -136,7 +136,8 @@ public class Solver {
 			Collection<Field> nextPossibleMoves = nextPossibleMoves(partialSolution.getField(),
 					partialSolution.getRemainingCards());
 			for (Field nextPossibleMove : nextPossibleMoves) {
-				List<Card> remaining = removed(nextPossibleMove.getLastCard(), partialSolution.getRemainingCards());
+				List<Card> remaining = Util.removed(nextPossibleMove.getLastCard(),
+						partialSolution.getRemainingCards());
 				PartialSolution partialSolutionWithOneMoreCard = new PartialSolution(nextPossibleMove, remaining);
 				partialSolutionsWithOneMoreCard.add(partialSolutionWithOneMoreCard);
 			}
@@ -153,7 +154,7 @@ public class Solver {
 			if (currentMove.isFull()) {
 				addSolution(currentMove);
 			} else {
-				List<Card> remainingCards = removed(currentMove.getLastCard(), cards);
+				List<Card> remainingCards = Util.removed(currentMove.getLastCard(), cards);
 				findAllSolutions(currentMove, remainingCards);
 			}
 		}
@@ -215,19 +216,6 @@ public class Solver {
 		gameConfig.output("Removed rotation based duplicates and other look-alikes => " + resultSet.size()
 				+ " original solutions remaining");
 		return new LinkedList<Field>(resultSet);
-	}
-
-	static List<Card> removed(Card lastcard, List<Card> cardsLeft) {
-		List<Card> result = new LinkedList<Card>();
-		for (Card currentcard : cardsLeft) {
-			if (lastcard.getId() != currentcard.getId()) {
-				result.add(currentcard);
-			}
-		}
-		if (cardsLeft.size() - 1 != result.size()) {
-			throw new RuntimeException(lastcard + "was not found in " + cardsLeft);
-		}
-		return result;
 	}
 
 	public static List<Field> beautifySolutions(Collection<Field> solutions) {
