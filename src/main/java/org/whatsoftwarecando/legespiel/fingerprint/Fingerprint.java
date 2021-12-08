@@ -18,6 +18,8 @@ public class Fingerprint {
 
 	private ArrayList<Card> cardsInFingerprintOrder;
 
+	private String bestFingerprintSoFar;
+
 	public Fingerprint(Collection<Card> allCardsAvailable) {
 		this.cards = new ArrayList<>(allCardsAvailable);
 		this.pictureMapping = new PictureMapping(this.cards);
@@ -74,15 +76,25 @@ public class Fingerprint {
 		for (CardFingerprint currentBest : bestCardFingerprints) {
 			ArrayList<Card> newCardsInFingerprintOrder = new ArrayList<>(cardsInFingerprintOrder);
 			newCardsInFingerprintOrder.add(currentBest.getCard());
+			if (bestFingerprintSoFar != null) {
+				String partialFingerprint = getFingerprint(newCardsInFingerprintOrder, currentBest.getPictureMapping());
+				if (CardFingerprint.compareFingerprintStrings(bestFingerprintSoFar, partialFingerprint) <= 0) {
+					continue;
+				}
+			}
 			CalculationResult currentCalculationResult = calculateInternal(
 					Util.removed(currentBest.getCard(), cardsLeft), newCardsInFingerprintOrder,
 					currentBest.getPictureMapping());
+			if (currentCalculationResult == null) {
+				continue;
+			}
 			String currentFingerprint = getFingerprint(currentCalculationResult.getCardsInFingerprintOrder(),
 					currentCalculationResult.getPictureMapping());
 			if (bestCalculationResult == null
 					|| CardFingerprint.compareFingerprintStrings(currentFingerprint, bestFingerprint) < 0) {
 				bestCalculationResult = currentCalculationResult;
 				bestFingerprint = currentFingerprint;
+				bestFingerprintSoFar = currentFingerprint;
 			}
 		}
 		return bestCalculationResult;
