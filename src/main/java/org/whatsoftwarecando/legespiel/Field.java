@@ -347,7 +347,7 @@ public class Field implements Comparable<Field> {
 		for (Card card : getAllCards()) {
 			if (card.getRotationClockwise() == 0) {
 				score += 2;
-			} else if (card.getRotationClockwise() == 90 && card.getRotationClockwise() == 270) {
+			} else if (card.getRotationClockwise() == 90 || card.getRotationClockwise() == 270) {
 				score += 1;
 			}
 		}
@@ -356,14 +356,14 @@ public class Field implements Comparable<Field> {
 
 	Field beautify() {
 		Field result = this;
-		int currentResultReadabilityScore = this.calculateReadabilityScore();
+		int bestReadabilityScore = this.calculateReadabilityScore();
 		Field currentCandidate = this;
-		for(int i=1; i<=3; i++) {
+		for (int i = 1; i <= 3; i++) {
 			currentCandidate = currentCandidate.turned90DegreesClockwise();
 			int currentCandidateReadabilityScore = currentCandidate.calculateReadabilityScore();
-			if (currentCandidateReadabilityScore > currentResultReadabilityScore) {
+			if (currentCandidateReadabilityScore > bestReadabilityScore) {
 				result = currentCandidate;
-				currentResultReadabilityScore = currentCandidateReadabilityScore;
+				bestReadabilityScore = currentCandidateReadabilityScore;
 			}
 		}
 		return result;
