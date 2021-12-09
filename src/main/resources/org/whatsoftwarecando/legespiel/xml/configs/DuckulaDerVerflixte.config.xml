@@ -4,6 +4,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
 	<name>Duckula der Verflixte</name>
+	---
+	This content was submitted by a user of Legespiel-Solver online. Thank you! &lt;3
 	<description></description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Quasthoff-Beispiel</name>
+	<description></description>
+	<numberOfRows>2</numberOfRows>
+	<numberOfColumns>2</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Blue Tip" matchWithIds="2" />
+		<picture id="2" name="Blue Base" matchWithIds="1" />
+		<picture id="3" name="Green Tip" matchWithIds="4" />
+		<picture id="4" name="Green Base" matchWithIds="3" />
+		<picture id="5" name="White Tip" matchWithIds="6" />
+		<picture id="6" name="White Base" matchWithIds="5" />
+		<picture id="7" name="Red Tip" matchWithIds="8" />
+		<picture id="8" name="Red Base" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="3" west="5" east="2" south="8" />
+		<card north="5" west="1" east="8" south="4" />
+		<card north="7" west="5" east="6" south="6" />
+		<card north="3" west="5" east="8" south="2" />
+	</cards>
+</legespielConfiguration>

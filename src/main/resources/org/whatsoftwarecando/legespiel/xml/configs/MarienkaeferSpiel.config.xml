@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Marienkäfer</name>
+	<description>Marienkäfer in vier Farben auf Holzbrettchen. Hersteller und Handelsname unbekannt.</description>
+	---
+	This content was submitted by a user of Legespiel-Solver online. Thank you! &lt;3
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Kopf Rot" matchWithIds="2" />
+		<picture id="2" name="Hinterteil Rot" matchWithIds="1" />
+		<picture id="3" name="Kopf Gelb" matchWithIds="4" />
+		<picture id="4" name="Hinterteil Gelb" matchWithIds="3" />
+		<picture id="5" name="Kopf Grün" matchWithIds="6" />
+		<picture id="6" name="Hinterteil Grün" matchWithIds="5" />
+		<picture id="7" name="Kopf Blau" matchWithIds="8" />
+		<picture id="8" name="Hinterteil Blau" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="1" west="5" east="3" south="8" />
+		<card north="7" west="4" east="6" south="2" />
+		<card north="4" west="5" east="8" south="1" />
+		<card north="7" west="4" east="6" south="2" />
+		<card north="1" west="5" east="3" south="8" />
+		<card north="2" west="4" east="6" south="8" />
+		<card north="1" west="8" east="3" south="5" />
+		<card north="7" west="4" east="6" south="1" />
+		<card north="7" west="5" east="2" south="4" />
+	</cards>
+</legespielConfiguration>

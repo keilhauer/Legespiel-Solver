@@ -56,8 +56,8 @@ public class FingerprintTest {
 	}
 
 	@Test
-	public void testQuasthoffBeispiel() {
-		test("QuasthoffBeispiel.config.xml", "AAaB-CDab-acbd-acdb");
+	public void testQuasthoffExample() {
+		test("QuasthoffExample.config.xml", "AAaB-CDab-acbd-acdb");
 	}
 
 	@Test

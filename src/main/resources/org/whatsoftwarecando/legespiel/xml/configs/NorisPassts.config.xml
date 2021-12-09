@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>NORIS Passt&apos;s?</name>
+	<description>https://www.amazon.de/Noris-Spiele-606094228-Passts-Kinderspiel/dp/B01MSAOQ6X</description>
+	---
+	This content was submitted by a user of Legespiel-Solver online. Thank you! &lt;3
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Apple upper" matchWithIds="2" />
+		<picture id="2" name="Apple lower" matchWithIds="1" />
+		<picture id="3" name="Cat upper" matchWithIds="4" />
+		<picture id="4" name="Cat lower" matchWithIds="3" />
+		<picture id="5" name="Caterpillar front" matchWithIds="6" />
+		<picture id="6" name="Caterpillar rear" matchWithIds="5" />
+		<picture id="7" name="Mouse front" matchWithIds="8" />
+		<picture id="8" name="Mouse rear" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="2" west="7" east="8" south="5" />
+		<card north="2" west="8" east="5" south="3" />
+		<card north="8" west="4" east="5" south="1" />
+		<card north="2" west="5" east="4" south="3" />
+		<card north="2" west="6" east="3" south="7" />
+		<card north="1" west="3" east="6" south="8" />
+		<card north="4" west="7" east="2" south="3" />
+		<card north="8" west="6" east="5" south="1" />
+		<card north="3" west="5" east="2" south="4" />
+	</cards>
+</legespielConfiguration>
