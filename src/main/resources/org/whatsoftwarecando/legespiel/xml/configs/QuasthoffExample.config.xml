@@ -3,7 +3,7 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>Quasthoff-Beispiel</name>
+	<name>Quasthoff-Example</name>
 	<description></description>
 	<numberOfRows>2</numberOfRows>
 	<numberOfColumns>2</numberOfColumns>
