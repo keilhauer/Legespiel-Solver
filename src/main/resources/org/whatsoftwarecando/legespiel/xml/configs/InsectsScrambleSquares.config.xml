@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Insects Scramble Squares</name>
+	<description>http://insectsfff.blogspot.com/2012/11/scramble-squares-insects.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="grasshopper front" matchWithIds="2" />
+		<picture id="2" name="grasshopper back" matchWithIds="1" />
+		<picture id="3" name="bug front" matchWithIds="4" />
+		<picture id="4" name="bug back" matchWithIds="3" />
+		<picture id="5" name="dragonfly left" matchWithIds="6" />
+		<picture id="6" name="dragonfly right" matchWithIds="5" />
+		<picture id="7" name="ant front" matchWithIds="8" />
+		<picture id="8" name="ant back" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="6" west="1" east="7" south="3" />
+		<card north="4" west="7" east="1" south="6" />
+		<card north="6" west="3" east="5" south="1" />
+		<card north="4" west="3" east="2" south="7" />
+		<card north="8" west="1" east="5" south="4" />
+		<card north="8" west="6" east="3" south="2" />
+		<card north="1" west="6" east="4" south="7" />
+		<card north="3" west="2" east="8" south="5" />
+		<card north="1" west="7" east="8" south="6" />
+	</cards>
+</legespielConfiguration>
