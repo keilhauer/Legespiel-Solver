@@ -26,8 +26,8 @@
 		<picture id="16" name="Nuclear - Poison" matchWithIds="15" />
 		<picture id="17" name="Radiation - Poison" matchWithIds="18" />
 		<picture id="18" name="Poison - Radiation" matchWithIds="17" />
-		<picture id="19" name="Radiation - Nuclear" matchWithIds="19" />
-		<picture id="20" name="Nuclear - Radiation" matchWithIds="20" />
+		<picture id="19" name="Radiation - Nuclear" matchWithIds="20" />
+		<picture id="20" name="Nuclear - Radiation" matchWithIds="19" />
 		<picture id="21" name="Nuclear - Explosive" matchWithIds="22" />
 		<picture id="22" name="Explosive - Nuclear" matchWithIds="21" />
 		<picture id="23" name="High Voltage - Explosive" matchWithIds="24" />
@@ -36,6 +36,16 @@
 		<picture id="26" name="Flammable - Explosive" matchWithIds="25" />
 		<picture id="27" name="Flammable - Nuclear" matcchWithIds="28" />
 		<picture id="28" name="Nuclear - Flammable" matchWithIds="27" />
+		<picture id="29" name="Bio Hazard - High Voltage" matchWithIds="30" />
+		<picture id="30" name="High Voltage - Bio Hazard" matchWithIds="29" />
+		<picture id="31" name="Flammable - Bio Hazard" matchWithIds="32" />
+		<picture id="32" name="Bio Hazard - Flammable" matchWithIds="31" />
+		<picture id="33" name="Radiation - Flammable" matchWithIds="34" />
+		<picture id="34" name="Flammable - Radiation" matchWithIds="33" />
+		<picture id="35" name="Bio Hazard - Explosive" matchWithIds="36" />
+		<picture id="36" name="Explosive - Bio Hazard" matchWithIds="35" />
+		<picture id="37" name="Flammable - High Voltage" matchWithIds="38" />
+		<picture id="38" name="High Voltage - Flammable" matchWithIds="37" />
 	</pictures>
 	<cards>
 		<card north="1" west="3" east="5" south="7" />
@@ -43,5 +53,19 @@
 		<card north="14" west="15" east="4" south="17" />
 		<card north="18" west="6" east="19" south="21" />
 		<card north="23" west="14" east="25" south="27" />
-	</cards>
+		<card north="29" west="31" east="4" south="33" />
+		<card north="7" west="35" east="28" south="31" />
+		<card north="29" west="36" east="4" south="8" />
+		<card north="35" west="30" east="7" south="3" />
+		<card north="29" west="10" east="37" south="34" />
+		<card north="8" west="4" east="25" south="37" />
+		<card north="26" west="33" east="36" south="9" />
+		<card north="38" west="29" east="26" south="36" />
+		<card north="37" west="28" east="23" south="22" />
+		<card north="27" west="28" east="14" south="13" />
+		<card north="7" west="21" east="11" south="12" />
+		<card north="8" west="9" east="24" south="30" />
+		<card north="35" west="31" east="24" south="38" />
+		<!-- 19 -->
+ 	</cards>
 </legespielConfiguration>
