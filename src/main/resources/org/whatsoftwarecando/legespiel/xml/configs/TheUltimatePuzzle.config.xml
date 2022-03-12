@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>The Ultimate Puzzle (2006)</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2022/04/the-ultimate-puzzle.html</description>
+	<numberOfRows>4</numberOfRows>
+	<numberOfColumns>4</numberOfColumns>
+	<pictures>
+		<picture id="1" name="+Pfeil zur Mitte" matchWithIds="2" />
+		<picture id="2" name="-Pfeil zur Mitte" matchWithIds="1" />
+		<picture id="3" name="+Pfeil zum Rand" matchWithIds="4" />
+		<picture id="4" name="-Pfeil zum Rand" matchWithIds="3" />
+		<picture id="5" name="+Kreuz" matchWithIds="6" />
+		<picture id="6" name="-Kreuz" matchWithIds="5" />
+		<picture id="7" name="+Achteck" matchWithIds="8" />
+		<picture id="8" name="-Achteck" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="7" west="7" east="8" south="2" />
+		<card north="7" west="4" east="3" south="6" />
+		<card north="2" west="4" east="7" south="3" />
+		<card north="3" west="8" east="1" south="2" />
+		<card north="1" west="2" east="7" south="8" />
+		<card north="5" west="8" east="1" south="2" />
+		<card north="4" west="2" east="3" south="5" />
+		<card north="1" west="4" east="1" south="8" />
+		<card north="7" west="2" east="5" south="2" />
+		<card north="1" west="6" east="7" south="8" />
+		<card north="6" west="8" east="7" south="3" />
+		<card north="7" west="8" east="5" south="4" />
+		<card north="8" west="3" east="6" south="3" />
+		<card north="7" west="8" east="5" south="6" />
+		<card north="4" west="6" east="5" south="1" />
+		<card north="3" west="6" east="3" south="2" />
+	</cards>
+</legespielConfiguration>
