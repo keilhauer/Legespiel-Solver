@@ -35,6 +35,12 @@ public class HtmlGenerator {
 		duplicateColors.add(Color.green);
 		duplicateColors.add(Color.blue);
 		duplicateColors.add(Color.orange);
+		duplicateColors.add(Color.cyan);
+		duplicateColors.add(new Color(255, 93, 143));
+		duplicateColors.add(Color.yellow);
+		duplicateColors.add(Color.magenta);
+		duplicateColors.add(new Color(174, 32, 18));
+		duplicateColors.add(new Color(10, 147, 150));
 	}
 
 	public static synchronized HtmlGenerator getInstance() {

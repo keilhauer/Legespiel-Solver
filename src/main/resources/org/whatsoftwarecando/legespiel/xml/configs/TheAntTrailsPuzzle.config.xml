@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>The Ant Trails Puzzle</name>
+	<description>by Dan Gilbert 2004 DaMert Company - 
+	The number of solutions and the difficulty are unknown for now, because this game is very hard computionally. In order to get any solutions with "Scramble Squares Solver Online" you should deactivate the option to "keep look-alikes during search". </description>
+	<numberOfRows>6</numberOfRows>
+	<numberOfColumns>6</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Blue" matchWithIds="1" />
+		<picture id="2" name="Red" matchWithIds="2" />
+		<picture id="3" name="Nothing" matchWithIds="3" />
+	</pictures>
+	<cards>
+		<card north="1" west="2" east="2" south="1" />
+		<card north="1" west="2" east="2" south="1" />
+		<card north="1" west="2" east="2" south="1" />
+		<card north="1" west="1" east="2" south="2" />
+		<card north="1" west="1" east="2" south="2" />
+		<card north="1" west="1" east="2" south="2" />
+		<card north="2" west="3" east="3" south="3" />
+		<card north="2" west="3" east="3" south="3" /> 
+		<card north="2" west="2" east="3" south="3" />
+		<card north="2" west="2" east="3" south="3" />
+		<card north="2" west="2" east="3" south="3" />
+		<card north="2" west="3" east="3" south="2" />
+		<card north="2" west="3" east="3" south="2" />
+		<card north="2" west="3" east="3" south="2" />
+		<card north="2" west="3" east="3" south="2" />
+		<card north="2" west="3" east="3" south="2" />
+		<card north="2" west="2" east="3" south="2" />
+		<card north="2" west="2" east="3" south="2" />
+		<card north="2" west="2" east="3" south="2" />
+		<card north="2" west="2" east="2" south="2" />
+		<card north="2" west="2" east="2" south="2" />
+		<card north="1" west="3" east="3" south="3" />
+		<card north="1" west="3" east="3" south="3" />
+		<card north="1" west="1" east="3" south="3" />
+		<card north="1" west="1" east="3" south="3" />
+		<card north="1" west="1" east="3" south="3" />
+		<card north="1" west="3" east="3" south="1" />
+		<card north="1" west="3" east="3" south="1" />
+		<card north="1" west="3" east="3" south="1" />
+		<card north="1" west="3" east="3" south="1" />
+		<card north="1" west="3" east="3" south="1" />
+		<card north="1" west="1" east="3" south="1" />
+		<card north="1" west="1" east="3" south="1" />
+		<card north="1" west="1" east="3" south="1" />
+		<card north="1" west="1" east="1" south="1" />
+		<card north="1" west="1" east="1" south="1" />
+	</cards>
+</legespielConfiguration>
