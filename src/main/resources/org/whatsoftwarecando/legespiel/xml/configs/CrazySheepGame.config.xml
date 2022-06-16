@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Crazy sheep</name>
+	<description>&lt;none&gt;</description>
+	<numberOfRows>4</numberOfRows>
+	<numberOfColumns>4</numberOfColumns>
+	<pictures>
+		<picture id="1" name="red head" matchWithIds="2" />
+		<picture id="2" name="red butt" matchWithIds="1" />
+		<picture id="3" name="white head" matchWithIds="4" />
+		<picture id="4" name="white butt" matchWithIds="3" />
+		<picture id="5" name="black head " matchWithIds="6" />
+		<picture id="6" name="black butt" matchWithIds="5" />
+		<picture id="7" name="grey head " matchWithIds="8" />
+		<picture id="8" name="grey butt" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="1" west="8" east="5" south="4" />
+		<card north="5" west="4" east="7" south="2" />
+		<card north="1" west="4" east="5" south="8" />
+		<card north="7" west="4" east="5" south="8" />
+		<card north="1" west="4" east="7" south="6" />
+		<card north="3" west="8" east="5" south="2" />
+		<card north="5" west="6" east="3" south="8" />
+		<card north="1" west="6" east="3" south="2" />
+		<card north="1" west="6" east="3" south="8" />
+		<card north="7" west="4" east="5" south="2" />
+		<card north="7" west="6" east="3" south="2" />
+		<card north="7" west="2" east="3" south="6" />
+		<card north="7" west="6" east="1" south="4" />
+		<card north="7" west="4" east="5" south="2" />
+		<card north="1" west="6" east="3" south="8" />
+		<card north="3" west="2" east="7" south="6" />
+	</cards>
+</legespielConfiguration>
