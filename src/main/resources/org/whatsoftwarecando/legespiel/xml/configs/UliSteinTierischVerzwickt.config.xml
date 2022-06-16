@@ -2,7 +2,7 @@
 <legespielConfiguration
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
 	<name>Uli Stein - Tierisch VERZWICKT</name>
 	<description>Uli Stein Legespiel von 1993</description>
 	<numberOfRows>3</numberOfRows>
