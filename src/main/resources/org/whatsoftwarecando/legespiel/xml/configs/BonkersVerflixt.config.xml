@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Bonkers Verflixt</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2022/10/bonkers-verflixt.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="blau oben" matchWithIds="2" />
+		<picture id="2" name="blau unten" matchWithIds="1" />
+		<picture id="3" name="gelb oben" matchWithIds="4" />
+		<picture id="4" name="gelb unten" matchWithIds="3" />
+		<picture id="5" name="lila oben" matchWithIds="6" />
+		<picture id="6" name="lila unten" matchWithIds="5" />
+		<picture id="7" name="rot oben" matchWithIds="8" />
+		<picture id="8" name="rot unten" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="4" west="7" east="8" south="5" />
+		<card north="4" west="7" east="2" south="3" />
+		<card north="6" west="1" east="8" south="3" />
+		<card north="6" west="1" east="8" south="5" />
+		<card north="4" west="7" east="2" south="5" />
+		<card north="4" west="1" east="6" south="7" />
+		<card north="6" west="1" east="8" south="3" />
+		<card north="6" west="7" east="4" south="1" />
+		<card north="6" west="3" east="2" south="7" />
+	</cards>
+</legespielConfiguration>
