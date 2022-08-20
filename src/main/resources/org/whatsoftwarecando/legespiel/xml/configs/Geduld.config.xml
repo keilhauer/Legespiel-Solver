@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Geduld</name>
+	<description>Werbegeschenk der DDR-Fluglinie Interflug aus Anlass des Verkehrsflugballs im Jahr 1985.</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Rot (nach rechts) oben" matchWithIds="" />
+		<picture id="2" name="Rot (nach links) oben" matchWithIds="3" />
+		<picture id="3" name="Rot (nach links) unten" matchWithIds="2" />
+		<picture id="4" name="Gelb (nach rechts) oben" matchWithIds="5" />
+		<picture id="5" name="Gelb (nach rechts) unten" matchWithIds="4" />
+		<picture id="6" name="Gelb (nach links) oben" matchWithIds="7" />
+		<picture id="7" name="Gelb (nach links) unten" matchWithIds="6" />
+		<picture id="8" name="Grün (nach rechts) oben" matchWithIds="9" />
+		<picture id="9" name="Grün (nach rechts) unten" matchWithIds="8" />
+		<picture id="10" name="Grün (nach links) oben" matchWithIds="11" />
+		<picture id="11" name="Grün (nach links) unten" matchWithIds="10" />
+		<picture id="12" name="Blau (nach rechts) oben" matchWithIds="13" />
+		<picture id="13" name="Blau (nach rechts) unten" matchWithIds="12" />
+		<picture id="14" name="Blau (nach links) oben" matchWithIds="15" />
+		<picture id="15" name="Blau (nach links) unten" matchWithIds="14" />
+	</pictures>
+	<cards>
+		<card north="6" west="3" east="12" south="8" />
+		<card north="3" west="13" east="6" south="7" />
+		<card north="13" west="7" east="5" south="10" />
+		<card north="9" west="14" east="4" south="3" />
+		<card north="6" west="5" east="13" south="2" />
+		<card north="11" west="12" east="1" south="4" />
+		<card north="2" west="5" east="14" south="8" />
+		<card north="3" west="15" east="8" south="4" />
+		<card north="5" west="9" east="14" south="2" />
+	</cards>
+</legespielConfiguration>
