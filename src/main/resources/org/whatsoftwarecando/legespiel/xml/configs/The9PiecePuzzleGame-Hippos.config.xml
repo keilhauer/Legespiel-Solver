@@ -3,7 +3,7 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>The 9-piece puzzle game: Hippos</name>
+	<name>The 9-piece puzzle game - Hippos</name>
 	<description>Hersteller: Toys pure</description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>

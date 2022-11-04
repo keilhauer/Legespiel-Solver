@@ -3,7 +3,7 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>The 9-piece puzzle game: Zauberer</name>
+	<name>The 9-piece puzzle game - Zauberer</name>
 	<description>Hersteller: Toys Pure</description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>
