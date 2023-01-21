@@ -3,8 +3,8 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>Sparschweine (Werbung Raiffeisenbank)</name>
-	<description>Hersteller: Berliner Spielkarten</description>
+	<name>Glücksschwein-Spiel</name>
+	<description>Werbung Raiffeisenbank; Hersteller: Berliner Spielkarten</description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>
 	<pictures>
