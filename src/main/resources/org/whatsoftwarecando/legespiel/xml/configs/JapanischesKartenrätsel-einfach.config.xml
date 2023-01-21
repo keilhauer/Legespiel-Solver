@@ -3,8 +3,8 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>Japanisches Kartenrätsel - Parallelogramme (einfache Variante)</name>
-	<description>https://welt-der-geduldspiele.blogspot.com/2022/11/kartenratsel-parallelogramme-einfache.html</description>
+	<name>Japanisches Kartenrätsel - Sechsecke (einfache Variante)</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2022/11/kartenratsel-sechsecke-einfache-variante.html</description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>
 	<pictures>
