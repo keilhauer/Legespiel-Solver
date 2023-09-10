@@ -3,7 +3,7 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>Child&apos;s Puzzle Three / Kinderpuzzle Nr. 3</name>
+	<name>Child's Puzzle Three / Kinderpuzzle Nr. 3</name>
 	<description>https://welt-der-geduldspiele.blogspot.com/2023/04/childs-puzzle-three-kinderpuzzle-nr-3.html</description>
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>
