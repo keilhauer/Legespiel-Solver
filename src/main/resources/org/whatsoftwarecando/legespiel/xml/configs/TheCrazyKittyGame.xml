@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>The Crazy Kitty Game</name>
+	<description>Crazy Puzzle Games - From a large series of 3x3 puzzles released in the 1980s and 1990s by Price Stern Sloan. More info can be found here: https://www.geekyhobbies.com/the-crazy-game-puzzles-puzzled/</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Orange Head" matchWithIds="2" />
+		<picture id="2" name="Orange Feet" matchWithIds="1" />
+		<picture id="3" name="Blue Head" matchWithIds="4" />
+		<picture id="4" name="Blue Feet" matchWithIds="3" />
+		<picture id="5" name="Pink Head" matchWithIds="6" />
+		<picture id="6" name="Pink Feet" matchWithIds="5" />
+		<picture id="7" name="Green Head" matchWithIds="8" />
+		<picture id="8" name="Green Feet" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="2" west="3" east="6" south="7" />
+		<card north="6" west="7" east="4" south="1" />
+		<card north="7" west="3" east="6" south="2" />
+		<card north="6" west="3" east="8" south="1" />
+		<card north="2" west="7" east="8" south="5" />
+		<card north="8" west="3" east="2" south="5" />
+		<card north="2" west="7" east="4" south="5" />
+		<card north="6" west="3" east="4" south="1" />
+		<card north="6" west="3" east="8" south="1" />
+	</cards>
+</legespielConfiguration>

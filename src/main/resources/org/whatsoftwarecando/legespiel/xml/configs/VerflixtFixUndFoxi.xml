@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Verflixt - Fix und Foxi</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2023/11/verflixt-fix-foxi.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Fix oben" matchWithIds="2" />
+		<picture id="2" name="Fix unten" matchWithIds="1" />
+		<picture id="3" name="Foxi oben" matchWithIds="4" />
+		<picture id="4" name="Foxi unten" matchWithIds="3" />
+		<picture id="5" name="Lupo oben" matchWithIds="6" />
+		<picture id="6" name="Lupo unten" matchWithIds="5" />
+		<picture id="7" name="Lupinchen oben" matchWithIds="8" />
+		<picture id="8" name="Lupinchen unten" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="2" west="3" east="8" south="5" />
+		<card north="8" west="7" east="6" south="3" />
+		<card north="8" west="5" east="2" south="3" />
+		<card north="6" west="7" east="2" south="3" />
+		<card north="4" west="1" east="8" south="5" />
+		<card north="4" west="1" east="2" south="5" />
+		<card north="4" west="5" east="8" south="3" />
+		<card north="6" west="7" east="2" south="5" />
+		<card north="6" west="1" east="8" south="3" />
+	</cards>
+</legespielConfiguration>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Verflixt - Die Sendung mit der Maus</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2023/11/verflixt-die-sendung-mit-der-maus.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Maus von vorn oben" matchWithIds="2" />
+		<picture id="2" name="Maus von vorn unten" matchWithIds="1" />
+		<picture id="3" name="Maus seitlich oben" matchWithIds="4" />
+		<picture id="4" name="Maus seitlich unten" matchWithIds="3" />
+		<picture id="5" name="Elefant oben" matchWithIds="6" />
+		<picture id="6" name="Elefant unten" matchWithIds="5" />
+		<picture id="7" name="Ente oben" matchWithIds="8" />
+		<picture id="8" name="Ente unten" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="8" west="1" east="6" south="3" />
+		<card north="4" west="5" east="8" south="1" />
+		<card north="8" west="7" east="2" south="3" />
+		<card north="4" west="1" east="8" south="3" />
+		<card north="2" west="7" east="6" south="1" />
+		<card north="4" west="5" east="6" south="1" />
+		<card north="6" west="3" east="8" south="1" />
+		<card north="2" west="7" east="6" south="3" />
+		<card north="2" west="5" east="8" south="3" />
+	</cards>
+</legespielConfiguration>
