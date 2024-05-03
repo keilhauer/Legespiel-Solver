@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Fantastische Fische</name>
+	<description>by Lagoon. https://welt-der-geduldspiele.blogspot.com/2023/09/fantastische-fische.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="clownfish head right" matchWithIds="2" />
+		<picture id="2" name="clownfisch tail right" matchWithIds="1" />
+		<picture id="3" name="shark head right" matchWithIds="4" />
+		<picture id="4" name="shark tail right" matchWithIds="3" />
+		<picture id="5" name="angelfish head left" matchWithIds="6" />
+		<picture id="6" name="angelfish tail left" matchWithIds="5" />
+		<picture id="7" name="seahorse head left" matchWithIds="8" />
+		<picture id="8" name="seahorse tail left" matchWithIds="7" />
+		<picture id="9" name="shark head left" matchWithIds="10" />
+		<picture id="10" name="shark tail left" matchWithIds="9" />
+		<picture id="11" name="clownfish head left" matchWithIds="12" />
+		<picture id="12" name="clownfish tail left" matchWithIds="11" />
+		<picture id="13" name="angelfish head right" matchWithIds="14" />
+		<picture id="14" name="angelfish tail right" matchWithIds="13" />
+		<picture id="15" name="seahorse head right" matchWithIds="16" />
+		<picture id="16" name="seahorse tail right" matchWithIds="15" />
+	</pictures>
+	<cards>
+		<card north="3" west="1" east="8" south="12" />
+		<card north="2" west="7" east="5" south="7" />
+		<card north="15" west="6" east="14" south="11" />
+		<card north="4" west="15" east="11" south="4" />
+		<card north="8" west="12" east="4" south="5" />
+		<card north="12" west="3" east="5" south="9" />
+		<card north="13" west="13" east="8" south="3" />
+		<card north="6" west="7" east="2" south="5" />
+		<card north="10" west="1" east="4" south="15" />
+	</cards>
+</legespielConfiguration>

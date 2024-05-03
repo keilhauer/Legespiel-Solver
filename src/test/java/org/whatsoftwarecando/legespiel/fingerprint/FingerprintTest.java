@@ -72,6 +72,12 @@ public class FingerprintTest {
 		test("KnifflidiffelsVersion5.config.xml", "ABCD-ABCD-ABCD-ABDC-ABDC-ABDC-ACDB-ACDB-ADCB");
 	}
 
+	@Test
+	public void testFantastischeFische() {
+		test("FantastischeFische.config.xml", "AABC-AcBC-CDEF-CFae-EGGa-EaFb-Hbde-Hefe-Hgfc"); // UQ:
+																								// AABC-AcBC-CDEF-CFae-EGGa-EHbd-EaFb-Hefe-Hgfc
+	}
+
 	private void test(String configResource, String expectedFingerprint) {
 		for (int i = 1; i <= 100; i++) {
 			GameConfigFromXml gameConfig = new GameConfigFromXml("configs/" + configResource);
