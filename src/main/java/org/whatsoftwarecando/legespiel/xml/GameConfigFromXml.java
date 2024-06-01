@@ -102,6 +102,9 @@ public class GameConfigFromXml extends GameConfig {
 				this.addCard(picturesMap.get(northPictureId), picturesMap.get(westPictureId),
 						picturesMap.get(eastPictureId), picturesMap.get(southPictureId));
 			}
+			if (availableCards.size() < (numberOfRows * numberOfColumns)) {
+				throw new RuntimeException("Not enough cards for dimensions");
+			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			throw new RuntimeException(e);
 		}
