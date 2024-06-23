@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>The Crazy Frog Game</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2024/05/the-crazy-frog-game.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="rot Kopf" matchWithIds="2" />
+		<picture id="2" name="rot Körper" matchWithIds="1" />
+		<picture id="3" name="grün Kopf" matchWithIds="4" />
+		<picture id="4" name="grün Körper" matchWithIds="3" />
+		<picture id="5" name="blau Kopf" matchWithIds="6" />
+		<picture id="6" name="blau Körper" matchWithIds="5" />
+		<picture id="7" name="türkis Kopf" matchWithIds="8" />
+		<picture id="8" name="türkis Körper" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="2" west="8" east="3" south="5" />
+		<card north="8" west="2" east="3" south="7" />
+		<card north="8" west="4" east="5" south="1" />
+		<card north="6" west="2" east="3" south="5" />
+		<card north="8" west="4" east="3" south="1" />
+		<card north="2" west="4" east="5" south="7" />
+		<card north="6" west="2" east="5" south="3" />
+		<card north="2" west="6" east="5" south="7" />
+		<card north="8" west="6" east="3" south="1" />
+	</cards>
+</legespielConfiguration>

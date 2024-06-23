@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Warning Puzzle</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2024/06/warning-puzzle.html - Gleicher Fingerabdruck wie beim Danger Puzzle :-(</description>
+	<numberOfRows>6</numberOfRows>
+	<numberOfColumns>6</numberOfColumns>
+	<pictures>
+		<picture id="1" name="16-22" matchWithIds="7" />
+		<picture id="2" name="16-45" matchWithIds="13" />
+		<picture id="3" name="16-56" matchWithIds="19" />
+		<picture id="4" name="16-66" matchWithIds="25" />
+		<picture id="5" name="16-Man" matchWithIds="31" />
+		<picture id="6" name="16-Stop" matchWithIds="37" />
+		<picture id="7" name="22-16" matchWithIds="1" />
+		<picture id="8" name="22-45" matchWithIds="14" />
+		<picture id="9" name="22-56" matchWithIds="20" />
+		<picture id="10" name="22-66" matchWithIds="26" />
+		<picture id="11" name="22-Man" matchWithIds="32" />
+		<picture id="12" name="22-Stop" matchWithIds="38" />
+		<picture id="13" name="45-16" matchWithIds="2" />
+		<picture id="14" name="45-22" matchWithIds="8" />
+		<picture id="15" name="45-56" matchWithIds="21" />
+		<picture id="16" name="45-66" matchWithIds="27" />
+		<picture id="17" name="45-Man" matchWithIds="33" />
+		<picture id="18" name="45-Stop" matchWithIds="39" />
+		<picture id="19" name="56-16" matchWithIds="3" />
+		<picture id="20" name="56-22" matchWithIds="9" />
+		<picture id="21" name="56-45" matchWithIds="15" />
+		<picture id="22" name="56-66" matchWithIds="28" />
+		<picture id="23" name="56-Man" matchWithIds="34" />
+		<picture id="24" name="56-Stop" matchWithIds="40" />
+		<picture id="25" name="66-16" matchWithIds="4" />
+		<picture id="26" name="66-22" matchWithIds="10" />
+		<picture id="27" name="66-45" matchWithIds="16" />
+		<picture id="28" name="66-56" matchWithIds="22" />
+		<picture id="29" name="66-Man" matchWithIds="35" />
+		<picture id="30" name="66-Stop" matchWithIds="41" />
+		<picture id="31" name="Man-16" matchWithIds="5" />
+		<picture id="32" name="Man-22" matchWithIds="11" />
+		<picture id="33" name="Man-45" matchWithIds="17" />
+		<picture id="34" name="Man-56" matchWithIds="23" />
+		<picture id="35" name="Man-66" matchWithIds="29" />
+		<picture id="36" name="Man-Stop" matchWithIds="42" />
+		<picture id="37" name="Stop-16" matchWithIds="6" />
+		<picture id="38" name="Stop-22" matchWithIds="12" />
+		<picture id="39" name="Stop-45" matchWithIds="18" />
+		<picture id="40" name="Stop-56" matchWithIds="24" />
+		<picture id="41" name="Stop-66" matchWithIds="30" />
+		<picture id="42" name="Stop-Man" matchWithIds="36" />
+	</pictures>
+	<cards>
+		<card north="18" west="8" east="41" south="26" />
+		<card north="37" west="30" east="3" south="22" />
+		<card north="4" west="19" east="26" south="9" />
+		<card north="28" west="10" east="21" south="14" />
+		<card north="24" west="15" east="38" south="8" />
+		<card north="39" west="6" east="14" south="7" />
+		<card north="10" west="20" east="25" south="3" />
+		<card north="28" west="4" east="21" south="13" />
+		<card north="20" west="15" east="12" south="39" />
+		<card north="8" west="38" east="16" south="30" />
+		<card north="14" west="27" east="11" south="35" />
+		<card north="1" west="13" east="9" south="21" />
+		<card north="19" west="9" east="6" south="38" />
+		<card north="2" west="37" east="14" south="12" />
+		<card north="18" west="8" east="37" south="1" />
+		<card north="41" west="6" east="28" south="19" />
+		<card north="29" west="22" east="32" south="9" />
+		<card north="15" west="27" east="20" south="10" />
+		<card north="12" west="1" east="41" south="25" />
+		<card north="38" west="30" east="9" south="22" />
+		<card north="7" west="20" east="2" south="15" />
+		<card north="3" west="13" east="24" south="39" />
+		<card north="20" west="40" east="8" south="18" />
+		<card north="26" west="16" east="7" south="2" />
+		<card north="4" west="19" east="30" south="40" />
+		<card north="28" west="41" east="20" south="12" />
+		<card north="21" west="9" east="16" south="26" />
+		<card north="18" west="27" east="37" south="4" />
+		<card north="39" west="6" east="17" south="31" />
+		<card north="13" west="33" east="3" south="23" />
+		<card north="22" west="15" east="30" south="39" />
+		<card north="26" west="41" east="7" south="6" />
+		<card north="8" west="1" east="16" south="25" />
+		<card north="13" west="27" east="3" south="22" />
+		<card north="5" west="19" east="36" south="40" />
+		<card north="34" west="42" east="21" south="18" />
+	</cards>
+</legespielConfiguration>

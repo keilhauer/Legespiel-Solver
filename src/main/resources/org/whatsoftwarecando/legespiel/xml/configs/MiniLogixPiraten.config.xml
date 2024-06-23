@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Mini Logix - Piraten</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2024/05/mini-logix-piraten.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="Fisch Kopf" matchWithIds="2" />
+		<picture id="2" name="Fisch Körper" matchWithIds="1" />
+		<picture id="3" name="Fisch gespiegelt Kopf" matchWithIds="4" />
+		<picture id="4" name="Fisch gespiegelt Körper" matchWithIds="3" />
+		<picture id="5" name="Papagei links" matchWithIds="6" />
+		<picture id="6" name="Papagei rechts" matchWithIds="5" />
+		<picture id="7" name="Schiff oben" matchWithIds="8" />
+		<picture id="8" name="Schiff Körper" matchWithIds="7" />
+		<picture id="9" name="Pirat Kopf" matchWithIds="10" />
+		<picture id="10" name="Pirat Körper" matchWithIds="9" />
+	</pictures>
+	<cards>
+		<card north="10" west="6" east="2" south="7" />
+		<card north="6" west="1" east="8" south="9" />
+		<card north="4" west="7" east="5" south="9" />
+		<card north="6" west="9" east="2" south="7" />
+		<card north="10" west="1" east="5" south="7" />
+		<card north="10" west="6" east="3" south="7" />
+		<card north="8" west="6" east="2" south="9" />
+		<card north="8" west="1" east="5" south="9" />
+		<card north="8" west="6" east="2" south="9" />
+	</cards>
+</legespielConfiguration>
