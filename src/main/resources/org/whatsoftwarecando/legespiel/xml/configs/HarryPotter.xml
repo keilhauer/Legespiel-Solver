@@ -8,14 +8,14 @@ xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://wha
 	<numberOfRows>3</numberOfRows>
 	<numberOfColumns>3</numberOfColumns>
 	<pictures>
-		<picture id="1" name="Gelb oben" matchWithIds="2" />
-		<picture id="2" name="Gelb unten" matchWithIds="1" />
-		<picture id="3" name="Rot oben" matchWithIds="4" />
-		<picture id="4" name="Rot unten" matchWithIds="3" />
-		<picture id="5" name="Grün oben" matchWithIds="6" />
-		<picture id="6" name="Grün unten" matchWithIds="5" />
-		<picture id="7" name="Blau oben" matchWithIds="8" />
-		<picture id="8" name="Blau unten" matchWithIds="7" />
+		<picture id="1" name="Hufflepuff up" matchWithIds="2" />
+		<picture id="2" name="Hufflepuff down" matchWithIds="1" />
+		<picture id="3" name="Gryffindor up" matchWithIds="4" />
+		<picture id="4" name="Gryffindor down" matchWithIds="3" />
+		<picture id="5" name="Slytherin up" matchWithIds="6" />
+		<picture id="6" name="Slytherin down" matchWithIds="5" />
+		<picture id="7" name="Ravenclaw up" matchWithIds="8" />
+		<picture id="8" name="Ravenclaw down" matchWithIds="7" />
 	</pictures>
 	<cards>
 		<card north="3" west="5" east="4" south="2" />
