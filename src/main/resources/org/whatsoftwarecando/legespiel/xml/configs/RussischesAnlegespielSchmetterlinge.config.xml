@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<legespielConfiguration
+	xmlns="http://whatsoftwarecando.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
+	<name>Russisches Anlegespiel - Schmetterlinge</name>
+	<description>https://welt-der-geduldspiele.blogspot.com/2024/10/russisches-anlegespiel-schmetterlinge.html</description>
+	<numberOfRows>3</numberOfRows>
+	<numberOfColumns>3</numberOfColumns>
+	<pictures>
+		<picture id="1" name="rot vorn" matchWithIds="2" />
+		<picture id="2" name="rot hinten" matchWithIds="1" />
+		<picture id="3" name="gelb vorn" matchWithIds="4" />
+		<picture id="4" name="gelb hinten" matchWithIds="3" />
+		<picture id="5" name="grün vorn" matchWithIds="6" />
+		<picture id="6" name="grün hinten" matchWithIds="5" />
+		<picture id="7" name="blau vorn" matchWithIds="8" />
+		<picture id="8" name="blau hinten" matchWithIds="7" />
+	</pictures>
+	<cards>
+		<card north="8" west="2" east="7" south="3" />
+		<card north="6" west="2" east="3" south="5" />
+		<card north="6" west="4" east="3" south="1" />
+		<card north="2" west="6" east="3" south="7" />
+		<card north="6" west="4" east="7" south="1" />
+		<card north="2" west="8" east="7" south="5" />
+		<card north="8" west="2" east="3" south="7" />
+		<card north="2" west="4" east="7" south="5" />
+		<card north="6" west="8" east="3" south="1" />
+	</cards>
+</legespielConfiguration>
