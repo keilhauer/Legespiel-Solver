@@ -13,15 +13,15 @@ public class Util {
 		System.out.println(nanosToMilliseconds(1500000));
 	}
 
-	public static List<Card> removed(Card lastcard, List<Card> cardsLeft) {
-		ArrayList<Card> result = new ArrayList<Card>(cardsLeft.size() - 1);
-		for (Card currentcard : cardsLeft) {
-			if (lastcard.getId() != currentcard.getId()) {
+	public static List<Card> removed(Card cardToBeRemoved, List<Card> cards) {
+		ArrayList<Card> result = new ArrayList<Card>(cards.size() - 1);
+		for (Card currentcard : cards) {
+			if (cardToBeRemoved.getId() != currentcard.getId()) {
 				result.add(currentcard);
 			}
 		}
-		if (cardsLeft.size() - 1 != result.size()) {
-			throw new RuntimeException(lastcard + "was not found in " + cardsLeft);
+		if (cards.size() - 1 != result.size()) {
+			throw new RuntimeException(cardToBeRemoved + "was not found in " + cards);
 		}
 		return result;
 	}
