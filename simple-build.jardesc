@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="C:/Users/Shadow/.m2/repository/org/whatsoftwarecando/legespiel/legespiel-solver/1.0/legespiel-solver-1.0.jar"/>
+    <jar path="C:/Users/Andreas/.m2/repository/org/whatsoftwarecando/legespiel/legespiel-solver/1.0/legespiel-solver-1.0.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/Legespiel-Solver/simple-build.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
