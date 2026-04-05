@@ -61,30 +61,8 @@ public class Field implements Comparable<Field> {
 		return this.cards[this.rows - 1][this.cols - 1] != null;
 	}
 
-	public int size() {
-		return this.rows * this.cols;
-	}
-
 	public Card getCard(int row, int col) {
 		return this.cards[row - 1][col - 1];
-	}
-
-	List<Card> getRow(int row) {
-		List<Card> result = new LinkedList<Card>();
-		for (int col = 1; col <= this.cols; col++) {
-			Card current = getCard(row, col);
-			result.add(current);
-		}
-		return result;
-	}
-
-	List<Card> getCol(int col) {
-		List<Card> result = new LinkedList<Card>();
-		for (int row = 1; row <= row; row++) {
-			Card current = getCard(row, col);
-			result.add(current);
-		}
-		return result;
 	}
 
 	/**
@@ -275,13 +253,10 @@ public class Field implements Comparable<Field> {
 	 */
 	public Field turned90DegreesClockwise() {
 		Card[][] resultCards = new Card[this.cols][this.rows];
-		for (int r = 1; r <= this.rows; r++) {
-			List<Card> row = this.getRow(r);
-			int resultColumn = (this.rows + 1) - r;
-			int rowCount = 1;
-			for (Card card : row) {
-				resultCards[rowCount - 1][resultColumn - 1] = card.turned90DegreesClockwise();
-				rowCount++;
+		for (int r = 0; r < this.rows; r++) {
+			int resultCol = (this.rows - 1) - r;
+			for (int c = 0; c < this.cols; c++) {
+				resultCards[c][resultCol] = this.cards[r][c].turned90DegreesClockwise();
 			}
 		}
 		return new Field(this.cols, this.rows, resultCards);
@@ -346,9 +321,6 @@ public class Field implements Comparable<Field> {
 		return sb.toString();
 	}
 
-	public boolean isQuadratic() {
-		return this.cols == this.rows;
-	}
 
 	public List<Card> getAllCards() {
 		List<Card> result = new LinkedList<Card>();
