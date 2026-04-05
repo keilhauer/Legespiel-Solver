@@ -61,6 +61,10 @@ public class Field implements Comparable<Field> {
 		return this.cards[this.rows - 1][this.cols - 1] != null;
 	}
 
+	public int size() {
+		return this.rows * this.cols;
+	}
+
 	public Card getCard(int row, int col) {
 		return this.cards[row - 1][col - 1];
 	}
