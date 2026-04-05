@@ -95,7 +95,8 @@ public class Solver {
 				gameConfig.output("Filtered: " + solutions.size());
 				return new LinkedList<Field>(solutions);
 			} else {
-				findAllSolutions(emptyField, gameConfig.getAvailableCards());
+				List<Card> availableCards = gameConfig.getAvailableCards();
+				findAllSolutions(emptyField, availableCards.toArray(new Card[0]), availableCards.size());
 				if (solutions instanceof List) {
 					return solutions;
 				} else {
@@ -145,20 +146,39 @@ public class Solver {
 		return partialSolutionsWithOneMoreCard;
 	}
 
-	void findAllSolutions(Field field, List<Card> cards) {
+	void findAllSolutions(Field field, Card[] cards, int count) {
 		if (searchLimitReached) {
 			return;
 		}
-		Collection<Field> nextPossibleMoves = nextPossibleMoves(field, cards);
-		for (Field currentMove : nextPossibleMoves) {
-			if (currentMove.isFull()) {
-				addSolution(currentMove);
-			} else {
-				List<Card> remainingCards = Util.removed(currentMove.getLastCard(), cards);
-				findAllSolutions(currentMove, remainingCards);
-			}
+		if (numberOfTries >= gameConfig.getMaxNumberOfTries()) {
+			searchLimitReached = true;
+			gameConfig.output("Search limit for number of tries (" + gameConfig.getMaxNumberOfTries() + ") reached!");
+			return;
 		}
+		for (int i = 0; i < count; i++) {
+			Card card = cards[i];
+			// Swap card to end of active range so recursive calls skip it
+			cards[i] = cards[count - 1];
+			cards[count - 1] = card;
 
+			Card[] rotations = card.getAllRotations();
+			for (int r = 0; r < 4; r++) {
+				if (field.fitsAtNext(rotations[r])) {
+					field.placeCard(rotations[r]);
+					if (field.isFull()) {
+						addSolution(field.copy());
+					} else {
+						findAllSolutions(field, cards, count - 1);
+					}
+					field.undoPlace();
+				}
+				numberOfTries++;
+			}
+
+			// Restore the swap
+			cards[count - 1] = cards[i];
+			cards[i] = card;
+		}
 	}
 
 	Collection<Field> nextPossibleMoves(Field field, List<Card> remainingCards) {

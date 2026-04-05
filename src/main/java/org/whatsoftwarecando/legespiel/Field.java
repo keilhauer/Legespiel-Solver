@@ -124,6 +124,37 @@ public class Field implements Comparable<Field> {
 		return createField(nextRow, nextColumn, cardsCopy);
 	}
 
+	/**
+	 * Checks whether the card fits at the next position without copying the array.
+	 * Used by the DFS backtracking solver.
+	 */
+	public boolean fitsAtNext(Card card) {
+		CardCoordinate nextCoord = this.currentCoordinates.next();
+		Card northCard = nextCoord.northCard();
+		if (northCard != null && !northCard.getSouth().matches(card.getNorth())) {
+			return false;
+		}
+		Card westCard = nextCoord.westCard();
+		return westCard == null || westCard.getEast().matches(card.getWest());
+	}
+
+	/**
+	 * Places the card at the next position in-place. Only call after fitsAtNext returns true.
+	 */
+	public void placeCard(Card card) {
+		CardCoordinate next = currentCoordinates.next();
+		this.cards[next.getRow() - 1][next.getCol() - 1] = card;
+		this.currentCoordinates = next;
+	}
+
+	/**
+	 * Removes the last placed card and rewinds the current position.
+	 */
+	public void undoPlace() {
+		this.cards[currentCoordinates.getRow() - 1][currentCoordinates.getCol() - 1] = null;
+		this.currentCoordinates = currentCoordinates.prev();
+	}
+
 	public class CardCoordinate {
 
 		private final Field field;
@@ -195,6 +226,19 @@ public class Field implements Comparable<Field> {
 				}
 			}
 			return new CardCoordinate(field, nextRow, nextCol);
+		}
+
+		public CardCoordinate prev() {
+			int prevCol = this.col - 1;
+			int prevRow = this.row;
+			if (prevCol < 1) {
+				if (prevRow == 1) {
+					return new CardCoordinate(field, 1, 0);
+				}
+				prevCol = this.field.getCols();
+				prevRow--;
+			}
+			return new CardCoordinate(field, prevRow, prevCol);
 		}
 	}
 

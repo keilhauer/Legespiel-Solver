@@ -61,6 +61,20 @@ public class FieldWithConditions extends Field {
 	}
 
 	@Override
+	public boolean fitsAtNext(Card card) {
+		if (!super.fitsAtNext(card)) {
+			return false;
+		}
+		Field.CardCoordinate nextCoord = getCurrentCoordinates().next();
+		Map<Integer, Condition> conditionsForRow = conditions.get(nextCoord.getRow());
+		if (conditionsForRow == null) {
+			return true;
+		}
+		Condition condition = conditionsForRow.get(nextCoord.getCol());
+		return condition == null || condition.matches(card);
+	}
+
+	@Override
 	public Field addedIfFits(Card card) {
 		FieldWithConditions field = (FieldWithConditions) super
 				.addedIfFits(card);

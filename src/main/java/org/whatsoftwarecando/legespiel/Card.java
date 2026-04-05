@@ -9,6 +9,8 @@ public class Card implements Comparable<Card> {
 	private final IPicture south;
 	private final int rotationClockwise;
 
+	private Card[] allRotations;
+
 	Card(int id, IPicture north, IPicture west, IPicture east, IPicture south, int rotationClockwise) {
 		super();
 		this.id = id;
@@ -17,6 +19,14 @@ public class Card implements Comparable<Card> {
 		this.east = east;
 		this.south = south;
 		this.rotationClockwise = rotationClockwise;
+	}
+
+	void setAllRotations(Card[] rotations) {
+		this.allRotations = rotations;
+	}
+
+	public Card[] getAllRotations() {
+		return allRotations;
 	}
 
 	public int getId() {
