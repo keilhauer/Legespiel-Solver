@@ -31,10 +31,6 @@ public class SolverGenerateAllHtmlOutputTest {
 			"TheAntTrailsPuzzle.config.xml" // Requires -mx8192m and is very slow
 	));
 
-	private static final Set<String> IGNORED_HTML_OUTPUT_DIRS = new HashSet<>(Arrays.asList(
-			"FourPicturesConfig" // Java-only test config, no XML equivalent
-	));
-
 	/**
 	 * Maps XML filenames to output directory names for cases where the automatic
 	 * name generation (escaping the XML &lt;name&gt; element) would produce a
@@ -131,8 +127,7 @@ public class SolverGenerateAllHtmlOutputTest {
 		File[] subdirs = htmlOutputDir.listFiles(File::isDirectory);
 		List<String> orphanedDirs = new ArrayList<>();
 		for (File subdir : subdirs) {
-			if (!IGNORED_HTML_OUTPUT_DIRS.contains(subdir.getName())
-					&& !expectedDirs.contains(subdir.getName())) {
+			if (!expectedDirs.contains(subdir.getName())) {
 				orphanedDirs.add(subdir.getName());
 			}
 		}
