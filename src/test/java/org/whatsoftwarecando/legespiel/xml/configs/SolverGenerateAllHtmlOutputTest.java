@@ -84,7 +84,11 @@ public class SolverGenerateAllHtmlOutputTest {
 					}
 				};
 			} else {
-				gameConfig = new GameConfigFromXml("configs/" + filename);
+				try {
+					gameConfig = new GameConfigFromXml("configs/" + filename);
+				} catch (RuntimeException r) {
+					throw new RuntimeException("Problem creating game config from XML: " + filename, r);
+				}
 			}
 			runSolver(gameConfig);
 		}
