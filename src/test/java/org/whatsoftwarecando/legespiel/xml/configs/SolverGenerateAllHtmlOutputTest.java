@@ -1,5 +1,7 @@
 package org.whatsoftwarecando.legespiel.xml.configs;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -105,7 +107,7 @@ public class SolverGenerateAllHtmlOutputTest {
 	public void testAllHtmlOutputDirsHaveXmlConfig() throws Exception {
 		File htmlOutputDir = new File("html-output");
 		if (!htmlOutputDir.exists()) {
-			return;
+			fail("directory html-output does not exist!");
 		}
 
 		URL configsDirUrl = GameConfigFromXml.class.getResource("configs");
