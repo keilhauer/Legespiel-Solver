@@ -3,8 +3,8 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>Mechanical Mayhem (Lagoon 1998)</name>
-	<description>https://welt-der-geduldspiele.blogspot.com/2025/06/mechanical-mayhem-mechanisches-chaos.html</description>
+	<name>Mechanical Mayhem</name>
+	<description>Lagoon (1998), from the McBrainy’s Zany series, https://welt-der-geduldspiele.blogspot.com/2025/06/mechanical-mayhem-mechanisches-chaos.html</description>
 	<numberOfRows>4</numberOfRows>
 	<numberOfColumns>4</numberOfColumns>
 	<pictures>

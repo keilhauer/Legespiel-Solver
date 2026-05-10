@@ -3,8 +3,8 @@
 	xmlns="http://whatsoftwarecando.org"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://whatsoftwarecando.org/legespiel.config.xsd http://whatsoftwarecando.org">
-	<name>To The Extreme (Lagoon 1998)</name>
-	<description>https://welt-der-geduldspiele.blogspot.com/2025/04/to-extreme.html</description>
+	<name>To The Extreme</name>
+	<description>Lagoon 1998, https://welt-der-geduldspiele.blogspot.com/2025/04/to-extreme.html</description>
 	<numberOfRows>4</numberOfRows>
 	<numberOfColumns>4</numberOfColumns>
 	<pictures>
