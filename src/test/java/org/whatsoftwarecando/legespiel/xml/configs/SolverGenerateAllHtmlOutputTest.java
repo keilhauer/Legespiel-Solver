@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.whatsoftwarecando.legespiel.Field;
 import org.whatsoftwarecando.legespiel.GameConfig;
@@ -24,6 +27,10 @@ public class SolverGenerateAllHtmlOutputTest {
 
 	private static final Set<String> IGNORED_XML_FILES = new HashSet<>(Arrays.asList(
 			"TheAntTrailsPuzzle.config.xml" // Requires -mx8192m and is very slow
+	));
+
+	private static final Set<String> IGNORED_HTML_OUTPUT_DIRS = new HashSet<>(Arrays.asList(
+			"FourPicturesConfig" // Java-only test config, no XML equivalent
 	));
 
 	/**
@@ -91,6 +98,46 @@ public class SolverGenerateAllHtmlOutputTest {
 				}
 			}
 			runSolver(gameConfig);
+		}
+	}
+
+	@Test
+	public void testAllHtmlOutputDirsHaveXmlConfig() throws Exception {
+		File htmlOutputDir = new File("html-output");
+		if (!htmlOutputDir.exists()) {
+			return;
+		}
+
+		URL configsDirUrl = GameConfigFromXml.class.getResource("configs");
+		File[] xmlFiles = new File(configsDirUrl.toURI())
+				.listFiles((dir, name) -> name.endsWith(".xml"));
+
+		Set<String> expectedDirs = new HashSet<>();
+		for (File xmlFile : xmlFiles) {
+			String filename = xmlFile.getName();
+			if (IGNORED_XML_FILES.contains(filename)) {
+				continue;
+			}
+			String override = DIRECTORY_NAME_OVERRIDES.get(filename);
+			if (override != null) {
+				expectedDirs.add(override);
+			} else {
+				expectedDirs.add(new GameConfigFromXml("configs/" + filename).getOutputDirectoryName());
+			}
+		}
+
+		File[] subdirs = htmlOutputDir.listFiles(File::isDirectory);
+		List<String> orphanedDirs = new ArrayList<>();
+		for (File subdir : subdirs) {
+			if (!IGNORED_HTML_OUTPUT_DIRS.contains(subdir.getName())
+					&& !expectedDirs.contains(subdir.getName())) {
+				orphanedDirs.add(subdir.getName());
+			}
+		}
+		Collections.sort(orphanedDirs);
+
+		if (!orphanedDirs.isEmpty()) {
+			Assert.fail("html-output directories with no corresponding XML config: " + orphanedDirs);
 		}
 	}
 
