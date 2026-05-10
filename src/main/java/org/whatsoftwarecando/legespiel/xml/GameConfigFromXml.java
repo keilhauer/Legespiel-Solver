@@ -33,8 +33,12 @@ public class GameConfigFromXml extends GameConfig {
 	private List<Picture> pictures;
 
 	public GameConfigFromXml(String xmlConfigOnClasspath) {
-		InputSource is = new InputSource(GameConfigFromXml.class.getResourceAsStream(xmlConfigOnClasspath));
-		read(is);
+		try {
+			InputSource is = new InputSource(GameConfigFromXml.class.getResourceAsStream(xmlConfigOnClasspath));
+			read(is);
+		} catch (RuntimeException r) {
+			throw new RuntimeException("Error loading configuration from xml: " + xmlConfigOnClasspath);
+		}
 	}
 
 	public GameConfigFromXml(InputSource is) {
