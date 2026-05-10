@@ -78,5 +78,7 @@ public abstract class GameConfig {
 		return getClass().getSimpleName();
 	}
 
-
+	public String getOutputDirectoryName() {
+		return getName().replace("'", "").replace("/", "-");
+	}
 }

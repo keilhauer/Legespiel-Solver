@@ -14,6 +14,8 @@ public class Field implements Comparable<Field> {
 
 	private CardCoordinate currentCoordinates;
 
+	private int cachedReadabilityScore = -1;
+
 	public CardCoordinate getCurrentCoordinates() {
 		return currentCoordinates;
 	}
@@ -362,7 +364,10 @@ public class Field implements Comparable<Field> {
 	 * 
 	 * @return A score greater or equal to 0. Larger is better.
 	 */
-	int calculateReadabilityScore() {
+	public int calculateReadabilityScore() {
+		if (cachedReadabilityScore >= 0) {
+			return cachedReadabilityScore;
+		}
 		int score = 0;
 		for (Card card : getAllCards()) {
 			if (card.getRotationClockwise() == 0) {
@@ -371,6 +376,7 @@ public class Field implements Comparable<Field> {
 				score += 1;
 			}
 		}
+		cachedReadabilityScore = score;
 		return score;
 	}
 

@@ -1,9 +1,19 @@
 package org.whatsoftwarecando.legespiel.configs;
 
 import org.whatsoftwarecando.legespiel.GameConfig;
-import org.whatsoftwarecando.legespiel.configs.ExactlyOneSolutionConfig.Pictures;
+import org.whatsoftwarecando.legespiel.IPicture;
 
 public class FourPicturesConfig extends GameConfig {
+
+	public enum Pictures implements IPicture {
+
+		RED, GREEN, BLUE;
+
+		@Override
+		public boolean matches(IPicture other) {
+			return this == other;
+		}
+	}
 
 	@Override
 	public byte getNumberOfRows() {

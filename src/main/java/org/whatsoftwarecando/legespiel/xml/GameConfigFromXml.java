@@ -33,7 +33,7 @@ public class GameConfigFromXml extends GameConfig {
 	private List<Picture> pictures;
 
 	public GameConfigFromXml(String xmlConfigOnClasspath) {
-		InputSource is = new InputSource(this.getClass().getResourceAsStream(xmlConfigOnClasspath));
+		InputSource is = new InputSource(GameConfigFromXml.class.getResourceAsStream(xmlConfigOnClasspath));
 		read(is);
 	}
 
