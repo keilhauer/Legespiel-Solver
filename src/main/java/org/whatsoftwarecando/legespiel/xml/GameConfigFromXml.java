@@ -37,7 +37,7 @@ public class GameConfigFromXml extends GameConfig {
 			InputSource is = new InputSource(GameConfigFromXml.class.getResourceAsStream(xmlConfigOnClasspath));
 			read(is);
 		} catch (RuntimeException r) {
-			throw new RuntimeException("Error loading configuration from xml: " + xmlConfigOnClasspath);
+			throw new RuntimeException("Error loading configuration from xml: " + xmlConfigOnClasspath, r);
 		}
 	}
 
